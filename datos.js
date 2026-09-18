@@ -36,9 +36,9 @@ const equipos = [
 
 const rivales = [
     {
-        id: "rival-prueba",
-        nombre: "Rival de prueba",
-        escudo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Example.svg/1200px-Example.svg.png"
+        id: "fundacion-adf",
+        nombre: "Fundación ADF",
+        escudo: "escudos/Fundación_ADF.png"
     }
 ];
 
