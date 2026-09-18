@@ -127,6 +127,12 @@
             <option value="visitante">Visitante</option>
         </select>
     </div>
+    
+    <div class="campo">
+    <label>Jugadores convocados</label>
+
+    <div id="listaJugadores"></div>
+</div>
 
     <button onclick="generarConvocatoria()">
         Generar convocatoria
@@ -156,6 +162,50 @@
     });
 
 
+    // Cargar jugadores del equipo seleccionado
+
+const listaJugadores = document.getElementById("listaJugadores");
+
+function cargarJugadores() {
+
+    listaJugadores.innerHTML = "";
+
+    const equipoId = selectorEquipo.value;
+
+    const equipoSeleccionado = equipos.find(
+        equipo => equipo.id === equipoId
+    );
+
+    if (!equipoSeleccionado) {
+        return;
+    }
+
+    equipoSeleccionado.jugadores.forEach(jugador => {
+
+        const etiqueta = document.createElement("label");
+
+        etiqueta.style.display = "block";
+        etiqueta.style.fontWeight = "normal";
+        etiqueta.style.marginBottom = "8px";
+
+        etiqueta.innerHTML = `
+            <input
+                type="checkbox"
+                value="${jugador.dorsal}"
+                style="width:auto; margin-right:8px;"
+            >
+            ${jugador.dorsal} - ${jugador.nombre}
+        `;
+
+        listaJugadores.appendChild(etiqueta);
+
+    });
+}
+
+selectorEquipo.addEventListener("change", cargarJugadores);
+
+cargarJugadores();
+    
     // Generar convocatoria
 
     function generarConvocatoria() {
