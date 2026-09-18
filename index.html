@@ -109,9 +109,14 @@
     </div>
 
     <div class="campo">
-        <label for="campo">Campo / lugar</label>
-        <input type="text" id="campo" placeholder="Ej. Julián Ariza (Torrelodones)">
-    </div>
+    <label for="campo">Campo</label>
+    <input type="text" id="campo" placeholder="Ej. Julián Ariza">
+</div>
+
+<div class="campo">
+    <label for="lugar">Lugar</label>
+    <input type="text" id="lugar" placeholder="Ej. Torrelodones">
+</div>
 
     <div class="campo">
         <label for="condicion">Condición</label>
@@ -139,6 +144,7 @@ function generarConvocatoria() {
     const fecha = document.getElementById("fecha").value;
     const rival = document.getElementById("rival").value;
     const campo = document.getElementById("campo").value;
+    const lugar = document.getElementById("lugar").value;
     const condicion = document.getElementById("condicion").value;
 
     let tituloPartido;
@@ -167,7 +173,7 @@ function generarConvocatoria() {
         <p><strong>${tituloPartido}</strong></p>
         <p><strong>Fecha:</strong> ${fechaFormateada}</p>
         <p><strong>Rival:</strong> ${rival}</p>
-        <p><strong>Campo:</strong> ${campo}</p>
+        <p><strong>Campo:</strong> ${campo} (${lugar})</p>
         <p><strong>Condición:</strong> ${condicion === "local" ? "Local" : "Visitante"}</p>
     `;
 }
