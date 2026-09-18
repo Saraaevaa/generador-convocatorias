@@ -2,6 +2,7 @@ const configuracion = {
     convocadosOficial: 18
 };
 
+
 const equipos = [
     {
         id: "cadete-b",
@@ -34,13 +35,16 @@ const equipos = [
     }
 ];
 
+
 const rivales = [
     {
         id: "fundacion-adf",
         nombre: "Fundación ADF",
-        escudo: "escudos/Fundación_ADF.png"
+        escudo: "escudos/Fundación_ADF.png",
+        equipos: ["cadete-b"]
     }
 ];
+
 
 const equipaciones = [
     {
