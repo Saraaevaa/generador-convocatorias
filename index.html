@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Generador de Convocatorias</title>
 
     <style>
@@ -11,12 +12,11 @@
             background: #f4f4f4;
             margin: 0;
             padding: 30px;
-            color: #222;
         }
 
         .contenedor {
-            max-width: 900px;
-            margin: auto;
+            max-width: 700px;
+            margin: 0 auto;
             background: white;
             padding: 30px;
             border-radius: 12px;
@@ -24,12 +24,12 @@
         }
 
         h1 {
-            margin-top: 0;
             text-align: center;
+            margin-bottom: 30px;
         }
 
         .campo {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         label {
@@ -39,34 +39,37 @@
         }
 
         input,
-        select,
-        button {
+        select {
             width: 100%;
             box-sizing: border-box;
             padding: 10px;
-            font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 6px;
+            font-size: 16px;
         }
 
         button {
-            background: #222;
+            width: 100%;
+            padding: 14px;
+            background: #111;
             color: white;
             border: none;
+            border-radius: 6px;
+            font-size: 16px;
             cursor: pointer;
             margin-top: 10px;
         }
 
         button:hover {
-            background: #444;
+            opacity: 0.9;
         }
 
         #resultado {
+            display: none;
             margin-top: 30px;
             padding: 20px;
-            background: #f8f8f8;
+            background: #f5f5f5;
             border-radius: 8px;
-            display: none;
         }
     </style>
 </head>
@@ -81,7 +84,6 @@
         <label for="equipo">Equipo</label>
         <select id="equipo">
             <option value="">Selecciona un equipo</option>
-            <option value="Cadete B">Cadete B</option>
         </select>
     </div>
 
@@ -105,18 +107,18 @@
 
     <div class="campo">
         <label for="rival">Rival</label>
-        <input type="text" id="rival" placeholder="Nombre del rival">
+        <input type="text" id="rival" placeholder="Ej. Torrelodones">
     </div>
 
     <div class="campo">
-    <label for="campo">Campo</label>
-    <input type="text" id="campo" placeholder="Ej. Julián Ariza">
-</div>
+        <label for="campo">Campo</label>
+        <input type="text" id="campo" placeholder="Ej. Julián Ariza">
+    </div>
 
-<div class="campo">
-    <label for="lugar">Lugar</label>
-    <input type="text" id="lugar" placeholder="Ej. Torrelodones">
-</div>
+    <div class="campo">
+        <label for="lugar">Lugar</label>
+        <input type="text" id="lugar" placeholder="Ej. Torrelodones">
+    </div>
 
     <div class="campo">
         <label for="condicion">Condición</label>
@@ -134,55 +136,120 @@
 
 </div>
 
-    <script src="datos.js"></script>
+<script src="datos.js"></script>
 
 <script>
 
-function generarConvocatoria() {
+    // Cargar automáticamente los equipos desde datos.js
 
-    const equipo = document.getElementById("equipo").value;
-    const tipo = document.getElementById("tipoPartido").value;
-    const jornada = document.getElementById("jornada").value;
-    const fecha = document.getElementById("fecha").value;
-    const rival = document.getElementById("rival").value;
-    const campo = document.getElementById("campo").value;
-    const lugar = document.getElementById("lugar").value;
-    const condicion = document.getElementById("condicion").value;
+    const selectorEquipo = document.getElementById("equipo");
 
-    let tituloPartido;
+    equipos.forEach(equipo => {
 
-    if (tipo === "amistoso") {
-        tituloPartido = "AMISTOSO";
-    } else {
-        tituloPartido = "JORNADA " + jornada;
+        const opcion = document.createElement("option");
+
+        opcion.value = equipo.id;
+        opcion.textContent = equipo.nombre;
+
+        selectorEquipo.appendChild(opcion);
+
+    });
+
+
+    // Generar convocatoria
+
+    function generarConvocatoria() {
+
+        const equipoId = document.getElementById("equipo").value;
+        const tipo = document.getElementById("tipoPartido").value;
+        const jornada = document.getElementById("jornada").value;
+        const fecha = document.getElementById("fecha").value;
+        const rival = document.getElementById("rival").value;
+        const campo = document.getElementById("campo").value;
+        const lugar = document.getElementById("lugar").value;
+        const condicion = document.getElementById("condicion").value;
+
+
+        // Buscar el equipo seleccionado
+
+        const equipoSeleccionado = equipos.find(
+            equipo => equipo.id === equipoId
+        );
+
+
+        // Título del partido
+
+        let tituloPartido;
+
+        if (tipo === "amistoso") {
+
+            tituloPartido = "AMISTOSO";
+
+        } else {
+
+            tituloPartido = "JORNADA " + jornada;
+
+        }
+
+
+        // Formatear fecha
+
+        let fechaFormateada = fecha;
+
+        if (fecha) {
+
+            const partes = fecha.split("-");
+
+            fechaFormateada =
+                partes[2] + "/" +
+                partes[1] + "/" +
+                partes[0];
+
+        }
+
+
+        // Mostrar resultado
+
+        const resultado = document.getElementById("resultado");
+
+        resultado.style.display = "block";
+
+        resultado.innerHTML = `
+
+            <h2>Convocatoria generada</h2>
+
+            <p>
+                <strong>Equipo:</strong>
+                ${equipoSeleccionado ? equipoSeleccionado.nombre : ""}
+            </p>
+
+            <p>
+                <strong>${tituloPartido}</strong>
+            </p>
+
+            <p>
+                <strong>Fecha:</strong>
+                ${fechaFormateada}
+            </p>
+
+            <p>
+                <strong>Rival:</strong>
+                ${rival}
+            </p>
+
+            <p>
+                <strong>Campo:</strong>
+                ${campo} (${lugar})
+            </p>
+
+            <p>
+                <strong>Condición:</strong>
+                ${condicion === "local" ? "Local" : "Visitante"}
+            </p>
+
+        `;
+
     }
-
-    let fechaFormateada = fecha;
-
-    if (fecha) {
-        const partes = fecha.split("-");
-        fechaFormateada = partes[2] + "/" + partes[1] + "/" + partes[0];
-    }
-
-    const resultado = document.getElementById("resultado");
-
-    resultado.style.display = "block";
-
-    resultado.innerHTML = `
-        <h2>Convocatoria generada</h2>
-
-        <p><strong>Equipo:</strong> ${equipo}</p>
-        <p><strong>${tituloPartido}</strong></p>
-        <p><strong>Fecha:</strong> ${fechaFormateada}</p>
-        <p><strong>Rival:</strong> ${rival}</p>
-        <p><strong>Campo:</strong> ${campo} (${lugar})</p>
-        <p><strong>Condición:</strong> ${condicion === "local" ? "Local" : "Visitante"}</p>
-    `;
-}
-
-
-
-    <script src="datos.js"></script>
 
 </script>
 
