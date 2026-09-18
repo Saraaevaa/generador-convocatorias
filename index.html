@@ -133,6 +133,16 @@
             font-weight: bold;
         }
 
+        .equipacion {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .equipacion h2 {
+            margin-bottom: 20px;
+        }
+
         #resultado {
             margin-top: 25px;
             padding: 15px;
@@ -284,6 +294,34 @@
     </div>
 
 
+    <div class="equipacion">
+
+        <h2>Equipación</h2>
+
+        <div class="campo">
+            <label for="camiseta">Camiseta</label>
+            <select id="camiseta">
+                <option value="">Selecciona camiseta</option>
+            </select>
+        </div>
+
+        <div class="campo">
+            <label for="pantalon">Pantalón</label>
+            <select id="pantalon">
+                <option value="">Selecciona pantalón</option>
+            </select>
+        </div>
+
+        <div class="campo">
+            <label for="medias">Medias</label>
+            <select id="medias">
+                <option value="">Selecciona medias</option>
+            </select>
+        </div>
+
+    </div>
+
+
     <button id="generar">
         Generar convocatoria
     </button>
@@ -321,6 +359,15 @@
 
     const selectorLocalVisitante =
         document.getElementById("localVisitante");
+
+    const selectorCamiseta =
+        document.getElementById("camiseta");
+
+    const selectorPantalon =
+        document.getElementById("pantalon");
+
+    const selectorMedias =
+        document.getElementById("medias");
 
     const listaJugadores =
         document.getElementById("listaJugadores");
@@ -366,6 +413,22 @@
 
         return rivales.find(
             rival => rival.id === idRival
+        );
+    }
+
+
+    function obtenerEquipacionSeleccionada() {
+
+        const equipo =
+            obtenerEquipoSeleccionado();
+
+        if (!equipo) {
+            return null;
+        }
+
+        return equipaciones.find(
+            equipacion =>
+                equipacion.equipoId === equipo.id
         );
     }
 
@@ -548,6 +611,83 @@
     }
 
 
+    function cargarEquipacion() {
+
+        const equipacion =
+            obtenerEquipacionSeleccionada();
+
+
+        selectorCamiseta.innerHTML =
+            '<option value="">Selecciona camiseta</option>';
+
+        selectorPantalon.innerHTML =
+            '<option value="">Selecciona pantalón</option>';
+
+        selectorMedias.innerHTML =
+            '<option value="">Selecciona medias</option>';
+
+
+        if (!equipacion) {
+            return;
+        }
+
+
+        equipacion.camiseta.forEach(opcion => {
+
+            const elemento =
+                document.createElement("option");
+
+            elemento.value =
+                opcion.nombre;
+
+            elemento.textContent =
+                `${opcion.nombre} - ${opcion.color}`;
+
+            selectorCamiseta.appendChild(
+                elemento
+            );
+
+        });
+
+
+        equipacion.pantalon.forEach(opcion => {
+
+            const elemento =
+                document.createElement("option");
+
+            elemento.value =
+                opcion.nombre;
+
+            elemento.textContent =
+                `${opcion.nombre} - ${opcion.color}`;
+
+            selectorPantalon.appendChild(
+                elemento
+            );
+
+        });
+
+
+        equipacion.medias.forEach(opcion => {
+
+            const elemento =
+                document.createElement("option");
+
+            elemento.value =
+                opcion.nombre;
+
+            elemento.textContent =
+                `${opcion.nombre} - ${opcion.color}`;
+
+            selectorMedias.appendChild(
+                elemento
+            );
+
+        });
+
+    }
+
+
     function actualizarRival() {
 
         const rival =
@@ -647,6 +787,8 @@
             cargarRivales();
 
             cargarJugadores();
+
+            cargarEquipacion();
 
         }
     );
@@ -781,6 +923,17 @@
                         lugarCompleto || "Sin campo/lugar"
                     }<br>
 
+                    Equipación:<br>
+
+                    Camiseta:
+                    ${selectorCamiseta.value || "Sin seleccionar"}<br>
+
+                    Pantalón:
+                    ${selectorPantalon.value || "Sin seleccionar"}<br>
+
+                    Medias:
+                    ${selectorMedias.value || "Sin seleccionar"}<br><br>
+
                     Jugadores seleccionados:
                     ${seleccionados.length}<br>
 
@@ -798,6 +951,8 @@
     cargarRivales();
 
     cargarJugadores();
+
+    cargarEquipacion();
 
     actualizarLocalVisitante();
 
