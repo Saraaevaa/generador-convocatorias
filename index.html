@@ -85,6 +85,11 @@
             margin-right: 8px;
         }
 
+        .posiciones {
+            color: #666;
+            font-size: 14px;
+        }
+
         .aviso {
             margin-top: 8px;
             font-size: 14px;
@@ -101,646 +106,441 @@
 
     <div class="campo">
         <label for="equipo">Equipo</label>
-
         <select id="equipo">
             <option value="">Selecciona un equipo</option>
         </select>
     </div>
 
-
     <div class="campo">
         <label for="tipoPartido">Tipo de partido</label>
-
         <select id="tipoPartido">
             <option value="oficial">Partido oficial</option>
             <option value="amistoso">Amistoso</option>
         </select>
     </div>
 
-
     <div class="campo">
         <label for="jornada">Jornada</label>
-
-        <input
-            type="number"
-            id="jornada"
-            placeholder="Ej. 5"
-        >
+        <input type="number" id="jornada" placeholder="Ej. 5">
     </div>
-
 
     <div class="campo">
         <label for="fecha">Fecha</label>
-
-        <input
-            type="date"
-            id="fecha"
-        >
+        <input type="date" id="fecha">
     </div>
-
 
     <div class="campo">
         <label for="rival">Rival</label>
-
-        <input
-            type="text"
-            id="rival"
-            placeholder="Ej. Torrelodones"
-        >
+        <input type="text" id="rival" placeholder="Ej. Torrelodones">
     </div>
-
 
     <div class="campo">
         <label for="campo">Campo</label>
-
-        <input
-            type="text"
-            id="campo"
-            placeholder="Ej. Julián Ariza"
-        >
+        <input type="text" id="campo" placeholder="Ej. Julián Ariza">
     </div>
-
 
     <div class="campo">
         <label for="lugar">Lugar</label>
-
-        <input
-            type="text"
-            id="lugar"
-            placeholder="Ej. Torrelodones"
-        >
+        <input type="text" id="lugar" placeholder="Ej. Torrelodones">
     </div>
-
 
     <div class="campo">
         <label for="condicion">Condición</label>
-
         <select id="condicion">
             <option value="local">Local</option>
             <option value="visitante">Visitante</option>
         </select>
     </div>
 
-
     <div class="campo">
-
         <label id="textoConvocados">
             Jugadores convocados (18)
         </label>
 
         <div id="listaJugadores"></div>
 
-        <div
-            id="avisoJugadores"
-            class="aviso"
-        ></div>
-
+        <div id="avisoJugadores" class="aviso"></div>
     </div>
-
 
     <button onclick="generarConvocatoria()">
         Generar convocatoria
     </button>
 
-
     <div id="resultado"></div>
 
 </div>
 
-
-<!-- Base de datos -->
-
 <script src="datos.js"></script>
-
 
 <script>
 
-    // =========================================================
-    // ELEMENTOS DE LA PÁGINA
-    // =========================================================
+const selectorEquipo =
+    document.getElementById("equipo");
 
-    const selectorEquipo =
-        document.getElementById("equipo");
+const selectorTipoPartido =
+    document.getElementById("tipoPartido");
 
-    const selectorTipoPartido =
-        document.getElementById("tipoPartido");
+const listaJugadores =
+    document.getElementById("listaJugadores");
 
-    const listaJugadores =
-        document.getElementById("listaJugadores");
+const textoConvocados =
+    document.getElementById("textoConvocados");
 
-    const textoConvocados =
-        document.getElementById("textoConvocados");
-
-    const avisoJugadores =
-        document.getElementById("avisoJugadores");
+const avisoJugadores =
+    document.getElementById("avisoJugadores");
 
 
-    // =========================================================
-    // CARGAR EQUIPOS
-    // =========================================================
+function cargarEquipos() {
 
-    function cargarEquipos() {
+    selectorEquipo.innerHTML =
+        '<option value="">Selecciona un equipo</option>';
 
-        selectorEquipo.innerHTML =
-            '<option value="">Selecciona un equipo</option>';
+    equipos.forEach(equipo => {
 
-        equipos.forEach(equipo => {
+        const opcion =
+            document.createElement("option");
 
-            const opcion =
-                document.createElement("option");
+        opcion.value = equipo.id;
+        opcion.textContent = equipo.nombre;
 
-            opcion.value = equipo.id;
+        selectorEquipo.appendChild(opcion);
 
-            opcion.textContent =
-                equipo.nombre;
-
-            selectorEquipo.appendChild(opcion);
-
-        });
-
-    }
+    });
+}
 
 
-    // =========================================================
-    // OBTENER EQUIPO SELECCIONADO
-    // =========================================================
+function obtenerEquipoSeleccionado() {
 
-    function obtenerEquipoSeleccionado() {
+    return equipos.find(
+        equipo => equipo.id === selectorEquipo.value
+    );
 
-        return equipos.find(
-            equipo =>
-                equipo.id === selectorEquipo.value
-        );
-
-    }
+}
 
 
-    // =========================================================
-    // ACTUALIZAR TEXTO DE CONVOCADOS
-    // =========================================================
+function actualizarTextoConvocados() {
 
-    function actualizarTextoConvocados() {
+    const equipo =
+        obtenerEquipoSeleccionado();
 
-        const equipo =
-            obtenerEquipoSeleccionado();
+    if (selectorTipoPartido.value === "oficial") {
 
-        if (selectorTipoPartido.value === "oficial") {
+        textoConvocados.textContent =
+            "Jugadores convocados (" +
+            configuracion.convocadosOficial +
+            ")";
 
-            textoConvocados.textContent =
-                "Jugadores convocados (" +
-                configuracion.convocadosOficial +
-                ")";
+    } else {
 
-        } else {
-
-            if (equipo) {
-
-                textoConvocados.textContent =
-                    "Jugadores convocados (" +
-                    equipo.totalJugadores +
-                    ")";
-
-            } else {
-
-                textoConvocados.textContent =
-                    "Jugadores convocados";
-
-            }
-
-        }
+        textoConvocados.textContent =
+            equipo
+            ? "Jugadores convocados (" +
+              equipo.totalJugadores +
+              ")"
+            : "Jugadores convocados";
 
     }
 
-
-    // =========================================================
-    // CARGAR JUGADORES
-    // =========================================================
-
-    function cargarJugadores() {
-
-        listaJugadores.innerHTML = "";
-
-        avisoJugadores.textContent = "";
-
-        const equipo =
-            obtenerEquipoSeleccionado();
-
-        if (!equipo) {
-
-            actualizarTextoConvocados();
-
-            return;
-
-        }
+}
 
 
-        equipo.jugadores.forEach(jugador => {
+function cargarJugadores() {
 
-            const etiqueta =
-                document.createElement("label");
+    listaJugadores.innerHTML = "";
+    avisoJugadores.textContent = "";
 
-            etiqueta.className =
-                "jugador";
+    const equipo =
+        obtenerEquipoSeleccionado();
 
-
-            etiqueta.innerHTML = `
-
-                <input
-                    type="checkbox"
-                    value="${jugador.dorsal}"
-                    class="jugador-checkbox"
-                >
-
-                ${jugador.dorsal} -
-                ${jugador.nombre}
-
-            `;
-
-
-            listaJugadores.appendChild(
-                etiqueta
-            );
-
-        });
-
+    if (!equipo) {
 
         actualizarTextoConvocados();
+        return;
 
+    }
+
+    equipo.jugadores.forEach(jugador => {
+
+        const etiqueta =
+            document.createElement("label");
+
+        etiqueta.className = "jugador";
+
+        const posiciones =
+            jugador.posiciones
+                .filter(posicion => posicion !== "")
+                .join(" / ");
+
+        etiqueta.innerHTML = `
+
+            <input
+                type="checkbox"
+                value="${jugador.dorsal}"
+                class="jugador-checkbox"
+            >
+
+            ${jugador.dorsal} -
+            ${jugador.nombre}
+
+            <span class="posiciones">
+                ${posiciones ? " — " + posiciones : ""}
+            </span>
+
+        `;
+
+        listaJugadores.appendChild(etiqueta);
+
+    });
+
+    actualizarTextoConvocados();
+    controlarLimiteJugadores();
+
+}
+
+
+function controlarLimiteJugadores() {
+
+    const casillas =
+        document.querySelectorAll(
+            ".jugador-checkbox"
+        );
+
+    const equipo =
+        obtenerEquipoSeleccionado();
+
+    if (!equipo) {
+        return;
+    }
+
+    let limite;
+
+    if (selectorTipoPartido.value === "oficial") {
+
+        limite =
+            configuracion.convocadosOficial;
+
+    } else {
+
+        limite =
+            equipo.totalJugadores;
+
+    }
+
+    const seleccionados =
+        document.querySelectorAll(
+            ".jugador-checkbox:checked"
+        ).length;
+
+    casillas.forEach(casilla => {
+
+        if (!casilla.checked) {
+
+            casilla.disabled =
+                seleccionados >= limite;
+
+        }
+
+    });
+
+    avisoJugadores.textContent =
+        "Seleccionados: " +
+        seleccionados +
+        " / " +
+        limite;
+
+}
+
+
+selectorEquipo.addEventListener(
+    "change",
+    cargarJugadores
+);
+
+
+selectorTipoPartido.addEventListener(
+    "change",
+    function() {
+
+        actualizarTextoConvocados();
         controlarLimiteJugadores();
 
     }
+);
 
 
-    // =========================================================
-    // CONTROLAR LÍMITE DE JUGADORES
-    // =========================================================
-
-    function controlarLimiteJugadores() {
-
-        const casillas =
-            document.querySelectorAll(
-                ".jugador-checkbox"
-            );
-
-
-        const equipo =
-            obtenerEquipoSeleccionado();
-
-
-        if (!equipo) {
-            return;
-        }
-
-
-        let limite;
-
+document.addEventListener(
+    "change",
+    function(evento) {
 
         if (
-            selectorTipoPartido.value ===
-            "oficial"
+            evento.target.classList.contains(
+                "jugador-checkbox"
+            )
         ) {
-
-            limite =
-                configuracion.convocadosOficial;
-
-        } else {
-
-            limite =
-                equipo.totalJugadores;
-
-        }
-
-
-        const seleccionados =
-            document.querySelectorAll(
-                ".jugador-checkbox:checked"
-            ).length;
-
-
-        casillas.forEach(casilla => {
-
-            if (!casilla.checked) {
-
-                casilla.disabled =
-                    seleccionados >= limite;
-
-            }
-
-        });
-
-
-        avisoJugadores.textContent =
-            "Seleccionados: " +
-            seleccionados +
-            " / " +
-            limite;
-
-    }
-
-
-    // =========================================================
-    // CAMBIO DE EQUIPO
-    // =========================================================
-
-    selectorEquipo.addEventListener(
-        "change",
-        function() {
-
-            cargarJugadores();
-
-        }
-    );
-
-
-    // =========================================================
-    // CAMBIO DE TIPO DE PARTIDO
-    // =========================================================
-
-    selectorTipoPartido.addEventListener(
-        "change",
-        function() {
-
-            actualizarTextoConvocados();
 
             controlarLimiteJugadores();
 
         }
-    );
 
+    }
+);
 
-    // =========================================================
-    // CAMBIO EN LOS JUGADORES
-    // =========================================================
 
-    document.addEventListener(
-        "change",
-        function(evento) {
+function generarConvocatoria() {
 
-            if (
-                evento.target.classList.contains(
-                    "jugador-checkbox"
-                )
-            ) {
+    const equipo =
+        obtenerEquipoSeleccionado();
 
-                controlarLimiteJugadores();
+    const tipo =
+        selectorTipoPartido.value;
 
-            }
+    const jornada =
+        document.getElementById("jornada").value;
 
-        }
-    );
+    const fecha =
+        document.getElementById("fecha").value;
 
+    const rival =
+        document.getElementById("rival").value;
 
-    // =========================================================
-    // GENERAR CONVOCATORIA
-    // =========================================================
+    const campo =
+        document.getElementById("campo").value;
 
-    function generarConvocatoria() {
+    const lugar =
+        document.getElementById("lugar").value;
 
-        const equipo =
-            obtenerEquipoSeleccionado();
+    const condicion =
+        document.getElementById("condicion").value;
 
 
-        const tipo =
-            selectorTipoPartido.value;
+    if (!equipo) {
 
-
-        const jornada =
-            document.getElementById(
-                "jornada"
-            ).value;
-
-
-        const fecha =
-            document.getElementById(
-                "fecha"
-            ).value;
-
-
-        const rival =
-            document.getElementById(
-                "rival"
-            ).value;
-
-
-        const campo =
-            document.getElementById(
-                "campo"
-            ).value;
-
-
-        const lugar =
-            document.getElementById(
-                "lugar"
-            ).value;
-
-
-        const condicion =
-            document.getElementById(
-                "condicion"
-            ).value;
-
-
-        // -----------------------------------------------------
-        // COMPROBAR EQUIPO
-        // -----------------------------------------------------
-
-        if (!equipo) {
-
-            alert(
-                "Selecciona un equipo."
-            );
-
-            return;
-
-        }
-
-
-        // -----------------------------------------------------
-        // JUGADORES SELECCIONADOS
-        // -----------------------------------------------------
-
-        const jugadoresSeleccionados =
-            document.querySelectorAll(
-                ".jugador-checkbox:checked"
-            );
-
-
-        const numeroSeleccionados =
-            jugadoresSeleccionados.length;
-
-
-        // -----------------------------------------------------
-        // COMPROBAR CONVOCATORIA OFICIAL
-        // -----------------------------------------------------
-
-        if (
-            tipo === "oficial" &&
-            numeroSeleccionados !==
-            configuracion.convocadosOficial
-        ) {
-
-            alert(
-                "En un partido oficial debes seleccionar exactamente " +
-                configuracion.convocadosOficial +
-                " jugadores."
-            );
-
-            return;
-
-        }
-
-
-        // -----------------------------------------------------
-        // COMPROBAR AMISTOSO
-        // -----------------------------------------------------
-
-        if (
-            tipo === "amistoso" &&
-            numeroSeleccionados < 1
-        ) {
-
-            alert(
-                "Selecciona al menos un jugador."
-            );
-
-            return;
-
-        }
-
-
-        if (
-            tipo === "amistoso" &&
-            numeroSeleccionados >
-            equipo.totalJugadores
-        ) {
-
-            alert(
-                "No puedes seleccionar más de " +
-                equipo.totalJugadores +
-                " jugadores."
-            );
-
-            return;
-
-        }
-
-
-        // -----------------------------------------------------
-        // TÍTULO DEL PARTIDO
-        // -----------------------------------------------------
-
-        let tituloPartido;
-
-
-        if (tipo === "amistoso") {
-
-            tituloPartido =
-                "AMISTOSO";
-
-        } else {
-
-            tituloPartido =
-                "JORNADA " + jornada;
-
-        }
-
-
-        // -----------------------------------------------------
-        // FORMATEAR FECHA
-        // -----------------------------------------------------
-
-        let fechaFormateada =
-            fecha;
-
-
-        if (fecha) {
-
-            const partes =
-                fecha.split("-");
-
-
-            fechaFormateada =
-                partes[2] +
-                "/" +
-                partes[1] +
-                "/" +
-                partes[0];
-
-        }
-
-
-        // -----------------------------------------------------
-        // MOSTRAR RESULTADO
-        // -----------------------------------------------------
-
-        const resultado =
-            document.getElementById(
-                "resultado"
-            );
-
-
-        resultado.style.display =
-            "block";
-
-
-        resultado.innerHTML = `
-
-            <h2>
-                Convocatoria generada
-            </h2>
-
-            <p>
-                <strong>Equipo:</strong>
-                ${equipo.nombre}
-            </p>
-
-            <p>
-                <strong>${tituloPartido}</strong>
-            </p>
-
-            <p>
-                <strong>Fecha:</strong>
-                ${fechaFormateada}
-            </p>
-
-            <p>
-                <strong>Rival:</strong>
-                ${rival}
-            </p>
-
-            <p>
-                <strong>Campo:</strong>
-                ${campo} (${lugar})
-            </p>
-
-            <p>
-                <strong>Condición:</strong>
-                ${
-                    condicion === "local"
-                    ? "Local"
-                    : "Visitante"
-                }
-            </p>
-
-            <p>
-                <strong>
-                    Jugadores seleccionados:
-                </strong>
-                ${numeroSeleccionados}
-            </p>
-
-        `;
+        alert("Selecciona un equipo.");
+        return;
 
     }
 
 
-    // =========================================================
-    // INICIO
-    // =========================================================
+    const jugadoresSeleccionados =
+        document.querySelectorAll(
+            ".jugador-checkbox:checked"
+        );
 
-    cargarEquipos();
+    const numeroSeleccionados =
+        jugadoresSeleccionados.length;
 
-    cargarJugadores();
+
+    if (
+        tipo === "oficial" &&
+        numeroSeleccionados !==
+        configuracion.convocadosOficial
+    ) {
+
+        alert(
+            "En un partido oficial debes seleccionar exactamente " +
+            configuracion.convocadosOficial +
+            " jugadores."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        tipo === "amistoso" &&
+        numeroSeleccionados < 1
+    ) {
+
+        alert("Selecciona al menos un jugador.");
+        return;
+
+    }
+
+
+    let tituloPartido;
+
+    if (tipo === "amistoso") {
+
+        tituloPartido = "AMISTOSO";
+
+    } else {
+
+        tituloPartido = "JORNADA " + jornada;
+
+    }
+
+
+    let fechaFormateada = fecha;
+
+    if (fecha) {
+
+        const partes = fecha.split("-");
+
+        fechaFormateada =
+            partes[2] + "/" +
+            partes[1] + "/" +
+            partes[0];
+
+    }
+
+
+    const resultado =
+        document.getElementById("resultado");
+
+    resultado.style.display = "block";
+
+    resultado.innerHTML = `
+
+        <h2>Convocatoria generada</h2>
+
+        <p>
+            <strong>Equipo:</strong>
+            ${equipo.nombre}
+        </p>
+
+        <p>
+            <strong>${tituloPartido}</strong>
+        </p>
+
+        <p>
+            <strong>Fecha:</strong>
+            ${fechaFormateada}
+        </p>
+
+        <p>
+            <strong>Rival:</strong>
+            ${rival}
+        </p>
+
+        <p>
+            <strong>Campo:</strong>
+            ${campo} (${lugar})
+        </p>
+
+        <p>
+            <strong>Condición:</strong>
+            ${
+                condicion === "local"
+                ? "Local"
+                : "Visitante"
+            }
+        </p>
+
+        <p>
+            <strong>
+                Jugadores seleccionados:
+            </strong>
+            ${numeroSeleccionados}
+        </p>
+
+    `;
+
+}
+
+
+cargarEquipos();
+cargarJugadores();
 
 </script>
 
