@@ -143,6 +143,29 @@
             margin-bottom: 20px;
         }
 
+        .cuerpo-tecnico {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .cuerpo-tecnico h2 {
+            margin-bottom: 20px;
+        }
+
+        .personal-tecnico {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .personal-tecnico:last-child {
+            border-bottom: none;
+        }
+
+        .cargo {
+            font-weight: bold;
+        }
+
         #resultado {
             margin-top: 25px;
             padding: 15px;
@@ -322,6 +345,17 @@
     </div>
 
 
+    <div class="cuerpo-tecnico">
+
+        <h2>Cuerpo técnico</h2>
+
+        <div id="listaTecnicos">
+            Selecciona un equipo.
+        </div>
+
+    </div>
+
+
     <button id="generar">
         Generar convocatoria
     </button>
@@ -371,6 +405,9 @@
 
     const listaJugadores =
         document.getElementById("listaJugadores");
+
+    const listaTecnicos =
+        document.getElementById("listaTecnicos");
 
     const contadorConvocados =
         document.getElementById("contadorConvocados");
@@ -688,6 +725,76 @@
     }
 
 
+    function cargarTecnicos() {
+
+        const equipo =
+            obtenerEquipoSeleccionado();
+
+        listaTecnicos.innerHTML = "";
+
+
+        if (!equipo) {
+
+            listaTecnicos.textContent =
+                "Selecciona un equipo.";
+
+            return;
+        }
+
+
+        if (equipo.entrenador) {
+
+            const entrenador =
+                document.createElement("div");
+
+            entrenador.className =
+                "personal-tecnico";
+
+            entrenador.innerHTML = `
+                <span class="cargo">
+                    Entrenador:
+                </span>
+                ${equipo.entrenador}
+            `;
+
+            listaTecnicos.appendChild(
+                entrenador
+            );
+
+        }
+
+
+        if (
+            equipo.cuerpoTecnico &&
+            equipo.cuerpoTecnico.length > 0
+        ) {
+
+            equipo.cuerpoTecnico.forEach(persona => {
+
+                const tecnico =
+                    document.createElement("div");
+
+                tecnico.className =
+                    "personal-tecnico";
+
+                tecnico.innerHTML = `
+                    <span class="cargo">
+                        Cuerpo técnico:
+                    </span>
+                    ${persona}
+                `;
+
+                listaTecnicos.appendChild(
+                    tecnico
+                );
+
+            });
+
+        }
+
+    }
+
+
     function actualizarRival() {
 
         const rival =
@@ -790,6 +897,8 @@
 
             cargarEquipacion();
 
+            cargarTecnicos();
+
         }
     );
 
@@ -891,6 +1000,13 @@
                     document.getElementById("resultado");
 
 
+                const cuerpoTecnico =
+                    equipo.cuerpoTecnico &&
+                    equipo.cuerpoTecnico.length > 0
+                        ? equipo.cuerpoTecnico.join(", ")
+                        : "Sin datos";
+
+
                 resultado.style.display =
                     "block";
 
@@ -921,9 +1037,9 @@
 
                     Campo: ${
                         lugarCompleto || "Sin campo/lugar"
-                    }<br>
+                    }<br><br>
 
-                    Equipación:<br>
+                    <strong>Equipación</strong><br>
 
                     Camiseta:
                     ${selectorCamiseta.value || "Sin seleccionar"}<br>
@@ -933,6 +1049,14 @@
 
                     Medias:
                     ${selectorMedias.value || "Sin seleccionar"}<br><br>
+
+                    <strong>Cuerpo técnico</strong><br>
+
+                    Entrenador:
+                    ${equipo.entrenador || "Sin datos"}<br>
+
+                    Cuerpo técnico:
+                    ${cuerpoTecnico}<br><br>
 
                     Jugadores seleccionados:
                     ${seleccionados.length}<br>
@@ -953,6 +1077,8 @@
     cargarJugadores();
 
     cargarEquipacion();
+
+    cargarTecnicos();
 
     actualizarLocalVisitante();
 
