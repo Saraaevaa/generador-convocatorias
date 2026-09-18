@@ -229,13 +229,14 @@ function cargarJugadores() {
         etiqueta.style.marginBottom = "8px";
 
         etiqueta.innerHTML = `
-            <input
-                type="checkbox"
-                value="${jugador.dorsal}"
-                style="width:auto; margin-right:8px;"
-            >
-            ${jugador.dorsal} - ${jugador.nombre}
-        `;
+    <input
+        type="checkbox"
+        value="${jugador.dorsal}"
+        class="jugador-checkbox"
+        style="width:auto; margin-right:8px;"
+    >
+    ${jugador.dorsal} - ${jugador.nombre}
+`;
 
         listaJugadores.appendChild(etiqueta);
 
@@ -245,6 +246,49 @@ function cargarJugadores() {
 selectorEquipo.addEventListener("change", cargarJugadores);
 
 cargarJugadores();
+    function controlarLimiteJugadores() {
+
+    const casillas = document.querySelectorAll(".jugador-checkbox");
+
+    const equipoId = selectorEquipo.value;
+
+    const equipoSeleccionado = equipos.find(
+        equipo => equipo.id === equipoId
+    );
+
+    if (!equipoSeleccionado) {
+        return;
+    }
+
+    let limite;
+
+    if (selectorTipoPartido.value === "amistoso") {
+        limite = equipoSeleccionado.totalJugadores;
+    } else {
+        limite = configuracion.convocadosOficial;
+    }
+
+    const seleccionados = document.querySelectorAll(
+        ".jugador-checkbox:checked"
+    ).length;
+
+    casillas.forEach(casilla => {
+
+        if (!casilla.checked) {
+            casilla.disabled = seleccionados >= limite;
+        }
+
+    });
+}
+
+document.addEventListener("change", function(evento) {
+
+    if (evento.target.classList.contains("jugador-checkbox")) {
+        controlarLimiteJugadores();
+    }
+
+});
+
     
     // Generar convocatoria
 
