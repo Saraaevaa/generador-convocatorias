@@ -1,91 +1,499 @@
-const configuracion = {
-    convocadosOficial: 18
-};
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Convocatorias</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .bloque {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .jugador {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .jugador input {
+            width: auto;
+        }
+
+        .posiciones {
+            color: #666;
+            font-size: 14px;
+        }
+
+        #avisoJugadores {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        #escudoRival {
+            display: none;
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin: 15px auto;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            background: #222;
+            color: white;
+        }
+
+        #resultado {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Generador de Convocatorias</h1>
+
+    <div class="bloque">
+
+        <label for="equipo">Equipo</label>
+        <select id="equipo">
+            <option value="">Selecciona un equipo</option>
+        </select>
+
+        <label for="tipoPartido">Tipo de partido</label>
+        <select id="tipoPartido">
+            <option value="oficial">Partido oficial</option>
+            <option value="amistoso">Amistoso</option>
+        </select>
+
+        <div id="campoJornada">
+            <label for="jornada">Jornada</label>
+            <input type="number" id="jornada" min="1">
+        </div>
+
+        <label for="fecha">Fecha</label>
+        <input type="date" id="fecha">
+
+        <label for="rival">Rival</label>
+        <select id="rival">
+            <option value="">Selecciona un rival</option>
+        </select>
+
+        <img id="escudoRival" alt="Escudo del rival">
+
+        <label for="campo">Campo</label>
+        <input type="text" id="campo" placeholder="Ej.: Julián Ariza">
+
+        <label for="lugar">Lugar</label>
+        <input type="text" id="lugar" placeholder="Ej.: Torrelodones">
+
+        <label for="localVisitante">Condición</label>
+        <select id="localVisitante">
+            <option value="local">Local</option>
+            <option value="visitante">Visitante</option>
+        </select>
+
+    </div>
+
+    <div class="bloque">
+
+        <h2 id="textoConvocados">Jugadores convocados (18)</h2>
+
+        <div id="listaJugadores"></div>
+
+        <div id="avisoJugadores"></div>
+
+    </div>
+
+    <div class="bloque">
+
+        <button onclick="generarConvocatoria()">
+            GENERAR CONVOCATORIA
+        </button>
+
+    </div>
+
+    <div id="resultado"></div>
 
 
-const equipos = [
-    {
-        id: "cadete-b",
-        nombre: "Cadete B",
-        totalJugadores: 25,
+    <script src="datos.js"></script>
 
-        jugadores: [
-            {
-                dorsal: 1,
-                nombre: "Jugador de prueba 1",
-                posiciones: ["POR", "", ""]
-            },
-            {
-                dorsal: 2,
-                nombre: "Jugador de prueba 2",
-                posiciones: ["DEF", "MC", ""]
-            },
-            {
-                dorsal: 3,
-                nombre: "Jugador de prueba 3",
-                posiciones: ["DEF", "EXT", ""]
+    <script>
+
+        const selectorEquipo = document.getElementById("equipo");
+        const selectorTipoPartido = document.getElementById("tipoPartido");
+        const selectorRival = document.getElementById("rival");
+
+        const listaJugadores = document.getElementById("listaJugadores");
+        const textoConvocados = document.getElementById("textoConvocados");
+        const avisoJugadores = document.getElementById("avisoJugadores");
+
+        const campoJornada = document.getElementById("campoJornada");
+        const escudoRival = document.getElementById("escudoRival");
+
+
+        function cargarEquipos() {
+
+            selectorEquipo.innerHTML =
+                '<option value="">Selecciona un equipo</option>';
+
+            equipos.forEach(equipo => {
+
+                const opcion = document.createElement("option");
+
+                opcion.value = equipo.id;
+                opcion.textContent = equipo.nombre;
+
+                selectorEquipo.appendChild(opcion);
+
+            });
+
+        }
+
+
+        function cargarRivales() {
+
+            selectorRival.innerHTML =
+                '<option value="">Selecciona un rival</option>';
+
+            rivales.forEach(rival => {
+
+                const opcion = document.createElement("option");
+
+                opcion.value = rival.id;
+                opcion.textContent = rival.nombre;
+
+                selectorRival.appendChild(opcion);
+
+            });
+
+        }
+
+
+        function obtenerEquipoSeleccionado() {
+
+            return equipos.find(
+                equipo => equipo.id === selectorEquipo.value
+            );
+
+        }
+
+
+        function obtenerRivalSeleccionado() {
+
+            return rivales.find(
+                rival => rival.id === selectorRival.value
+            );
+
+        }
+
+
+        function actualizarEscudoRival() {
+
+            const rival = obtenerRivalSeleccionado();
+
+            if (rival && rival.escudo) {
+
+                escudoRival.src = rival.escudo;
+                escudoRival.style.display = "block";
+
+            } else {
+
+                escudoRival.src = "";
+                escudoRival.style.display = "none";
+
             }
-        ],
 
-        entrenador: "Entrenador de prueba",
-
-        cuerpoTecnico: [
-            "Ayudante de prueba"
-        ]
-    }
-];
+        }
 
 
-const rivales = [
-    {
-        id: "rival-prueba",
-        nombre: "Rival de prueba",
-        escudo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Example.svg/1200px-Example.svg.png"
-    }
-];
+        function cargarJugadores() {
 
+            const equipo = obtenerEquipoSeleccionado();
 
-const equipaciones = [
-    {
-        equipoId: "cadete-b",
+            listaJugadores.innerHTML = "";
+            avisoJugadores.textContent = "";
 
-        camiseta: [
-            {
-                nombre: "Camiseta 1",
-                color: "Color 1",
-                imagen: ""
-            },
-            {
-                nombre: "Camiseta 2",
-                color: "Color 2",
-                imagen: ""
+            if (!equipo) {
+
+                textoConvocados.textContent =
+                    "Jugadores convocados (18)";
+
+                return;
             }
-        ],
 
-        pantalon: [
-            {
-                nombre: "Pantalón 1",
-                color: "Color 1",
-                imagen: ""
-            },
-            {
-                nombre: "Pantalón 2",
-                color: "Color 2",
-                imagen: ""
-            }
-        ],
+            const tipo = selectorTipoPartido.value;
 
-        medias: [
-            {
-                nombre: "Medias 1",
-                color: "Color 1",
-                imagen: ""
-            },
-            {
-                nombre: "Medias 2",
-                color: "Color 2",
-                imagen: ""
+            const limite =
+                tipo === "oficial"
+                    ? configuracion.convocadosOficial
+                    : equipo.totalJugadores;
+
+
+            textoConvocados.textContent =
+                tipo === "oficial"
+                    ? "Jugadores convocados (18)"
+                    : `Jugadores convocados (máximo ${equipo.totalJugadores})`;
+
+
+            equipo.jugadores.forEach(jugador => {
+
+                const fila = document.createElement("div");
+
+                fila.className = "jugador";
+
+                const checkbox = document.createElement("input");
+
+                checkbox.type = "checkbox";
+                checkbox.value = jugador.dorsal;
+                checkbox.className = "checkboxJugador";
+
+
+                checkbox.addEventListener("change", function () {
+
+                    const seleccionados =
+                        document.querySelectorAll(
+                            ".checkboxJugador:checked"
+                        ).length;
+
+                    if (seleccionados > limite) {
+
+                        this.checked = false;
+
+                        avisoJugadores.textContent =
+                            `No puedes seleccionar más de ${limite} jugadores.`;
+
+                    } else {
+
+                        avisoJugadores.textContent =
+                            `Seleccionados: ${seleccionados} / ${limite}`;
+
+                    }
+
+                });
+
+
+                const nombre = document.createElement("span");
+
+                nombre.innerHTML =
+                    `<strong>${jugador.dorsal}</strong> - ${jugador.nombre}`;
+
+
+                const posiciones = document.createElement("span");
+
+                const posicionesValidas =
+                    jugador.posiciones.filter(
+                        posicion => posicion !== ""
+                    );
+
+                posiciones.className = "posiciones";
+
+                posiciones.textContent =
+                    posicionesValidas.length > 0
+                        ? `(${posicionesValidas.join(" / ")})`
+                        : "";
+
+
+                fila.appendChild(checkbox);
+                fila.appendChild(nombre);
+                fila.appendChild(posiciones);
+
+                listaJugadores.appendChild(fila);
+
+            });
+
+        }
+
+
+        function actualizarTipoPartido() {
+
+            if (selectorTipoPartido.value === "amistoso") {
+
+                campoJornada.style.display = "none";
+
+            } else {
+
+                campoJornada.style.display = "block";
+
             }
-        ]
-    }
-];
+
+            cargarJugadores();
+
+        }
+
+
+        function generarConvocatoria() {
+
+            const equipo = obtenerEquipoSeleccionado();
+            const rival = obtenerRivalSeleccionado();
+
+            if (!equipo) {
+
+                alert("Selecciona un equipo.");
+                return;
+
+            }
+
+            if (!rival) {
+
+                alert("Selecciona un rival.");
+                return;
+
+            }
+
+
+            const jugadoresSeleccionados =
+                Array.from(
+                    document.querySelectorAll(
+                        ".checkboxJugador:checked"
+                    )
+                );
+
+
+            const tipo = selectorTipoPartido.value;
+
+            const limite =
+                tipo === "oficial"
+                    ? configuracion.convocadosOficial
+                    : equipo.totalJugadores;
+
+
+            if (jugadoresSeleccionados.length === 0) {
+
+                alert("Selecciona al menos un jugador.");
+                return;
+
+            }
+
+
+            if (jugadoresSeleccionados.length > limite) {
+
+                alert(
+                    `No puedes seleccionar más de ${limite} jugadores.`
+                );
+
+                return;
+
+            }
+
+
+            const fecha =
+                document.getElementById("fecha").value;
+
+            const jornada =
+                document.getElementById("jornada").value;
+
+            const campo =
+                document.getElementById("campo").value;
+
+            const lugar =
+                document.getElementById("lugar").value;
+
+            const localVisitante =
+                document.getElementById("localVisitante").value;
+
+
+            const textoJornada =
+                tipo === "amistoso"
+                    ? "Amistoso"
+                    : `Jornada ${jornada}`;
+
+
+            document.getElementById("resultado").innerHTML = `
+
+                <h2>Convocatoria generada</h2>
+
+                <p><strong>Equipo:</strong> ${equipo.nombre}</p>
+
+                <p><strong>Partido:</strong> ${textoJornada}</p>
+
+                <p><strong>Fecha:</strong> ${fecha}</p>
+
+                <p><strong>Rival:</strong> ${rival.nombre}</p>
+
+                <p><strong>Condición:</strong> ${
+                    localVisitante === "local"
+                        ? "Local"
+                        : "Visitante"
+                }</p>
+
+                <p><strong>Campo:</strong> ${campo}</p>
+
+                <p><strong>Lugar:</strong> ${lugar}</p>
+
+                <p><strong>Jugadores seleccionados:</strong>
+                    ${jugadoresSeleccionados.length}
+                </p>
+
+            `;
+
+        }
+
+
+        selectorEquipo.addEventListener(
+            "change",
+            cargarJugadores
+        );
+
+        selectorTipoPartido.addEventListener(
+            "change",
+            actualizarTipoPartido
+        );
+
+        selectorRival.addEventListener(
+            "change",
+            actualizarEscudoRival
+        );
+
+
+        cargarEquipos();
+        cargarRivales();
+        actualizarTipoPartido();
+        actualizarEscudoRival();
+
+    </script>
+
+</body>
+</html>
