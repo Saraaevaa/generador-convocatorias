@@ -128,25 +128,40 @@
     <div class="bloque">
 
         <label for="equipo">Equipo</label>
+
         <select id="equipo">
             <option value="">Selecciona un equipo</option>
         </select>
 
+
         <label for="tipoPartido">Tipo de partido</label>
+
         <select id="tipoPartido">
             <option value="oficial">Partido oficial</option>
             <option value="amistoso">Amistoso</option>
         </select>
 
+
         <div id="campoJornada">
 
             <label for="jornada">Jornada</label>
-            <input type="number" id="jornada" min="1">
+
+            <input
+                type="number"
+                id="jornada"
+                min="1"
+            >
 
         </div>
 
+
         <label for="fecha">Fecha</label>
-        <input type="date" id="fecha">
+
+        <input
+            type="date"
+            id="fecha"
+        >
+
 
         <label for="rival">Rival</label>
 
@@ -154,24 +169,30 @@
             <option value="">Selecciona un rival</option>
         </select>
 
+
         <img
             id="escudoRival"
             alt="Escudo del rival"
         >
 
+
         <label for="campo">Campo</label>
+
         <input
             type="text"
             id="campo"
             placeholder="Ej.: Julián Ariza"
         >
 
+
         <label for="lugar">Lugar</label>
+
         <input
             type="text"
             id="lugar"
             placeholder="Ej.: Torrelodones"
         >
+
 
         <label for="localVisitante">Condición</label>
 
@@ -201,7 +222,7 @@
                 <img
                     id="escudoLasRozas"
                     class="escudoPartido"
-                    src=""
+                    src="escudos/Las_Rozas.png"
                     alt="Escudo Las Rozas"
                 >
 
@@ -325,12 +346,15 @@
                 const opcion =
                     document.createElement("option");
 
-                opcion.value = equipo.id;
+                opcion.value =
+                    equipo.id;
 
                 opcion.textContent =
                     equipo.nombre;
 
-                selectorEquipo.appendChild(opcion);
+                selectorEquipo.appendChild(
+                    opcion
+                );
 
             });
 
@@ -353,7 +377,9 @@
                 opcion.textContent =
                     rival.nombre;
 
-                selectorRival.appendChild(opcion);
+                selectorRival.appendChild(
+                    opcion
+                );
 
             });
 
@@ -364,7 +390,8 @@
 
             return equipos.find(
                 equipo =>
-                    equipo.id === selectorEquipo.value
+                    equipo.id ===
+                    selectorEquipo.value
             );
 
         }
@@ -374,7 +401,8 @@
 
             return rivales.find(
                 rival =>
-                    rival.id === selectorRival.value
+                    rival.id ===
+                    selectorRival.value
             );
 
         }
@@ -386,7 +414,10 @@
                 obtenerRivalSeleccionado();
 
 
-            if (rival && rival.escudo) {
+            if (
+                rival &&
+                rival.escudo
+            ) {
 
                 escudoRival.src =
                     rival.escudo;
@@ -404,7 +435,8 @@
                 escudoRival.style.display =
                     "none";
 
-                escudoRivalPartido.src = "";
+                escudoRivalPartido.src =
+                    "";
 
             }
 
@@ -446,22 +478,34 @@
                 escudoRivalPartido.parentElement;
 
 
-            if (condicion === "local") {
+            if (
+                condicion === "local"
+            ) {
 
-                enfrentamiento.innerHTML = "";
+                enfrentamiento.innerHTML =
+                    "";
 
                 enfrentamiento.appendChild(
                     ladoLasRozas
                 );
 
+
                 const vs =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
 
-                vs.className = "vs";
+                vs.className =
+                    "vs";
 
-                vs.textContent = "VS";
+                vs.textContent =
+                    "VS";
 
-                enfrentamiento.appendChild(vs);
+
+                enfrentamiento.appendChild(
+                    vs
+                );
+
 
                 enfrentamiento.appendChild(
                     ladoRival
@@ -469,20 +513,30 @@
 
             } else {
 
-                enfrentamiento.innerHTML = "";
+                enfrentamiento.innerHTML =
+                    "";
 
                 enfrentamiento.appendChild(
                     ladoRival
                 );
 
+
                 const vs =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
 
-                vs.className = "vs";
+                vs.className =
+                    "vs";
 
-                vs.textContent = "VS";
+                vs.textContent =
+                    "VS";
 
-                enfrentamiento.appendChild(vs);
+
+                enfrentamiento.appendChild(
+                    vs
+                );
+
 
                 enfrentamiento.appendChild(
                     ladoLasRozas
@@ -499,9 +553,11 @@
                 obtenerEquipoSeleccionado();
 
 
-            listaJugadores.innerHTML = "";
+            listaJugadores.innerHTML =
+                "";
 
-            avisoJugadores.textContent = "";
+            avisoJugadores.textContent =
+                "";
 
 
             if (!equipo) {
@@ -534,14 +590,18 @@
                 jugador => {
 
                     const fila =
-                        document.createElement("div");
+                        document.createElement(
+                            "div"
+                        );
 
                     fila.className =
                         "jugador";
 
 
                     const checkbox =
-                        document.createElement("input");
+                        document.createElement(
+                            "input"
+                        );
 
                     checkbox.type =
                         "checkbox";
@@ -586,7 +646,9 @@
 
 
                     const nombre =
-                        document.createElement("span");
+                        document.createElement(
+                            "span"
+                        );
 
 
                     nombre.innerHTML =
@@ -594,7 +656,9 @@
 
 
                     const posiciones =
-                        document.createElement("span");
+                        document.createElement(
+                            "span"
+                        );
 
 
                     const posicionesValidas =
