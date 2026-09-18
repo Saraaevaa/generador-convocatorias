@@ -293,6 +293,46 @@ document.addEventListener("change", function(evento) {
     // Generar convocatoria
 
     function generarConvocatoria() {
+            const jugadoresSeleccionados = document.querySelectorAll(
+        ".jugador-checkbox:checked"
+    );
+
+    const numeroSeleccionados = jugadoresSeleccionados.length;
+
+    const equipoSeleccionado = equipos.find(
+        equipo => equipo.id === document.getElementById("equipo").value
+    );
+
+    if (!equipoSeleccionado) {
+        alert("Selecciona un equipo.");
+        return;
+    }
+
+    if (tipo === "oficial" && numeroSeleccionados !== configuracion.convocadosOficial) {
+        alert(
+            "En un partido oficial debes seleccionar exactamente " +
+            configuracion.convocadosOficial +
+            " jugadores."
+        );
+        return;
+    }
+
+    if (tipo === "amistoso" && numeroSeleccionados < 1) {
+        alert("Selecciona al menos un jugador.");
+        return;
+    }
+
+    if (
+        tipo === "amistoso" &&
+        numeroSeleccionados > equipoSeleccionado.totalJugadores
+    ) {
+        alert(
+            "No puedes seleccionar más de " +
+            equipoSeleccionado.totalJugadores +
+            " jugadores."
+        );
+        return;
+    }
 
         const equipoId = document.getElementById("equipo").value;
         const tipo = document.getElementById("tipoPartido").value;
