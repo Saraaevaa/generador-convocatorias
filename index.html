@@ -45,6 +45,10 @@
             border-radius: 6px;
         }
 
+        input:disabled {
+            background: #eee;
+        }
+
         button {
             width: 100%;
             padding: 12px;
@@ -192,12 +196,20 @@
 
     <div class="campo">
         <label for="campo">Campo</label>
-        <input type="text" id="campo">
+        <input
+            type="text"
+            id="campo"
+            placeholder="Ej.: Julián Ariza"
+        >
     </div>
 
     <div class="campo">
         <label for="lugar">Lugar</label>
-        <input type="text" id="lugar">
+        <input
+            type="text"
+            id="lugar"
+            placeholder="Ej.: Torrelodones"
+        >
     </div>
 
     <div class="campo">
@@ -295,8 +307,17 @@
     const selectorJornada =
         document.getElementById("jornada");
 
+    const selectorFecha =
+        document.getElementById("fecha");
+
     const selectorRival =
         document.getElementById("rival");
+
+    const selectorCampo =
+        document.getElementById("campo");
+
+    const selectorLugar =
+        document.getElementById("lugar");
 
     const selectorLocalVisitante =
         document.getElementById("localVisitante");
@@ -324,6 +345,9 @@
 
     const bloqueVS =
         document.getElementById("bloqueVS");
+
+    const enfrentamiento =
+        document.getElementById("enfrentamiento");
 
 
     function obtenerEquipoSeleccionado() {
@@ -559,33 +583,59 @@
 
         if (selectorLocalVisitante.value === "local") {
 
-            document
-                .getElementById("enfrentamiento")
-                .appendChild(bloqueLasRozas);
+            enfrentamiento.appendChild(
+                bloqueLasRozas
+            );
 
-            document
-                .getElementById("enfrentamiento")
-                .appendChild(bloqueVS);
+            enfrentamiento.appendChild(
+                bloqueVS
+            );
 
-            document
-                .getElementById("enfrentamiento")
-                .appendChild(bloqueRival);
+            enfrentamiento.appendChild(
+                bloqueRival
+            );
 
         } else {
 
-            document
-                .getElementById("enfrentamiento")
-                .appendChild(bloqueRival);
+            enfrentamiento.appendChild(
+                bloqueRival
+            );
 
-            document
-                .getElementById("enfrentamiento")
-                .appendChild(bloqueVS);
+            enfrentamiento.appendChild(
+                bloqueVS
+            );
 
-            document
-                .getElementById("enfrentamiento")
-                .appendChild(bloqueLasRozas);
+            enfrentamiento.appendChild(
+                bloqueLasRozas
+            );
 
         }
+
+    }
+
+
+    function obtenerLugarCompleto() {
+
+        const campo =
+            selectorCampo.value.trim();
+
+        const lugar =
+            selectorLugar.value.trim();
+
+
+        if (campo && lugar) {
+            return `${campo} (${lugar})`;
+        }
+
+        if (campo) {
+            return campo;
+        }
+
+        if (lugar) {
+            return lugar;
+        }
+
+        return "";
 
     }
 
@@ -651,6 +701,9 @@
                 const tipo =
                     selectorTipo.value;
 
+                const lugarCompleto =
+                    obtenerLugarCompleto();
+
 
                 if (!equipo) {
 
@@ -712,6 +765,27 @@
                         tipo === "amistoso"
                             ? "Amistoso"
                             : "Partido oficial"
+                    }<br>
+
+                    Fecha: ${
+                        selectorFecha.value || "Sin fecha"
+                    }<br>
+
+                    ${
+                        tipo === "amistoso"
+                            ? ""
+                            : `Jornada: ${selectorJornada.value || "Sin jornada"}<br>`
+                    }
+
+                    Campo: ${
+                        lugarCompleto || "Sin campo/lugar"
+                    }<br>
+
+                    Local / Visitante:
+                    ${
+                        selectorLocalVisitante.value === "local"
+                            ? "Local"
+                            : "Visitante"
                     }<br>
 
                     Jugadores seleccionados:
