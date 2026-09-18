@@ -129,7 +129,7 @@
     </div>
     
     <div class="campo">
-    <label>Jugadores convocados</label>
+    <label id="textoConvocados">Jugadores convocados (18)</label>
 
     <div id="listaJugadores"></div>
 </div>
@@ -165,6 +165,46 @@
     // Cargar jugadores del equipo seleccionado
 
 const listaJugadores = document.getElementById("listaJugadores");
+    const textoConvocados = document.getElementById("textoConvocados");
+const selectorTipoPartido = document.getElementById("tipoPartido");
+
+function actualizarTextoConvocados() {
+
+    if (selectorTipoPartido.value === "amistoso") {
+
+        const equipoId = selectorEquipo.value;
+
+        const equipoSeleccionado = equipos.find(
+            equipo => equipo.id === equipoId
+        );
+
+        if (equipoSeleccionado) {
+            textoConvocados.textContent =
+                "Jugadores convocados (" +
+                equipoSeleccionado.totalJugadores +
+                ")";
+        }
+
+    } else {
+
+        textoConvocados.textContent =
+            "Jugadores convocados (" +
+            configuracion.convocadosOficial +
+            ")";
+    }
+}
+
+selectorTipoPartido.addEventListener(
+    "change",
+    actualizarTextoConvocados
+);
+
+selectorEquipo.addEventListener(
+    "change",
+    actualizarTextoConvocados
+);
+
+actualizarTextoConvocados();
 
 function cargarJugadores() {
 
