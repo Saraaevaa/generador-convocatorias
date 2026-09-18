@@ -172,9 +172,12 @@
         </select>
 
         <label for="jornada">Jornada</label>
-        <select id="jornada">
-            <option value="">Selecciona jornada</option>
-        </select>
+        <input
+            type="number"
+            id="jornada"
+            min="1"
+            placeholder="Introduce la jornada"
+        >
 
         <label for="fecha">Fecha</label>
         <input type="date" id="fecha">
@@ -185,10 +188,18 @@
         </select>
 
         <label for="campo">Campo</label>
-        <input type="text" id="campo" placeholder="Ej.: Campo de fútbol">
+        <input
+            type="text"
+            id="campo"
+            placeholder="Ej.: Campo de fútbol"
+        >
 
         <label for="lugar">Lugar</label>
-        <input type="text" id="lugar" placeholder="Ej.: Torrelodones">
+        <input
+            type="text"
+            id="lugar"
+            placeholder="Ej.: Torrelodones"
+        >
 
         <label for="localVisitante">Situación</label>
         <select id="localVisitante">
@@ -197,6 +208,7 @@
         </select>
 
     </div>
+
 
     <div class="bloque">
 
@@ -210,6 +222,7 @@
 
     </div>
 
+
     <div class="bloque">
 
         <h2>Equipación</h2>
@@ -217,27 +230,44 @@
         <div class="equipacion-grid">
 
             <div class="equipacion-item">
+
                 <label for="camiseta">Camiseta</label>
+
                 <select id="camiseta"></select>
+
             </div>
 
+
             <div class="equipacion-item">
+
                 <label for="pantalon">Pantalón</label>
+
                 <select id="pantalon"></select>
+
             </div>
 
+
             <div class="equipacion-item">
+
                 <label for="medias">Medias</label>
+
                 <select id="medias"></select>
+
             </div>
 
         </div>
 
     </div>
 
+
     <div class="bloque">
-        <button id="generar">Generar convocatoria</button>
+
+        <button id="generar">
+            Generar convocatoria
+        </button>
+
     </div>
+
 
     <div id="resultado" class="bloque">
 
@@ -247,24 +277,35 @@
 
             <div class="equipos-partido">
 
-                <div id="equipoIzquierda" class="equipo-partido"></div>
+                <div
+                    id="equipoIzquierda"
+                    class="equipo-partido">
+                </div>
 
                 <div>
                     <strong>VS</strong>
                 </div>
 
-                <div id="equipoDerecha" class="equipo-partido"></div>
+                <div
+                    id="equipoDerecha"
+                    class="equipo-partido">
+                </div>
 
             </div>
+
 
             <div class="datos-partido">
 
                 <div id="infoJornada"></div>
+
                 <div id="infoFecha"></div>
+
                 <div id="infoCampo"></div>
+
                 <div id="infoEquipacion"></div>
 
             </div>
+
 
             <div class="lista-final">
 
@@ -274,49 +315,78 @@
 
             </div>
 
+
             <div class="tecnico-final">
 
                 <h3>Entrenador</h3>
+
                 <div id="entrenadorFinal"></div>
 
+
                 <h3>Cuerpo técnico</h3>
+
                 <ul id="cuerpoTecnicoFinal"></ul>
+
             </div>
 
         </div>
 
     </div>
 
+
     <script src="datos.js"></script>
+
 
     <script>
 
-        const equipoSelect = document.getElementById("equipo");
-        const tipoPartido = document.getElementById("tipoPartido");
-        const jornadaSelect = document.getElementById("jornada");
-        const rivalSelect = document.getElementById("rival");
-        const fechaInput = document.getElementById("fecha");
-        const localVisitante = document.getElementById("localVisitante");
+        const equipoSelect =
+            document.getElementById("equipo");
 
-        const listaJugadores = document.getElementById("listaJugadores");
-        const contador = document.getElementById("contador");
+        const tipoPartido =
+            document.getElementById("tipoPartido");
 
-        const camisetaSelect = document.getElementById("camiseta");
-        const pantalonSelect = document.getElementById("pantalon");
-        const mediasSelect = document.getElementById("medias");
+        const jornadaInput =
+            document.getElementById("jornada");
+
+        const rivalSelect =
+            document.getElementById("rival");
+
+        const fechaInput =
+            document.getElementById("fecha");
+
+        const localVisitante =
+            document.getElementById("localVisitante");
+
+        const listaJugadores =
+            document.getElementById("listaJugadores");
+
+        const contador =
+            document.getElementById("contador");
+
+        const camisetaSelect =
+            document.getElementById("camiseta");
+
+        const pantalonSelect =
+            document.getElementById("pantalon");
+
+        const mediasSelect =
+            document.getElementById("medias");
+
 
         let equipoActual = null;
 
 
         // =========================
-        // CARGAR EQUIPOS
+        // EQUIPOS
         // =========================
 
         equipos.forEach(equipo => {
 
-            const option = document.createElement("option");
+            const option =
+                document.createElement("option");
 
             option.value = equipo.id;
+
             option.textContent = equipo.nombre;
 
             equipoSelect.appendChild(option);
@@ -325,60 +395,59 @@
 
 
         // =========================
-        // JORNADAS
-        // =========================
-
-        for (let i = 1; i <= 30; i++) {
-
-            const option = document.createElement("option");
-
-            option.value = i;
-            option.textContent = "Jornada " + i;
-
-            jornadaSelect.appendChild(option);
-
-        }
-
-
-        // =========================
         // CAMBIO DE EQUIPO
         // =========================
 
-        equipoSelect.addEventListener("change", () => {
+        equipoSelect.addEventListener(
+            "change",
+            () => {
 
-            equipoActual = equipos.find(
-                equipo => equipo.id === equipoSelect.value
-            );
+                equipoActual =
+                    equipos.find(
+                        equipo =>
+                            equipo.id ===
+                            equipoSelect.value
+                    );
 
-            cargarRivales();
-            cargarJugadores();
-            cargarEquipacion();
+                cargarRivales();
 
-        });
+                cargarJugadores();
 
-
-        // =========================
-        // CAMBIO TIPO PARTIDO
-        // =========================
-
-        tipoPartido.addEventListener("change", () => {
-
-            if (tipoPartido.value === "amistoso") {
-
-                jornadaSelect.disabled = true;
-                jornadaSelect.value = "";
-
-            } else {
-
-                jornadaSelect.disabled = false;
+                cargarEquipacion();
 
             }
-
-        });
+        );
 
 
         // =========================
-        // CARGAR RIVALES
+        // TIPO DE PARTIDO
+        // =========================
+
+        tipoPartido.addEventListener(
+            "change",
+            () => {
+
+                if (
+                    tipoPartido.value ===
+                    "amistoso"
+                ) {
+
+                    jornadaInput.disabled = true;
+
+                    jornadaInput.value = "";
+
+                } else {
+
+                    jornadaInput.disabled = false;
+
+                }
+
+            }
+        );
+
+
+        // =========================
+        // RIVALES
         // =========================
 
         function cargarRivales() {
@@ -388,16 +457,25 @@
 
             if (!equipoActual) return;
 
-            const rivalesEquipo = rivales.filter(rival =>
-                rival.equipos.includes(equipoActual.id)
-            );
+
+            const rivalesEquipo =
+                rivales.filter(
+                    rival =>
+                        rival.equipos.includes(
+                            equipoActual.id
+                        )
+                );
+
 
             rivalesEquipo.forEach(rival => {
 
-                const option = document.createElement("option");
+                const option =
+                    document.createElement("option");
 
                 option.value = rival.id;
-                option.textContent = rival.nombre;
+
+                option.textContent =
+                    rival.nombre;
 
                 rivalSelect.appendChild(option);
 
@@ -407,47 +485,73 @@
 
 
         // =========================
-        // CARGAR JUGADORES
+        // JUGADORES
         // =========================
 
         function cargarJugadores() {
 
             listaJugadores.innerHTML = "";
+
             contador.textContent = "0";
+
 
             if (!equipoActual) return;
 
-            equipoActual.jugadores.forEach((jugador, indice) => {
 
-                const div = document.createElement("div");
+            equipoActual.jugadores.forEach(
+                (jugador, indice) => {
 
-                div.className = "jugador";
+                    const div =
+                        document.createElement("div");
 
-                const checkbox = document.createElement("input");
+                    div.className = "jugador";
 
-                checkbox.type = "checkbox";
-                checkbox.value = indice;
 
-                checkbox.addEventListener("change", actualizarContador);
+                    const checkbox =
+                        document.createElement("input");
 
-                const texto = document.createElement("span");
+                    checkbox.type = "checkbox";
 
-                const posiciones = jugador.posiciones
-                    .filter(pos => pos)
-                    .join(" / ");
+                    checkbox.value = indice;
 
-                texto.textContent =
-                    jugador.dorsal +
-                    " - " +
-                    jugador.nombre +
-                    (posiciones ? " (" + posiciones + ")" : "");
 
-                div.appendChild(checkbox);
-                div.appendChild(texto);
+                    checkbox.addEventListener(
+                        "change",
+                        actualizarContador
+                    );
 
-                listaJugadores.appendChild(div);
 
-            });
+                    const texto =
+                        document.createElement("span");
+
+
+                    const posiciones =
+                        jugador.posiciones
+                            .filter(pos => pos)
+                            .join(" / ");
+
+
+                    texto.textContent =
+                        jugador.dorsal +
+                        " - " +
+                        jugador.nombre +
+                        (
+                            posiciones
+                                ? " (" +
+                                  posiciones +
+                                  ")"
+                                : ""
+                        );
+
+
+                    div.appendChild(checkbox);
+
+                    div.appendChild(texto);
+
+                    listaJugadores.appendChild(div);
+
+                }
+            );
 
         }
 
@@ -463,102 +567,162 @@
                     'input[type="checkbox"]:checked'
                 );
 
-            contador.textContent = seleccionados.length;
+
+            contador.textContent =
+                seleccionados.length;
 
         }
 
 
         // =========================
-        // CARGAR EQUIPACIÓN
+        // EQUIPACIÓN
         // =========================
 
         function cargarEquipacion() {
 
             camisetaSelect.innerHTML = "";
+
             pantalonSelect.innerHTML = "";
+
             mediasSelect.innerHTML = "";
+
 
             if (!equipoActual) return;
 
-            const datosEquipacion = equipaciones.find(
-                equipacion =>
-                    equipacion.equipoId === equipoActual.id
-            );
+
+            const datosEquipacion =
+                equipaciones.find(
+                    equipacion =>
+                        equipacion.equipoId ===
+                        equipoActual.id
+                );
+
 
             if (!datosEquipacion) return;
 
-            datosEquipacion.camiseta.forEach(item => {
 
-                const option = document.createElement("option");
+            datosEquipacion.camiseta.forEach(
+                item => {
 
-                option.value = item.nombre;
-                option.textContent =
-                    item.nombre + " - " + item.color;
+                    const option =
+                        document.createElement("option");
 
-                camisetaSelect.appendChild(option);
+                    option.value =
+                        item.nombre;
 
-            });
+                    option.textContent =
+                        item.nombre +
+                        " - " +
+                        item.color;
 
-            datosEquipacion.pantalon.forEach(item => {
+                    camisetaSelect.appendChild(option);
 
-                const option = document.createElement("option");
+                }
+            );
 
-                option.value = item.nombre;
-                option.textContent =
-                    item.nombre + " - " + item.color;
 
-                pantalonSelect.appendChild(option);
+            datosEquipacion.pantalon.forEach(
+                item => {
 
-            });
+                    const option =
+                        document.createElement("option");
 
-            datosEquipacion.medias.forEach(item => {
+                    option.value =
+                        item.nombre;
 
-                const option = document.createElement("option");
+                    option.textContent =
+                        item.nombre +
+                        " - " +
+                        item.color;
 
-                option.value = item.nombre;
-                option.textContent =
-                    item.nombre + " - " + item.color;
+                    pantalonSelect.appendChild(option);
 
-                mediasSelect.appendChild(option);
+                }
+            );
 
-            });
+
+            datosEquipacion.medias.forEach(
+                item => {
+
+                    const option =
+                        document.createElement("option");
+
+                    option.value =
+                        item.nombre;
+
+                    option.textContent =
+                        item.nombre +
+                        " - " +
+                        item.color;
+
+                    mediasSelect.appendChild(option);
+
+                }
+            );
 
         }
 
 
         // =========================
-        // GENERAR CONVOCATORIA
+        // GENERAR
         // =========================
 
-        document.getElementById("generar")
-            .addEventListener("click", generarConvocatoria);
+        document
+            .getElementById("generar")
+            .addEventListener(
+                "click",
+                generarConvocatoria
+            );
 
 
         function generarConvocatoria() {
 
             if (!equipoActual) {
 
-                alert("Selecciona un equipo.");
+                alert(
+                    "Selecciona un equipo."
+                );
 
                 return;
 
             }
 
 
-            const rivalId = rivalSelect.value;
+            const rivalId =
+                rivalSelect.value;
+
 
             if (!rivalId) {
 
-                alert("Selecciona un rival.");
+                alert(
+                    "Selecciona un rival."
+                );
 
                 return;
 
             }
 
 
-            const rivalActual = rivales.find(
-                rival => rival.id === rivalId
-            );
+            if (
+                tipoPartido.value ===
+                "oficial" &&
+                !jornadaInput.value
+            ) {
+
+                alert(
+                    "Introduce la jornada."
+                );
+
+                return;
+
+            }
+
+
+            const rivalActual =
+                rivales.find(
+                    rival =>
+                        rival.id === rivalId
+                );
 
 
             const seleccionados =
@@ -569,15 +733,13 @@
                 );
 
 
-            const limite =
-                tipoPartido.value === "oficial"
-                    ? configuracion.convocadosOficial
-                    : equipoActual.totalJugadores;
+            if (
+                seleccionados.length === 0
+            ) {
 
-
-            if (seleccionados.length === 0) {
-
-                alert("Selecciona los jugadores convocados.");
+                alert(
+                    "Selecciona los jugadores convocados."
+                );
 
                 return;
 
@@ -585,8 +747,10 @@
 
 
             if (
-                tipoPartido.value === "oficial" &&
-                seleccionados.length !== configuracion.convocadosOficial
+                tipoPartido.value ===
+                "oficial" &&
+                seleccionados.length !==
+                configuracion.convocadosOficial
             ) {
 
                 alert(
@@ -601,8 +765,10 @@
 
 
             if (
-                tipoPartido.value === "amistoso" &&
-                seleccionados.length > limite
+                tipoPartido.value ===
+                "amistoso" &&
+                seleccionados.length >
+                equipoActual.totalJugadores
             ) {
 
                 alert(
@@ -615,107 +781,156 @@
 
 
             // =========================
-            // ORDEN LOCAL / VISITANTE
+            // EQUIPOS
             // =========================
 
             const lasRozas = {
 
                 nombre: "Las Rozas",
 
-                escudo: "escudos/Las_Rozas.png"
+                escudo:
+                    "escudos/Las_Rozas.png"
 
             };
 
 
             const rival = {
 
-                nombre: rivalActual.nombre,
+                nombre:
+                    rivalActual.nombre,
 
-                escudo: rivalActual.escudo
+                escudo:
+                    rivalActual.escudo
 
             };
 
 
             let izquierda;
+
             let derecha;
 
 
-            if (localVisitante.value === "local") {
+            if (
+                localVisitante.value ===
+                "local"
+            ) {
 
                 izquierda = lasRozas;
+
                 derecha = rival;
 
             } else {
 
                 izquierda = rival;
+
                 derecha = lasRozas;
 
             }
 
 
             mostrarEquipo(
-                document.getElementById("equipoIzquierda"),
+                document.getElementById(
+                    "equipoIzquierda"
+                ),
                 izquierda
             );
 
 
             mostrarEquipo(
-                document.getElementById("equipoDerecha"),
+                document.getElementById(
+                    "equipoDerecha"
+                ),
                 derecha
             );
 
 
             // =========================
-            // INFORMACIÓN DEL PARTIDO
+            // JORNADA
             // =========================
 
-            const infoJornada =
-                document.getElementById("infoJornada");
+            if (
+                tipoPartido.value ===
+                "amistoso"
+            ) {
 
-            if (tipoPartido.value === "amistoso") {
-
-                infoJornada.textContent = "Amistoso";
+                document.getElementById(
+                    "infoJornada"
+                ).textContent =
+                    "Amistoso";
 
             } else {
 
-                infoJornada.textContent =
-                    "Jornada " + jornadaSelect.value;
+                document.getElementById(
+                    "infoJornada"
+                ).textContent =
+                    "Jornada " +
+                    jornadaInput.value;
 
             }
 
 
-            const fecha = fechaInput.value;
+            // =========================
+            // FECHA
+            // =========================
+
+            const fecha =
+                fechaInput.value;
+
 
             if (fecha) {
 
-                const partes = fecha.split("-");
+                const partes =
+                    fecha.split("-");
+
 
                 const fechaFormateada =
-                    partes[2] + "/" +
-                    partes[1] + "/" +
+                    partes[2] +
+                    "/" +
+                    partes[1] +
+                    "/" +
                     partes[0];
 
-                document.getElementById("infoFecha")
-                    .textContent =
-                    "Fecha: " + fechaFormateada;
+
+                document.getElementById(
+                    "infoFecha"
+                ).textContent =
+                    "Fecha: " +
+                    fechaFormateada;
 
             } else {
 
-                document.getElementById("infoFecha")
-                    .textContent = "";
+                document.getElementById(
+                    "infoFecha"
+                ).textContent = "";
 
             }
 
 
-            const campo = document.getElementById("campo").value;
-            const lugar = document.getElementById("lugar").value;
+            // =========================
+            // CAMPO / LUGAR
+            // =========================
+
+            const campo =
+                document.getElementById(
+                    "campo"
+                ).value;
+
+            const lugar =
+                document.getElementById(
+                    "lugar"
+                ).value;
 
 
             let ubicacion = "";
 
+
             if (campo && lugar) {
 
-                ubicacion = campo + " (" + lugar + ")";
+                ubicacion =
+                    campo +
+                    " (" +
+                    lugar +
+                    ")";
 
             } else if (campo) {
 
@@ -728,17 +943,21 @@
             }
 
 
-            document.getElementById("infoCampo")
-                .textContent =
-                ubicacion ? "Campo: " + ubicacion : "";
+            document.getElementById(
+                "infoCampo"
+            ).textContent =
+                ubicacion
+                    ? "Campo: " + ubicacion
+                    : "";
 
 
             // =========================
             // EQUIPACIÓN
             // =========================
 
-            document.getElementById("infoEquipacion")
-                .textContent =
+            document.getElementById(
+                "infoEquipacion"
+            ).textContent =
                 "Equipación: " +
                 camisetaSelect.value +
                 " / " +
@@ -748,43 +967,52 @@
 
 
             // =========================
-            // LISTA DE JUGADORES
+            // JUGADORES
             // =========================
 
             const listaFinal =
-                document.getElementById("listaFinalJugadores");
+                document.getElementById(
+                    "listaFinalJugadores"
+                );
+
 
             listaFinal.innerHTML = "";
 
 
-            seleccionados.forEach(checkbox => {
+            seleccionados.forEach(
+                checkbox => {
 
-                const jugador =
-                    equipoActual.jugadores[
-                        checkbox.value
-                    ];
-
-
-                const li = document.createElement("li");
-
-                li.textContent =
-                    jugador.dorsal +
-                    " - " +
-                    jugador.nombre;
+                    const jugador =
+                        equipoActual.jugadores[
+                            checkbox.value
+                        ];
 
 
-                listaFinal.appendChild(li);
+                    const li =
+                        document.createElement("li");
 
-            });
+
+                    li.textContent =
+                        jugador.dorsal +
+                        " - " +
+                        jugador.nombre;
+
+
+                    listaFinal.appendChild(li);
+
+                }
+            );
 
 
             // =========================
             // ENTRENADOR
             // =========================
 
-            document.getElementById("entrenadorFinal")
-                .textContent =
-                equipoActual.entrenador || "";
+            document.getElementById(
+                "entrenadorFinal"
+            ).textContent =
+                equipoActual.entrenador ||
+                "";
 
 
             // =========================
@@ -792,7 +1020,10 @@
             // =========================
 
             const cuerpoTecnicoFinal =
-                document.getElementById("cuerpoTecnicoFinal");
+                document.getElementById(
+                    "cuerpoTecnicoFinal"
+                );
+
 
             cuerpoTecnicoFinal.innerHTML = "";
 
@@ -802,31 +1033,38 @@
                 equipoActual.cuerpoTecnico.length
             ) {
 
-                equipoActual.cuerpoTecnico.forEach(persona => {
+                equipoActual.cuerpoTecnico.forEach(
+                    persona => {
 
-                    const li = document.createElement("li");
+                        const li =
+                            document.createElement("li");
 
-                    li.textContent = persona;
+                        li.textContent =
+                            persona;
 
-                    cuerpoTecnicoFinal.appendChild(li);
+                        cuerpoTecnicoFinal
+                            .appendChild(li);
 
-                });
+                    }
+                );
 
             }
 
 
             // =========================
-            // MOSTRAR RESULTADO
+            // MOSTRAR
             // =========================
 
-            document.getElementById("resultado")
-                .style.display = "block";
+            document.getElementById(
+                "resultado"
+            ).style.display = "block";
 
 
-            document.getElementById("resultado")
-                .scrollIntoView({
-                    behavior: "smooth"
-                });
+            document.getElementById(
+                "resultado"
+            ).scrollIntoView({
+                behavior: "smooth"
+            });
 
         }
 
@@ -835,26 +1073,46 @@
         // MOSTRAR EQUIPO
         // =========================
 
-        function mostrarEquipo(contenedor, equipo) {
+        function mostrarEquipo(
+            contenedor,
+            equipo
+        ) {
 
             contenedor.innerHTML = "";
 
-            const imagen = document.createElement("img");
 
-            imagen.src = equipo.escudo;
-
-            imagen.alt = equipo.nombre;
+            const imagen =
+                document.createElement("img");
 
 
-            const nombre = document.createElement("div");
-
-            nombre.className = "equipo-nombre";
-
-            nombre.textContent = equipo.nombre;
+            imagen.src =
+                equipo.escudo;
 
 
-            contenedor.appendChild(imagen);
-            contenedor.appendChild(nombre);
+            imagen.alt =
+                equipo.nombre;
+
+
+            const nombre =
+                document.createElement("div");
+
+
+            nombre.className =
+                "equipo-nombre";
+
+
+            nombre.textContent =
+                equipo.nombre;
+
+
+            contenedor.appendChild(
+                imagen
+            );
+
+
+            contenedor.appendChild(
+                nombre
+            );
 
         }
 
