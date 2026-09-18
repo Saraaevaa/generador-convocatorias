@@ -3,96 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Generador de Convocatorias</title>
 
     <style>
         body {
             font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .contenedor {
             max-width: 900px;
-            margin: 40px auto;
-            padding: 20px;
-            background: #f5f5f5;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
         }
 
         h1 {
             text-align: center;
         }
 
-        .bloque {
-            background: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 10px;
+        .campo {
+            margin-bottom: 15px;
         }
 
         label {
             display: block;
             font-weight: bold;
-            margin-top: 15px;
             margin-bottom: 5px;
         }
 
-        select,
-        input {
+        input,
+        select {
             width: 100%;
             padding: 10px;
-            font-size: 16px;
             box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
         }
 
-        .jugador {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #222;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
         }
 
-        .jugador input {
-            width: auto;
-        }
-
-        .posiciones {
-            color: #666;
-            font-size: 14px;
-        }
-
-        #avisoJugadores {
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        #escudoRival {
-            display: none;
-            width: 100px;
-            height: 100px;
-            object-fit: contain;
-            margin: 15px auto;
+        button:hover {
+            background: #444;
         }
 
         .enfrentamiento {
             display: flex;
             align-items: center;
-            justify-content: space-around;
-            gap: 30px;
-            margin-top: 20px;
-            text-align: center;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
         }
 
         .equipoPartido {
-            flex: 1;
+            width: 180px;
+            text-align: center;
         }
 
         .escudoPartido {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             object-fit: contain;
-            margin-bottom: 10px;
         }
 
         .nombreEquipoPartido {
-            font-size: 20px;
+            margin-top: 10px;
             font-weight: bold;
+            font-size: 18px;
         }
 
         .vs {
@@ -100,163 +91,139 @@
             font-weight: bold;
         }
 
-        button {
-            width: 100%;
-            padding: 14px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            border-radius: 8px;
-            background: #222;
-            color: white;
+        .jugadores {
+            margin-top: 30px;
+        }
+
+        .jugador {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .jugador strong {
+            margin-right: 10px;
         }
 
         #resultado {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
+            margin-top: 25px;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            display: none;
         }
     </style>
 </head>
 
 <body>
 
+<div class="contenedor">
+
     <h1>Generador de Convocatorias</h1>
 
-    <div class="bloque">
-
+    <div class="campo">
         <label for="equipo">Equipo</label>
-
         <select id="equipo">
             <option value="">Selecciona un equipo</option>
         </select>
+    </div>
 
-
+    <div class="campo">
         <label for="tipoPartido">Tipo de partido</label>
-
         <select id="tipoPartido">
             <option value="oficial">Partido oficial</option>
             <option value="amistoso">Amistoso</option>
         </select>
+    </div>
 
+    <div class="campo">
+        <label for="jornada">Jornada</label>
+        <input type="number" id="jornada" min="1">
+    </div>
 
-        <div id="campoJornada">
-
-            <label for="jornada">Jornada</label>
-
-            <input
-                type="number"
-                id="jornada"
-                min="1"
-            >
-
-        </div>
-
-
+    <div class="campo">
         <label for="fecha">Fecha</label>
+        <input type="date" id="fecha">
+    </div>
 
-        <input
-            type="date"
-            id="fecha"
-        >
-
-
+    <div class="campo">
         <label for="rival">Rival</label>
-
         <select id="rival">
             <option value="">Selecciona un rival</option>
         </select>
+    </div>
 
+    <div class="campo">
+        <label>Escudo del rival</label>
 
-        <img
-            id="escudoRival"
-            alt="Escudo del rival"
-        >
+        <div style="text-align:center;">
+            <img
+                id="escudoRival"
+                src=""
+                alt="Escudo rival"
+                style="width:100px;height:100px;object-fit:contain;"
+            >
+        </div>
+    </div>
 
-
+    <div class="campo">
         <label for="campo">Campo</label>
+        <input type="text" id="campo">
+    </div>
 
-        <input
-            type="text"
-            id="campo"
-            placeholder="Ej.: Julián Ariza"
-        >
-
-
+    <div class="campo">
         <label for="lugar">Lugar</label>
+        <input type="text" id="lugar">
+    </div>
 
-        <input
-            type="text"
-            id="lugar"
-            placeholder="Ej.: Torrelodones"
-        >
-
-
-        <label for="localVisitante">Condición</label>
-
+    <div class="campo">
+        <label for="localVisitante">Local / Visitante</label>
         <select id="localVisitante">
-
-            <option value="local">
-                Local
-            </option>
-
-            <option value="visitante">
-                Visitante
-            </option>
-
+            <option value="local">Local</option>
+            <option value="visitante">Visitante</option>
         </select>
-
     </div>
 
 
-    <div class="bloque">
+    <div class="enfrentamiento" id="enfrentamiento">
 
-        <h2>Enfrentamiento</h2>
+        <div class="equipoPartido" id="bloqueLasRozas">
 
-        <div class="enfrentamiento">
+            <img
+                id="escudoLasRozas"
+                class="escudoPartido"
+                src="escudos/Las_Rozas.png"
+                alt="Las Rozas"
+            >
 
-            <div class="equipoPartido">
-
-                <img
-                    id="escudoLasRozas"
-                    class="escudoPartido"
-                    src="escudos/Las_Rozas.png"
-                    alt="Escudo Las Rozas"
-                >
-
-                <div
-                    id="nombreLasRozas"
-                    class="nombreEquipoPartido"
-                >
-                    Las Rozas
-                </div>
-
+            <div
+                id="nombreLasRozas"
+                class="nombreEquipoPartido"
+            >
+                Las Rozas
             </div>
 
-
-            <div class="vs">
-                VS
-            </div>
+        </div>
 
 
-            <div class="equipoPartido">
+        <div class="vs">
+            VS
+        </div>
 
-                <img
-                    id="escudoRivalPartido"
-                    class="escudoPartido"
-                    src=""
-                    alt="Escudo rival"
-                >
 
-                <div
-                    id="nombreRivalPartido"
-                    class="nombreEquipoPartido"
-                >
-                    Rival
-                </div>
+        <div class="equipoPartido" id="bloqueRival">
 
+            <img
+                id="escudoRivalPartido"
+                class="escudoPartido"
+                src=""
+                alt="Rival"
+            >
+
+            <div
+                id="nombreRivalPartido"
+                class="nombreEquipoPartido"
+            >
+                Rival
             </div>
 
         </div>
@@ -264,666 +231,379 @@
     </div>
 
 
-    <div class="bloque">
+    <div class="jugadores">
 
-        <h2 id="textoConvocados">
-            Jugadores convocados (18)
-        </h2>
+        <h2>Jugadores</h2>
 
-        <div id="listaJugadores"></div>
-
-        <div id="avisoJugadores"></div>
+        <div id="listaJugadores">
+            Selecciona un equipo.
+        </div>
 
     </div>
 
 
-    <div class="bloque">
-
-        <button onclick="generarConvocatoria()">
-            GENERAR CONVOCATORIA
-        </button>
-
-    </div>
+    <button id="generar">
+        Generar convocatoria
+    </button>
 
 
     <div id="resultado"></div>
 
-
-    <script src="datos.js"></script>
-
-
-    <script>
-
-        const selectorEquipo =
-            document.getElementById("equipo");
-
-        const selectorTipoPartido =
-            document.getElementById("tipoPartido");
-
-        const selectorRival =
-            document.getElementById("rival");
-
-        const selectorLocalVisitante =
-            document.getElementById("localVisitante");
+</div>
 
 
-        const listaJugadores =
-            document.getElementById("listaJugadores");
+<script src="datos.js"></script>
 
-        const textoConvocados =
-            document.getElementById("textoConvocados");
+<script>
 
-        const avisoJugadores =
-            document.getElementById("avisoJugadores");
+    const selectorEquipo =
+        document.getElementById("equipo");
 
-        const campoJornada =
-            document.getElementById("campoJornada");
+    const selectorTipo =
+        document.getElementById("tipoPartido");
+
+    const selectorJornada =
+        document.getElementById("jornada");
+
+    const selectorRival =
+        document.getElementById("rival");
+
+    const selectorLocalVisitante =
+        document.getElementById("localVisitante");
+
+    const listaJugadores =
+        document.getElementById("listaJugadores");
+
+    const escudoRival =
+        document.getElementById("escudoRival");
+
+    const escudoRivalPartido =
+        document.getElementById("escudoRivalPartido");
+
+    const nombreRivalPartido =
+        document.getElementById("nombreRivalPartido");
+
+    const bloqueLasRozas =
+        document.getElementById("bloqueLasRozas");
+
+    const bloqueRival =
+        document.getElementById("bloqueRival");
 
 
-        const escudoRival =
-            document.getElementById("escudoRival");
+    function obtenerEquipoSeleccionado() {
 
-        const escudoLasRozas =
-            document.getElementById("escudoLasRozas");
+        const idEquipo = selectorEquipo.value;
 
-        const escudoRivalPartido =
-            document.getElementById("escudoRivalPartido");
-
-        const nombreLasRozas =
-            document.getElementById("nombreLasRozas");
-
-        const nombreRivalPartido =
-            document.getElementById("nombreRivalPartido");
+        return equipos.find(
+            equipo => equipo.id === idEquipo
+        );
+    }
 
 
-        function cargarEquipos() {
+    function obtenerRivalSeleccionado() {
 
-            selectorEquipo.innerHTML =
-                '<option value="">Selecciona un equipo</option>';
+        const idRival = selectorRival.value;
 
-            equipos.forEach(equipo => {
+        return rivales.find(
+            rival => rival.id === idRival
+        );
+    }
 
-                const opcion =
-                    document.createElement("option");
 
-                opcion.value =
-                    equipo.id;
+    function cargarEquipos() {
 
-                opcion.textContent =
-                    equipo.nombre;
+        selectorEquipo.innerHTML =
+            '<option value="">Selecciona un equipo</option>';
 
-                selectorEquipo.appendChild(
-                    opcion
-                );
+        equipos.forEach(equipo => {
 
-            });
+            const opcion =
+                document.createElement("option");
 
+            opcion.value = equipo.id;
+
+            opcion.textContent = equipo.nombre;
+
+            selectorEquipo.appendChild(opcion);
+
+        });
+    }
+
+
+    function cargarRivales() {
+
+        const equipo =
+            obtenerEquipoSeleccionado();
+
+        selectorRival.innerHTML =
+            '<option value="">Selecciona un rival</option>';
+
+        escudoRival.src = "";
+        escudoRivalPartido.src = "";
+        nombreRivalPartido.textContent = "Rival";
+
+
+        if (!equipo) {
+            return;
         }
 
 
-        function cargarRivales() {
+        const rivalesEquipo =
+            rivales.filter(rival =>
+                rival.equipos.includes(equipo.id)
+            );
 
-            selectorRival.innerHTML =
-                '<option value="">Selecciona un rival</option>';
 
-            rivales.forEach(rival => {
+        rivalesEquipo.forEach(rival => {
 
-                const opcion =
-                    document.createElement("option");
+            const opcion =
+                document.createElement("option");
 
-                opcion.value =
-                    rival.id;
+            opcion.value = rival.id;
 
-                opcion.textContent =
-                    rival.nombre;
+            opcion.textContent = rival.nombre;
 
-                selectorRival.appendChild(
-                    opcion
-                );
+            selectorRival.appendChild(opcion);
 
-            });
+        });
 
+    }
+
+
+    function cargarJugadores() {
+
+        const equipo =
+            obtenerEquipoSeleccionado();
+
+        listaJugadores.innerHTML = "";
+
+
+        if (!equipo) {
+
+            listaJugadores.textContent =
+                "Selecciona un equipo.";
+
+            return;
         }
 
 
-        function obtenerEquipoSeleccionado() {
+        equipo.jugadores.forEach(jugador => {
 
-            return equipos.find(
-                equipo =>
-                    equipo.id ===
-                    selectorEquipo.value
+            const div =
+                document.createElement("div");
+
+            div.className = "jugador";
+
+
+            const posiciones =
+                jugador.posiciones
+                    .filter(posicion => posicion)
+                    .join(" / ");
+
+
+            div.innerHTML = `
+                <strong>${jugador.dorsal}</strong>
+                ${jugador.nombre}
+                <span style="color:#777;">
+                    (${posiciones})
+                </span>
+            `;
+
+
+            listaJugadores.appendChild(div);
+
+        });
+
+    }
+
+
+    function actualizarRival() {
+
+        const rival =
+            obtenerRivalSeleccionado();
+
+
+        if (!rival) {
+
+            escudoRival.src = "";
+
+            escudoRivalPartido.src = "";
+
+            nombreRivalPartido.textContent =
+                "Rival";
+
+            return;
+        }
+
+
+        escudoRival.src =
+            rival.escudo;
+
+        escudoRivalPartido.src =
+            rival.escudo;
+
+        nombreRivalPartido.textContent =
+            rival.nombre;
+
+    }
+
+
+    function actualizarLocalVisitante() {
+
+        if (selectorLocalVisitante.value === "local") {
+
+            bloqueLasRozas.before(
+                document.querySelector(".vs")
+            );
+
+            bloqueRival.after(
+                document.querySelector(".vs")
+            );
+
+        } else {
+
+            bloqueRival.before(
+                document.querySelector(".vs")
+            );
+
+            bloqueLasRozas.after(
+                document.querySelector(".vs")
             );
 
         }
 
+    }
 
-        function obtenerRivalSeleccionado() {
 
-            return rivales.find(
-                rival =>
-                    rival.id ===
-                    selectorRival.value
-            );
+    selectorEquipo.addEventListener(
+        "change",
+        function() {
 
-        }
-
-
-        function actualizarEscudoRival() {
-
-            const rival =
-                obtenerRivalSeleccionado();
-
-
-            if (
-                rival &&
-                rival.escudo
-            ) {
-
-                escudoRival.src =
-                    rival.escudo;
-
-                escudoRival.style.display =
-                    "block";
-
-                escudoRivalPartido.src =
-                    rival.escudo;
-
-            } else {
-
-                escudoRival.src = "";
-
-                escudoRival.style.display =
-                    "none";
-
-                escudoRivalPartido.src =
-                    "";
-
-            }
-
-
-            if (rival) {
-
-                nombreRivalPartido.textContent =
-                    rival.nombre;
-
-            } else {
-
-                nombreRivalPartido.textContent =
-                    "Rival";
-
-            }
-
-
-            actualizarLocalVisitante();
-
-        }
-
-
-        function actualizarLocalVisitante() {
-
-            const condicion =
-                selectorLocalVisitante.value;
-
-
-            const enfrentamiento =
-                document.querySelector(
-                    ".enfrentamiento"
-                );
-
-
-            const ladoLasRozas =
-                escudoLasRozas.parentElement;
-
-            const ladoRival =
-                escudoRivalPartido.parentElement;
-
-
-            if (
-                condicion === "local"
-            ) {
-
-                enfrentamiento.innerHTML =
-                    "";
-
-                enfrentamiento.appendChild(
-                    ladoLasRozas
-                );
-
-
-                const vs =
-                    document.createElement(
-                        "div"
-                    );
-
-                vs.className =
-                    "vs";
-
-                vs.textContent =
-                    "VS";
-
-
-                enfrentamiento.appendChild(
-                    vs
-                );
-
-
-                enfrentamiento.appendChild(
-                    ladoRival
-                );
-
-            } else {
-
-                enfrentamiento.innerHTML =
-                    "";
-
-                enfrentamiento.appendChild(
-                    ladoRival
-                );
-
-
-                const vs =
-                    document.createElement(
-                        "div"
-                    );
-
-                vs.className =
-                    "vs";
-
-                vs.textContent =
-                    "VS";
-
-
-                enfrentamiento.appendChild(
-                    vs
-                );
-
-
-                enfrentamiento.appendChild(
-                    ladoLasRozas
-                );
-
-            }
-
-        }
-
-
-        function cargarJugadores() {
-
-            const equipo =
-                obtenerEquipoSeleccionado();
-
-
-            listaJugadores.innerHTML =
-                "";
-
-            avisoJugadores.textContent =
-                "";
-
-
-            if (!equipo) {
-
-                textoConvocados.textContent =
-                    "Jugadores convocados (18)";
-
-                return;
-
-            }
-
-
-            const tipo =
-                selectorTipoPartido.value;
-
-
-            const limite =
-                tipo === "oficial"
-                    ? configuracion.convocadosOficial
-                    : equipo.totalJugadores;
-
-
-            textoConvocados.textContent =
-                tipo === "oficial"
-                    ? "Jugadores convocados (18)"
-                    : `Jugadores convocados (máximo ${equipo.totalJugadores})`;
-
-
-            equipo.jugadores.forEach(
-                jugador => {
-
-                    const fila =
-                        document.createElement(
-                            "div"
-                        );
-
-                    fila.className =
-                        "jugador";
-
-
-                    const checkbox =
-                        document.createElement(
-                            "input"
-                        );
-
-                    checkbox.type =
-                        "checkbox";
-
-                    checkbox.value =
-                        jugador.dorsal;
-
-                    checkbox.className =
-                        "checkboxJugador";
-
-
-                    checkbox.addEventListener(
-                        "change",
-                        function () {
-
-                            const seleccionados =
-                                document.querySelectorAll(
-                                    ".checkboxJugador:checked"
-                                ).length;
-
-
-                            if (
-                                seleccionados >
-                                limite
-                            ) {
-
-                                this.checked =
-                                    false;
-
-                                avisoJugadores.textContent =
-                                    `No puedes seleccionar más de ${limite} jugadores.`;
-
-                            } else {
-
-                                avisoJugadores.textContent =
-                                    `Seleccionados: ${seleccionados} / ${limite}`;
-
-                            }
-
-                        }
-                    );
-
-
-                    const nombre =
-                        document.createElement(
-                            "span"
-                        );
-
-
-                    nombre.innerHTML =
-                        `<strong>${jugador.dorsal}</strong> - ${jugador.nombre}`;
-
-
-                    const posiciones =
-                        document.createElement(
-                            "span"
-                        );
-
-
-                    const posicionesValidas =
-                        jugador.posiciones.filter(
-                            posicion =>
-                                posicion !== ""
-                        );
-
-
-                    posiciones.className =
-                        "posiciones";
-
-
-                    posiciones.textContent =
-                        posicionesValidas.length > 0
-                            ? `(${posicionesValidas.join(" / ")})`
-                            : "";
-
-
-                    fila.appendChild(
-                        checkbox
-                    );
-
-                    fila.appendChild(
-                        nombre
-                    );
-
-                    fila.appendChild(
-                        posiciones
-                    );
-
-
-                    listaJugadores.appendChild(
-                        fila
-                    );
-
-                }
-            );
-
-        }
-
-
-        function actualizarTipoPartido() {
-
-            if (
-                selectorTipoPartido.value ===
-                "amistoso"
-            ) {
-
-                campoJornada.style.display =
-                    "none";
-
-            } else {
-
-                campoJornada.style.display =
-                    "block";
-
-            }
-
+            cargarRivales();
 
             cargarJugadores();
 
         }
+    );
 
 
-        function generarConvocatoria() {
-
-            const equipo =
-                obtenerEquipoSeleccionado();
-
-            const rival =
-                obtenerRivalSeleccionado();
+    selectorRival.addEventListener(
+        "change",
+        actualizarRival
+    );
 
 
-            if (!equipo) {
-
-                alert(
-                    "Selecciona un equipo."
-                );
-
-                return;
-
-            }
+    selectorLocalVisitante.addEventListener(
+        "change",
+        actualizarLocalVisitante
+    );
 
 
-            if (!rival) {
+    selectorTipo.addEventListener(
+        "change",
+        function() {
 
-                alert(
-                    "Selecciona un rival."
-                );
+            if (selectorTipo.value === "amistoso") {
 
-                return;
+                selectorJornada.value = "";
 
-            }
+                selectorJornada.disabled = true;
 
+            } else {
 
-            const jugadoresSeleccionados =
-                Array.from(
-                    document.querySelectorAll(
-                        ".checkboxJugador:checked"
-                    )
-                );
-
-
-            const tipo =
-                selectorTipoPartido.value;
-
-
-            const limite =
-                tipo === "oficial"
-                    ? configuracion.convocadosOficial
-                    : equipo.totalJugadores;
-
-
-            if (
-                jugadoresSeleccionados.length === 0
-            ) {
-
-                alert(
-                    "Selecciona al menos un jugador."
-                );
-
-                return;
+                selectorJornada.disabled = false;
 
             }
-
-
-            if (
-                jugadoresSeleccionados.length >
-                limite
-            ) {
-
-                alert(
-                    `No puedes seleccionar más de ${limite} jugadores.`
-                );
-
-                return;
-
-            }
-
-
-            const fecha =
-                document.getElementById(
-                    "fecha"
-                ).value;
-
-
-            const jornada =
-                document.getElementById(
-                    "jornada"
-                ).value;
-
-
-            const campo =
-                document.getElementById(
-                    "campo"
-                ).value;
-
-
-            const lugar =
-                document.getElementById(
-                    "lugar"
-                ).value;
-
-
-            const localVisitante =
-                selectorLocalVisitante.value;
-
-
-            const textoJornada =
-                tipo === "amistoso"
-                    ? "Amistoso"
-                    : `Jornada ${jornada}`;
-
-
-            document.getElementById(
-                "resultado"
-            ).innerHTML = `
-
-                <h2>Convocatoria generada</h2>
-
-                <p>
-                    <strong>Equipo:</strong>
-                    ${equipo.nombre}
-                </p>
-
-                <p>
-                    <strong>Partido:</strong>
-                    ${textoJornada}
-                </p>
-
-                <p>
-                    <strong>Fecha:</strong>
-                    ${fecha}
-                </p>
-
-                <p>
-                    <strong>Rival:</strong>
-                    ${rival.nombre}
-                </p>
-
-                <p>
-                    <strong>Condición:</strong>
-                    ${
-                        localVisitante === "local"
-                            ? "Local"
-                            : "Visitante"
-                    }
-                </p>
-
-                <p>
-                    <strong>Campo:</strong>
-                    ${campo}
-                </p>
-
-                <p>
-                    <strong>Lugar:</strong>
-                    ${lugar}
-                </p>
-
-                <p>
-                    <strong>Jugadores seleccionados:</strong>
-                    ${jugadoresSeleccionados.length}
-                </p>
-
-            `;
 
         }
+    );
 
 
-        selectorEquipo.addEventListener(
-            "change",
-            cargarJugadores
+    document
+        .getElementById("generar")
+        .addEventListener(
+            "click",
+            function() {
+
+                const equipo =
+                    obtenerEquipoSeleccionado();
+
+                const rival =
+                    obtenerRivalSeleccionado();
+
+                const tipo =
+                    selectorTipo.value;
+
+
+                if (!equipo) {
+
+                    alert(
+                        "Selecciona un equipo."
+                    );
+
+                    return;
+                }
+
+
+                if (!rival) {
+
+                    alert(
+                        "Selecciona un rival."
+                    );
+
+                    return;
+                }
+
+
+                const limite =
+                    tipo === "amistoso"
+                        ? equipo.totalJugadores
+                        : configuracion.convocadosOficial;
+
+
+                const resultado =
+                    document.getElementById("resultado");
+
+
+                resultado.style.display =
+                    "block";
+
+
+                resultado.innerHTML = `
+
+                    <strong>Convocatoria generada</strong><br><br>
+
+                    Equipo: ${equipo.nombre}<br>
+
+                    Rival: ${rival.nombre}<br>
+
+                    Tipo: ${
+                        tipo === "amistoso"
+                            ? "Amistoso"
+                            : "Partido oficial"
+                    }<br>
+
+                    Jugadores disponibles:
+                    ${equipo.jugadores.length}<br>
+
+                    Límite de convocados:
+                    ${limite}
+
+                `;
+
+            }
         );
 
 
-        selectorTipoPartido.addEventListener(
-            "change",
-            actualizarTipoPartido
-        );
+    cargarEquipos();
 
+    cargarRivales();
 
-        selectorRival.addEventListener(
-            "change",
-            actualizarEscudoRival
-        );
+    cargarJugadores();
 
+    actualizarLocalVisitante();
 
-        selectorLocalVisitante.addEventListener(
-            "change",
-            actualizarLocalVisitante
-        );
-
-
-        cargarEquipos();
-
-        cargarRivales();
-
-        actualizarTipoPartido();
-
-        actualizarEscudoRival();
-
-        actualizarLocalVisitante();
-
-    </script>
+</script>
 
 </body>
 </html>
