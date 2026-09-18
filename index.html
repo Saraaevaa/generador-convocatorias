@@ -97,12 +97,36 @@
         }
 
         .jugador {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             padding: 10px;
             border-bottom: 1px solid #ddd;
         }
 
-        .jugador strong {
+        .jugador input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .jugador-info {
+            flex: 1;
+        }
+
+        .jugador-dorsal {
+            font-weight: bold;
             margin-right: 10px;
+        }
+
+        .jugador-posiciones {
+            color: #777;
+            margin-left: 8px;
+        }
+
+        #contadorConvocados {
+            margin-top: 15px;
+            font-weight: bold;
         }
 
         #resultado {
@@ -178,6 +202,7 @@
 
     <div class="campo">
         <label for="localVisitante">Local / Visitante</label>
+
         <select id="localVisitante">
             <option value="local">Local</option>
             <option value="visitante">Visitante</option>
@@ -240,6 +265,10 @@
             Selecciona un equipo.
         </div>
 
+        <div id="contadorConvocados">
+            Convocados seleccionados: 0
+        </div>
+
     </div>
 
 
@@ -274,6 +303,9 @@
 
     const listaJugadores =
         document.getElementById("listaJugadores");
+
+    const contadorConvocados =
+        document.getElementById("contadorConvocados");
 
     const escudoRival =
         document.getElementById("escudoRival");
@@ -311,6 +343,39 @@
         return rivales.find(
             rival => rival.id === idRival
         );
+    }
+
+
+    function obtenerLimiteConvocados() {
+
+        const equipo =
+            obtenerEquipoSeleccionado();
+
+        if (!equipo) {
+            return 0;
+        }
+
+        if (selectorTipo.value === "amistoso") {
+            return equipo.totalJugadores;
+        }
+
+        return configuracion.convocadosOficial;
+    }
+
+
+    function actualizarContador() {
+
+        const seleccionados =
+            document.querySelectorAll(
+                '#listaJugadores input[type="checkbox"]:checked'
+            ).length;
+
+        const limite =
+            obtenerLimiteConvocados();
+
+        contadorConvocados.textContent =
+            `Convocados seleccionados: ${seleccionados} / ${limite}`;
+
     }
 
 
@@ -387,6 +452,8 @@
             listaJugadores.textContent =
                 "Selecciona un equipo.";
 
+            actualizarContador();
+
             return;
         }
 
@@ -399,24 +466,60 @@
             div.className = "jugador";
 
 
+            const checkbox =
+                document.createElement("input");
+
+            checkbox.type = "checkbox";
+
+            checkbox.value =
+                jugador.dorsal;
+
+            checkbox.dataset.nombre =
+                jugador.nombre;
+
+
+            checkbox.addEventListener(
+                "change",
+                actualizarContador
+            );
+
+
+            const info =
+                document.createElement("div");
+
+            info.className =
+                "jugador-info";
+
+
             const posiciones =
                 jugador.posiciones
                     .filter(posicion => posicion)
                     .join(" / ");
 
 
-            div.innerHTML = `
-                <strong>${jugador.dorsal}</strong>
+            info.innerHTML = `
+                <span class="jugador-dorsal">
+                    ${jugador.dorsal}
+                </span>
+
                 ${jugador.nombre}
-                <span style="color:#777;">
+
+                <span class="jugador-posiciones">
                     (${posiciones})
                 </span>
             `;
 
 
+            div.appendChild(checkbox);
+
+            div.appendChild(info);
+
             listaJugadores.appendChild(div);
 
         });
+
+
+        actualizarContador();
 
     }
 
@@ -453,14 +556,6 @@
 
 
     function actualizarLocalVisitante() {
-
-        /*
-         * LOCAL:
-         * Las Rozas | VS | Rival
-         *
-         * VISITANTE:
-         * Rival | VS | Las Rozas
-         */
 
         if (selectorLocalVisitante.value === "local") {
 
@@ -535,6 +630,8 @@
 
             }
 
+            actualizarContador();
+
         }
     );
 
@@ -575,10 +672,24 @@
                 }
 
 
+                const seleccionados =
+                    document.querySelectorAll(
+                        '#listaJugadores input[type="checkbox"]:checked'
+                    );
+
+
                 const limite =
-                    tipo === "amistoso"
-                        ? equipo.totalJugadores
-                        : configuracion.convocadosOficial;
+                    obtenerLimiteConvocados();
+
+
+                if (seleccionados.length > limite) {
+
+                    alert(
+                        `No puedes seleccionar más de ${limite} jugadores.`
+                    );
+
+                    return;
+                }
 
 
                 const resultado =
@@ -603,8 +714,8 @@
                             : "Partido oficial"
                     }<br>
 
-                    Jugadores disponibles:
-                    ${equipo.jugadores.length}<br>
+                    Jugadores seleccionados:
+                    ${seleccionados.length}<br>
 
                     Límite de convocados:
                     ${limite}
