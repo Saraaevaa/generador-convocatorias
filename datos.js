@@ -52,40 +52,40 @@ const equipaciones = [
 
         camiseta: [
             {
-                nombre: "Camiseta 1",
-                color: "Color 1",
-                imagen: ""
+                nombre: "Azul",
+                color: "Azul",
+                imagen: "escudos/Camiseta_azul.png"
             },
             {
-                nombre: "Camiseta 2",
-                color: "Color 2",
-                imagen: ""
+                nombre: "Rosa",
+                color: "Rosa",
+                imagen: "escudos/Camiseta_rosa.png"
             }
         ],
 
         pantalon: [
             {
-                nombre: "Pantalón 1",
-                color: "Color 1",
-                imagen: ""
+                nombre: "Blanco",
+                color: "Blanco",
+                imagen: "escudos/Pantalón_blanco.png"
             },
             {
-                nombre: "Pantalón 2",
-                color: "Color 2",
-                imagen: ""
+                nombre: "Negro",
+                color: "Negro",
+                imagen: "escudos/Pantalón_negro.png"
             }
         ],
 
         medias: [
             {
-                nombre: "Medias 1",
-                color: "Color 1",
-                imagen: ""
+                nombre: "Azul",
+                color: "Azul",
+                imagen: "escudos/Medias_azul.png"
             },
             {
-                nombre: "Medias 2",
-                color: "Color 2",
-                imagen: ""
+                nombre: "Negro",
+                color: "Negro",
+                imagen: "escudos/Medias_negro.png"
             }
         ]
     }
