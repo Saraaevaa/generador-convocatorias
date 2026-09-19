@@ -6,26 +6,16 @@
     <title>Generador de Convocatorias</title>
 
     <style>
-
         * {
             box-sizing: border-box;
         }
 
         body {
             margin: 0;
+            padding: 30px;
+            background: #eeeeee;
             font-family: Arial, Helvetica, sans-serif;
-            background: #f1f1f1;
             color: #111;
-        }
-
-        .contenedor {
-            width: min(1200px, 95%);
-            margin: 30px auto;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
         }
 
         /* =========================
@@ -33,429 +23,249 @@
         ========================= */
 
         .formulario {
+            max-width: 900px;
+            margin: 0 auto 40px;
             background: white;
-            padding: 25px;
+            padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            margin-bottom: 30px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        }
+
+        .formulario h1 {
+            margin-top: 0;
+        }
+
+        .campo-form {
+            margin-bottom: 18px;
+        }
+
+        .campo-form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .campo-form input,
+        .campo-form select {
+            width: 100%;
+            padding: 11px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
         }
 
         .fila {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
-            margin-bottom: 18px;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
 
-        .campo {
-            display: flex;
-            flex-direction: column;
-            gap: 7px;
-        }
-
-        .campo label {
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 11px 12px;
-            border: 1px solid #ccc;
-            border-radius: 7px;
-            font-size: 15px;
-            background: white;
-        }
-
-        .seccion {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-        }
-
-        .seccion h2 {
-            margin-top: 0;
-            font-size: 20px;
-        }
-
-        .contador {
-            margin-bottom: 12px;
-            font-weight: bold;
-        }
-
-        .jugadores {
+        .jugadores-form {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            max-height: 450px;
-            overflow-y: auto;
-            padding-right: 5px;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 20px;
         }
 
-        .jugador {
+        .jugador-checkbox {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 7px;
-            background: #fafafa;
+            gap: 8px;
         }
 
-        .jugador:hover {
-            background: #f0f0f0;
-        }
-
-        .jugador input {
-            width: auto;
-        }
-
-        .datos-jugador {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .nombre-jugador {
-            font-weight: bold;
-        }
-
-        .posiciones {
-            font-size: 12px;
-            color: #666;
-            margin-top: 3px;
-        }
-
-        .equipaciones {
+        .equipaciones-form {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 15px;
         }
 
         button {
-            margin-top: 25px;
             width: 100%;
-            padding: 14px;
+            padding: 15px;
             border: none;
-            border-radius: 8px;
-            background: #111;
+            border-radius: 7px;
+            background: #01408e;
             color: white;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
         }
 
         button:hover {
-            background: #333;
+            background: #012f69;
         }
 
 
         /* =========================
-           RESULTADO
+           CONVOCATORIA
+           1080 x 1920
         ========================= */
-
-        #resultado {
-            display: none;
-            margin-top: 30px;
-        }
-
-
-        /*
-        ESTE ES EL LIENZO REAL
-        DE LA STORY DE INSTAGRAM
-
-        1080 × 1920
-        */
 
         .convocatoria {
-
             width: 1080px;
             height: 1920px;
-
             max-width: 100%;
-
             margin: 0 auto;
-
             background: white;
-
-            border: 1px solid #ddd;
-
-            box-shadow:
-                0 5px 20px rgba(0,0,0,0.12);
-
-            position: relative;
-
             overflow: hidden;
-
+            position: relative;
             display: flex;
             flex-direction: column;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.18);
         }
 
 
         /* =========================
-           CABECERA
+           PARTE AZUL SUPERIOR
         ========================= */
 
-        .cabecera {
-
-            background: #000;
-
+        .cabecera-azul {
+            background: #01408e;
             color: white;
-
+            padding: 42px 55px 45px;
             text-align: center;
-
-            padding: 45px 30px 35px;
-
         }
 
-        .cabecera-titulo {
-
-            font-size: 64px;
-
-            font-weight: bold;
-
-            letter-spacing: 4px;
-
+        .tipo-partido {
+            display: inline-block;
+            background: white;
+            color: #01408e;
+            font-size: 28px;
+            font-weight: 800;
+            padding: 12px 45px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
         }
 
-        .jornada {
-
-            margin-top: 15px;
-
+        .fecha {
             font-size: 34px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
 
+        .campo {
+            font-size: 25px;
+            font-weight: 400;
+            margin-bottom: 42px;
+        }
+
+        .titulo-convocatoria {
+            font-size: 72px;
+            line-height: 1;
+            font-weight: 900;
+            letter-spacing: 1px;
+            margin-bottom: 13px;
+        }
+
+        .categoria {
+            font-size: 30px;
+            font-weight: 600;
+            margin-bottom: 42px;
         }
 
 
         /* =========================
-           EQUIPOS
+           ESCUDOS
         ========================= */
+
+        .enfrentamiento {
+            position: relative;
+            width: 760px;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 35px 45px 30px;
+
+            background: rgba(255,255,255,0.13);
+            border: 2px solid rgba(255,255,255,0.65);
+            border-radius: 55px;
+        }
 
         .equipos {
-
             display: grid;
-
-            grid-template-columns: 1fr auto 1fr;
-
+            grid-template-columns: 1fr 120px 1fr;
             align-items: center;
-
-            gap: 30px;
-
-            padding: 55px 50px 35px;
-
+            gap: 20px;
         }
 
         .equipo {
-
-            text-align: center;
-
-            font-size: 38px;
-
-            font-weight: bold;
-
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .equipo img {
-
-            width: 170px;
-
-            height: 170px;
-
+            width: 155px;
+            height: 155px;
             object-fit: contain;
+            margin-bottom: 15px;
+        }
 
-            display: block;
-
-            margin: 0 auto 18px;
-
+        .nombre-equipo {
+            font-size: 25px;
+            font-weight: 800;
+            line-height: 1.15;
         }
 
         .vs {
-
-            font-size: 42px;
-
-            font-weight: bold;
-
+            font-size: 45px;
+            font-weight: 900;
         }
 
 
         /* =========================
-           DATOS PARTIDO
+           ZONA BLANCA
         ========================= */
 
-        .datos-partido {
-
-            text-align: center;
-
-            padding: 10px 50px 35px;
-
-            font-size: 27px;
-
-            line-height: 1.6;
-
-        }
-
-
-        /* =========================
-           EQUIPACIÓN
-        ========================= */
-
-        .equipacion-resultado {
-
-            padding: 30px 50px;
-
-            border-top: 1px solid #ddd;
-
-            border-bottom: 1px solid #ddd;
-
-        }
-
-        .equipacion-titulo {
-
-            text-align: center;
-
-            font-weight: bold;
-
-            font-size: 26px;
-
-            margin-bottom: 25px;
-
-            letter-spacing: 1px;
-
-        }
-
-        .equipacion-visual {
-
-            display: grid;
-
-            grid-template-columns: repeat(3, 1fr);
-
-            align-items: center;
-
-            gap: 25px;
-
-        }
-
-        .pieza-equipacion {
-
-            text-align: center;
-
-        }
-
-        .pieza-equipacion img {
-
-            width: 100%;
-
-            height: 190px;
-
-            object-fit: contain;
-
-            display: block;
-
-            margin: 0 auto;
-
-        }
-
-        .pieza-nombre {
-
-            margin-top: 10px;
-
-            font-size: 21px;
-
-            font-weight: bold;
-
-            color: #555;
-
-        }
-
-
-        /* =========================
-           JUGADORES
-        ========================= */
-
-        .jugadores-resultado {
-
-            padding: 35px 50px;
-
+        .zona-blanca {
             flex: 1;
-
+            background: white;
+            display: flex;
+            flex-direction: column;
+            padding: 38px 65px 25px;
+            min-height: 0;
         }
 
-        .jugadores-resultado h3 {
-
+        .titulo-seccion {
             text-align: center;
-
-            margin-top: 0;
-
-            margin-bottom: 25px;
-
-            font-size: 28px;
-
+            font-size: 32px;
+            font-weight: 900;
+            color: #01408e;
+            margin-bottom: 28px;
+            letter-spacing: 1px;
         }
 
         .lista-jugadores {
-
             display: grid;
-
-            grid-template-columns: repeat(2, 1fr);
-
-            gap: 14px 35px;
-
+            grid-template-columns: 1fr 1fr;
+            column-gap: 65px;
+            row-gap: 12px;
         }
 
-        .jugador-resultado {
-
-            display: flex;
-
+        .jugador {
+            display: grid;
+            grid-template-columns: 65px 1fr;
             align-items: center;
-
-            gap: 15px;
-
-            padding: 10px 5px;
-
+            min-height: 68px;
+            border-bottom: 1px solid #dedede;
         }
 
         .dorsal {
-
             width: 52px;
-
             height: 52px;
-
             border-radius: 50%;
-
-            background: #111;
-
+            background: #01408e;
             color: white;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
-            font-weight: bold;
-
-            font-size: 21px;
-
-            flex-shrink: 0;
-
-        }
-
-        .nombre-resultado {
-
-            font-weight: bold;
-
             font-size: 22px;
-
+            font-weight: 900;
         }
 
-        .posiciones-resultado {
-
-            font-size: 15px;
-
-            color: #777;
-
-            margin-top: 3px;
-
+        .nombre-jugador {
+            font-size: 24px;
+            font-weight: 700;
         }
 
 
@@ -463,55 +273,119 @@
            CUERPO TÉCNICO
         ========================= */
 
-        .cuerpo-tecnico {
-
-            padding: 30px 50px;
-
-            border-top: 1px solid #ddd;
-
+        .staff {
+            margin-top: auto;
+            padding-top: 30px;
         }
 
-        .cuerpo-tecnico h3 {
-
-            text-align: center;
-
-            margin-top: 0;
-
+        .staff-titulo {
+            color: #01408e;
             font-size: 25px;
-
+            font-weight: 900;
+            margin-bottom: 12px;
         }
 
-        .tecnico {
+        .staff-nombre {
+            font-size: 22px;
+            margin-bottom: 7px;
+        }
 
-            text-align: center;
-
-            margin: 7px 0;
-
-            font-size: 20px;
-
+        .staff-nombre strong {
+            font-weight: 800;
         }
 
 
         /* =========================
-           PIE
+           BANNER INFERIOR
         ========================= */
 
-        .pie {
-
-            background: #000;
-
+        .pie-azul {
+            height: 290px;
+            min-height: 290px;
+            background: #01408e;
             color: white;
 
-            text-align: center;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
 
-            padding: 25px;
+            padding: 25px 55px;
+        }
 
-            font-weight: bold;
 
+        /* EQUIPACIÓN */
+
+        .equipacion-pie {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .equipacion-titulo {
             font-size: 25px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
 
-            letter-spacing: 2px;
+        .kit-visual {
+            position: relative;
+            height: 200px;
+            width: 390px;
+        }
 
+        .pieza-kit {
+            position: absolute;
+            object-fit: contain;
+        }
+
+        .camiseta-kit {
+            width: 150px;
+            height: 150px;
+            left: 0;
+            top: 15px;
+        }
+
+        .pantalon-kit {
+            width: 115px;
+            height: 115px;
+            left: 130px;
+            top: 70px;
+        }
+
+        .medias-kit {
+            width: 105px;
+            height: 105px;
+            left: 255px;
+            top: 55px;
+        }
+
+
+        /* HORARIOS */
+
+        .horarios {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+            text-align: right;
+        }
+
+        .hora-bloque {
+            margin-bottom: 22px;
+        }
+
+        .hora-titulo {
+            font-size: 21px;
+            font-weight: 700;
+            opacity: 0.85;
+            margin-bottom: 4px;
+        }
+
+        .hora {
+            font-size: 43px;
+            font-weight: 900;
+            line-height: 1;
         }
 
 
@@ -521,104 +395,176 @@
 
         @media (max-width: 700px) {
 
-            .fila,
-            .equipaciones,
-            .jugadores {
+            body {
+                padding: 10px;
+            }
 
+            .formulario {
+                padding: 20px;
+            }
+
+            .fila {
                 grid-template-columns: 1fr;
+            }
 
+            .jugadores-form {
+                grid-template-columns: 1fr;
+            }
+
+            .equipaciones-form {
+                grid-template-columns: 1fr;
             }
 
             .convocatoria {
-
                 width: 100%;
-
                 height: auto;
-
-                min-height: 177.78vw;
-
                 aspect-ratio: 9 / 16;
-
             }
 
-            .cabecera-titulo {
-
-                font-size: 30px;
-
+            .cabecera-azul {
+                padding: 22px 18px 25px;
             }
 
-            .jornada {
+            .tipo-partido {
+                font-size: 14px;
+                padding: 7px 22px;
+                margin-bottom: 15px;
+            }
 
-                font-size: 18px;
+            .fecha {
+                font-size: 17px;
+                margin-bottom: 8px;
+            }
 
+            .campo {
+                font-size: 13px;
+                margin-bottom: 18px;
+            }
+
+            .titulo-convocatoria {
+                font-size: 36px;
+            }
+
+            .categoria {
+                font-size: 15px;
+                margin-bottom: 20px;
+            }
+
+            .enfrentamiento {
+                width: 100%;
+                padding: 16px;
+                border-radius: 28px;
             }
 
             .equipos {
-
-                padding: 25px 15px;
-
-            }
-
-            .equipo {
-
-                font-size: 18px;
-
+                grid-template-columns: 1fr 45px 1fr;
+                gap: 5px;
             }
 
             .equipo img {
+                width: 65px;
+                height: 65px;
+            }
 
-                width: 80px;
-
-                height: 80px;
-
+            .nombre-equipo {
+                font-size: 11px;
             }
 
             .vs {
-
                 font-size: 20px;
-
             }
 
-            .datos-partido {
-
-                font-size: 15px;
-
+            .zona-blanca {
+                padding: 18px 20px 12px;
             }
 
-            .pieza-equipacion img {
-
-                height: 80px;
-
-            }
-
-            .pieza-nombre {
-
-                font-size: 12px;
-
+            .titulo-seccion {
+                font-size: 17px;
+                margin-bottom: 12px;
             }
 
             .lista-jugadores {
-
-                grid-template-columns: 1fr;
-
+                column-gap: 15px;
+                row-gap: 4px;
             }
 
-        }
+            .jugador {
+                grid-template-columns: 27px 1fr;
+                min-height: 32px;
+            }
 
+            .dorsal {
+                width: 24px;
+                height: 24px;
+                font-size: 10px;
+            }
+
+            .nombre-jugador {
+                font-size: 10px;
+            }
+
+            .staff {
+                padding-top: 10px;
+            }
+
+            .staff-titulo {
+                font-size: 12px;
+                margin-bottom: 4px;
+            }
+
+            .staff-nombre {
+                font-size: 10px;
+                margin-bottom: 2px;
+            }
+
+            .pie-azul {
+                height: 115px;
+                min-height: 115px;
+                padding: 10px 15px;
+            }
+
+            .equipacion-titulo {
+                font-size: 11px;
+            }
+
+            .kit-visual {
+                width: 190px;
+                height: 85px;
+            }
+
+            .camiseta-kit {
+                width: 65px;
+                height: 65px;
+                left: 0;
+            }
+
+            .pantalon-kit {
+                width: 50px;
+                height: 50px;
+                left: 58px;
+                top: 30px;
+            }
+
+            .medias-kit {
+                width: 48px;
+                height: 48px;
+                left: 110px;
+                top: 25px;
+            }
+
+            .hora-titulo {
+                font-size: 9px;
+            }
+
+            .hora {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 
 
 <body>
-
-
-<div class="contenedor">
-
-
-    <h1>
-        Generador de Convocatorias
-    </h1>
-
 
     <!-- =========================
          FORMULARIO
@@ -626,80 +572,31 @@
 
     <div class="formulario">
 
+        <h1>Generador de convocatorias</h1>
 
-        <div class="fila">
-
-
-            <div class="campo">
-
-                <label for="equipo">
-                    Equipo
-                </label>
-
-                <select id="equipo">
-
-                    <option value="">
-                        Selecciona un equipo
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="campo">
-
-                <label for="tipoPartido">
-                    Tipo de partido
-                </label>
-
-                <select id="tipoPartido">
-
-                    <option value="oficial">
-                        Partido oficial
-                    </option>
-
-                    <option value="amistoso">
-                        Amistoso
-                    </option>
-
-                </select>
-
-            </div>
-
+        <div class="campo-form">
+            <label for="equipo">Equipo</label>
+            <select id="equipo"></select>
         </div>
 
-
         <div class="fila">
 
+            <div class="campo-form">
+                <label for="tipoPartido">Tipo de partido</label>
 
-            <div class="campo">
+                <select id="tipoPartido">
+                    <option value="oficial">Partido oficial</option>
+                    <option value="amistoso">Amistoso</option>
+                </select>
+            </div>
 
-                <label for="jornada">
-                    Jornada
-                </label>
-
+            <div class="campo-form">
+                <label for="jornada">Jornada</label>
                 <input
                     type="number"
                     id="jornada"
                     min="1"
-                    placeholder="Introduce la jornada"
-                >
-
-            </div>
-
-
-            <div class="campo">
-
-                <label for="fecha">
-                    Fecha
-                </label>
-
-                <input
-                    type="date"
-                    id="fecha"
-                >
-
+                    placeholder="Ej. 12">
             </div>
 
         </div>
@@ -707,939 +604,451 @@
 
         <div class="fila">
 
-
-            <div class="campo">
-
-                <label for="rival">
-                    Rival
-                </label>
-
-                <select id="rival">
-
-                    <option value="">
-                        Selecciona un rival
-                    </option>
-
-                </select>
-
+            <div class="campo-form">
+                <label for="fecha">Fecha</label>
+                <input type="date" id="fecha">
             </div>
 
-
-            <div class="campo">
-
-                <label for="localVisitante">
-                    Las Rozas
-                </label>
-
-                <select id="localVisitante">
-
-                    <option value="local">
-                        Local
-                    </option>
-
-                    <option value="visitante">
-                        Visitante
-                    </option>
-
-                </select>
-
+            <div class="campo-form">
+                <label for="horaPartido">Hora del partido</label>
+                <input type="time" id="horaPartido">
             </div>
 
         </div>
 
 
+        <div class="campo-form">
+            <label for="horaConvocatoria">Hora de convocatoria</label>
+            <input type="time" id="horaConvocatoria">
+        </div>
+
+
+        <div class="campo-form">
+            <label for="rival">Rival</label>
+            <select id="rival"></select>
+        </div>
+
+
+        <div class="campo-form">
+            <label for="localVisitante">Las Rozas</label>
+
+            <select id="localVisitante">
+                <option value="local">Local</option>
+                <option value="visitante">Visitante</option>
+            </select>
+        </div>
+
+
         <div class="fila">
 
-
-            <div class="campo">
-
-                <label for="campo">
-                    Campo
-                </label>
-
+            <div class="campo-form">
+                <label for="campo">Campo</label>
                 <input
                     type="text"
                     id="campo"
-                    placeholder="Ej. Julián Ariza"
-                >
-
+                    placeholder="Ej. Campo de fútbol">
             </div>
 
-
-            <div class="campo">
-
-                <label for="lugar">
-                    Lugar
-                </label>
-
+            <div class="campo-form">
+                <label for="lugar">Lugar</label>
                 <input
                     type="text"
                     id="lugar"
-                    placeholder="Ej. Torrelodones"
-                >
-
+                    placeholder="Ej. Torrelodones">
             </div>
 
         </div>
 
 
-        <!-- =========================
-             JUGADORES
-        ========================= -->
+        <h3>Jugadores convocados</h3>
 
-        <div class="seccion">
-
-            <h2>
-                Jugadores
-            </h2>
-
-            <div class="contador">
-
-                Seleccionados:
-                <span id="contador">
-                    0
-                </span>
-
-            </div>
-
-            <div
-                id="listaJugadores"
-                class="jugadores"
-            ></div>
-
+        <div
+            id="jugadoresForm"
+            class="jugadores-form">
         </div>
 
 
-        <!-- =========================
-             EQUIPACIÓN
-        ========================= -->
+        <h3>Equipación</h3>
 
-        <div class="seccion">
+        <div class="equipaciones-form">
 
-            <h2>
-                Equipación
-            </h2>
+            <div class="campo-form">
+                <label for="camiseta">Camiseta</label>
+                <select id="camiseta"></select>
+            </div>
 
-            <div class="equipaciones">
+            <div class="campo-form">
+                <label for="pantalon">Pantalón</label>
+                <select id="pantalon"></select>
+            </div>
 
-
-                <div class="campo">
-
-                    <label for="camiseta">
-                        Camiseta
-                    </label>
-
-                    <select id="camiseta"></select>
-
-                </div>
-
-
-                <div class="campo">
-
-                    <label for="pantalon">
-                        Pantalón
-                    </label>
-
-                    <select id="pantalon"></select>
-
-                </div>
-
-
-                <div class="campo">
-
-                    <label for="medias">
-                        Medias
-                    </label>
-
-                    <select id="medias"></select>
-
-                </div>
-
-
+            <div class="campo-form">
+                <label for="medias">Medias</label>
+                <select id="medias"></select>
             </div>
 
         </div>
 
 
-        <button id="generar">
-
-            GENERAR CONVOCATORIA
-
+        <button onclick="generarConvocatoria()">
+            Generar convocatoria
         </button>
-
 
     </div>
 
 
+
     <!-- =========================
-         RESULTADO
+         CONVOCATORIA
     ========================= -->
 
-    <div id="resultado"></div>
+    <div
+        id="convocatoria"
+        class="convocatoria">
 
 
-</div>
+        <!-- CABECERA AZUL -->
 
+        <div class="cabecera-azul">
 
-<script src="datos.js"></script>
+            <div
+                id="tipoPartidoVisual"
+                class="tipo-partido">
+                PARTIDO OFICIAL
+            </div>
 
+            <div
+                id="fechaVisual"
+                class="fecha">
+                sábado 16 de julio
+            </div>
 
-<script>
+            <div
+                id="campoVisual"
+                class="campo">
+                📍 Campo (Lugar)
+            </div>
 
-/* =========================
-   ELEMENTOS
-========================= */
+            <div class="titulo-convocatoria">
+                CONVOCATORIA
+            </div>
 
-const equipoSelect =
-    document.getElementById("equipo");
+            <div
+                id="categoriaVisual"
+                class="categoria">
+                Cadete B (Autonómica)
+            </div>
 
-const tipoPartidoSelect =
-    document.getElementById("tipoPartido");
 
-const jornadaInput =
-    document.getElementById("jornada");
+            <div class="enfrentamiento">
 
-const fechaInput =
-    document.getElementById("fecha");
+                <div class="equipos">
 
-const rivalSelect =
-    document.getElementById("rival");
+                    <div class="equipo">
 
-const localVisitanteSelect =
-    document.getElementById("localVisitante");
+                        <img
+                            id="escudoLocal"
+                            src="escudos/Las_Rozas.png"
+                            alt="Las Rozas">
 
-const listaJugadores =
-    document.getElementById("listaJugadores");
-
-const contador =
-    document.getElementById("contador");
-
-const camisetaSelect =
-    document.getElementById("camiseta");
-
-const pantalonSelect =
-    document.getElementById("pantalon");
-
-const mediasSelect =
-    document.getElementById("medias");
-
-const generarButton =
-    document.getElementById("generar");
-
-const resultado =
-    document.getElementById("resultado");
-
-
-/* =========================
-   CARGAR EQUIPOS
-========================= */
-
-equipos.forEach(equipo => {
-
-    const option =
-        document.createElement("option");
-
-    option.value =
-        equipo.id;
-
-    option.textContent =
-        equipo.nombre;
-
-    equipoSelect.appendChild(
-        option
-    );
-
-});
-
-
-/* =========================
-   CAMBIO DE EQUIPO
-========================= */
-
-equipoSelect.addEventListener(
-    "change",
-    () => {
-
-        const equipoId =
-            equipoSelect.value;
-
-        cargarRivales(
-            equipoId
-        );
-
-        cargarJugadores(
-            equipoId
-        );
-
-        cargarEquipaciones(
-            equipoId
-        );
-
-    }
-);
-
-
-/* =========================
-   RIVALES
-========================= */
-
-function cargarRivales(
-    equipoId
-) {
-
-    rivalSelect.innerHTML =
-        '<option value="">Selecciona un rival</option>';
-
-    const rivalesEquipo =
-        rivales.filter(
-            rival =>
-                rival.equipos.includes(
-                    equipoId
-                )
-        );
-
-
-    rivalesEquipo.forEach(
-        rival => {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-            option.value =
-                rival.id;
-
-            option.textContent =
-                rival.nombre;
-
-            rivalSelect.appendChild(
-                option
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================
-   JUGADORES
-========================= */
-
-function cargarJugadores(
-    equipoId
-) {
-
-    listaJugadores.innerHTML =
-        "";
-
-    contador.textContent =
-        "0";
-
-
-    const equipo =
-        equipos.find(
-            e =>
-                e.id === equipoId
-        );
-
-
-    if (!equipo) {
-        return;
-    }
-
-
-    equipo.jugadores.forEach(
-        (jugador, index) => {
-
-            const posiciones =
-                jugador.posiciones
-                    .filter(
-                        posicion =>
-                            posicion
-                    )
-                    .join(" · ");
-
-
-            const div =
-                document.createElement(
-                    "label"
-                );
-
-
-            div.className =
-                "jugador";
-
-
-            div.innerHTML = `
-
-                <input
-                    type="checkbox"
-                    class="jugador-checkbox"
-                    value="${index}"
-                >
-
-                <div class="datos-jugador">
-
-                    <span class="nombre-jugador">
-
-                        ${jugador.dorsal}.
-                        ${jugador.nombre}
-
-                    </span>
-
-                    <span class="posiciones">
-
-                        ${posiciones}
-
-                    </span>
-
-                </div>
-
-            `;
-
-
-            listaJugadores.appendChild(
-                div
-            );
-
-        }
-    );
-
-
-    document
-        .querySelectorAll(
-            ".jugador-checkbox"
-        )
-        .forEach(
-            checkbox => {
-
-                checkbox.addEventListener(
-                    "change",
-                    actualizarContador
-                );
-
-            }
-        );
-
-}
-
-
-/* =========================
-   CONTADOR
-========================= */
-
-function actualizarContador() {
-
-    const seleccionados =
-        document.querySelectorAll(
-            ".jugador-checkbox:checked"
-        ).length;
-
-
-    contador.textContent =
-        seleccionados;
-
-}
-
-
-/* =========================
-   EQUIPACIONES
-========================= */
-
-function cargarEquipaciones(
-    equipoId
-) {
-
-    camisetaSelect.innerHTML =
-        "";
-
-    pantalonSelect.innerHTML =
-        "";
-
-    mediasSelect.innerHTML =
-        "";
-
-
-    const equipacion =
-        equipaciones.find(
-            item =>
-                item.equipoId ===
-                equipoId
-        );
-
-
-    if (!equipacion) {
-        return;
-    }
-
-
-    equipacion.camiseta.forEach(
-        item => {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-            option.value =
-                item.nombre;
-
-            option.textContent =
-                item.nombre;
-
-            camisetaSelect.appendChild(
-                option
-            );
-
-        }
-    );
-
-
-    equipacion.pantalon.forEach(
-        item => {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-            option.value =
-                item.nombre;
-
-            option.textContent =
-                item.nombre;
-
-            pantalonSelect.appendChild(
-                option
-            );
-
-        }
-    );
-
-
-    equipacion.medias.forEach(
-        item => {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-            option.value =
-                item.nombre;
-
-            option.textContent =
-                item.nombre;
-
-            mediasSelect.appendChild(
-                option
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================
-   TIPO DE PARTIDO
-========================= */
-
-tipoPartidoSelect.addEventListener(
-    "change",
-    () => {
-
-        if (
-            tipoPartidoSelect.value ===
-            "amistoso"
-        ) {
-
-            jornadaInput.disabled =
-                true;
-
-            jornadaInput.value =
-                "";
-
-            jornadaInput.placeholder =
-                "No se utiliza en amistoso";
-
-        } else {
-
-            jornadaInput.disabled =
-                false;
-
-            jornadaInput.placeholder =
-                "Introduce la jornada";
-
-        }
-
-    }
-);
-
-
-/* =========================
-   GENERAR
-========================= */
-
-generarButton.addEventListener(
-    "click",
-    () => {
-
-        const equipoId =
-            equipoSelect.value;
-
-        const rivalId =
-            rivalSelect.value;
-
-        const tipoPartido =
-            tipoPartidoSelect.value;
-
-        const jornada =
-            jornadaInput.value;
-
-        const fecha =
-            fechaInput.value;
-
-        const campo =
-            document.getElementById(
-                "campo"
-            ).value;
-
-        const lugar =
-            document.getElementById(
-                "lugar"
-            ).value;
-
-        const localVisitante =
-            localVisitanteSelect.value;
-
-
-        if (!equipoId) {
-
-            alert(
-                "Selecciona un equipo."
-            );
-
-            return;
-
-        }
-
-
-        if (!rivalId) {
-
-            alert(
-                "Selecciona un rival."
-            );
-
-            return;
-
-        }
-
-
-        if (
-            tipoPartido ===
-            "oficial" &&
-            !jornada
-        ) {
-
-            alert(
-                "Introduce la jornada."
-            );
-
-            return;
-
-        }
-
-
-        if (!fecha) {
-
-            alert(
-                "Selecciona la fecha."
-            );
-
-            return;
-
-        }
-
-
-        const equipo =
-            equipos.find(
-                item =>
-                    item.id ===
-                    equipoId
-            );
-
-
-        const rival =
-            rivales.find(
-                item =>
-                    item.id ===
-                    rivalId
-            );
-
-
-        if (!equipo || !rival) {
-
-            alert(
-                "No se han podido cargar los datos del partido."
-            );
-
-            return;
-
-        }
-
-
-        const seleccionados =
-            Array.from(
-                document.querySelectorAll(
-                    ".jugador-checkbox:checked"
-                )
-            ).map(
-                checkbox =>
-                    equipo.jugadores[
-                        Number(
-                            checkbox.value
-                        )
-                    ]
-            );
-
-
-        /*
-        TEMPORALMENTE NO EXIGIMOS 18.
-        */
-
-        if (
-            seleccionados.length === 0
-        ) {
-
-            alert(
-                "Selecciona al menos un jugador."
-            );
-
-            return;
-
-        }
-
-
-        /* =========================
-           EQUIPACIÓN SELECCIONADA
-        ========================= */
-
-        const datosEquipacion =
-            equipaciones.find(
-                item =>
-                    item.equipoId ===
-                    equipoId
-            );
-
-
-        const camiseta =
-            datosEquipacion.camiseta.find(
-                item =>
-                    item.nombre ===
-                    camisetaSelect.value
-            );
-
-
-        const pantalon =
-            datosEquipacion.pantalon.find(
-                item =>
-                    item.nombre ===
-                    pantalonSelect.value
-            );
-
-
-        const medias =
-            datosEquipacion.medias.find(
-                item =>
-                    item.nombre ===
-                    mediasSelect.value
-            );
-
-
-        /* =========================
-           EQUIPOS
-        ========================= */
-
-        const equipoLasRozas = {
-
-            nombre:
-                "Las Rozas",
-
-            escudo:
-                "escudos/Las_Rozas.png"
-
-        };
-
-
-        let equipoIzquierda;
-        let equipoDerecha;
-
-
-        if (
-            localVisitante ===
-            "local"
-        ) {
-
-            equipoIzquierda =
-                equipoLasRozas;
-
-            equipoDerecha =
-                rival;
-
-        } else {
-
-            equipoIzquierda =
-                rival;
-
-            equipoDerecha =
-                equipoLasRozas;
-
-        }
-
-
-        /* =========================
-           FECHA
-        ========================= */
-
-        const fechaFormateada =
-            new Date(
-                fecha +
-                "T00:00:00"
-            ).toLocaleDateString(
-                "es-ES"
-            );
-
-
-        /* =========================
-           JORNADA
-        ========================= */
-
-        const jornadaTexto =
-            tipoPartido ===
-            "amistoso"
-
-                ? "Amistoso"
-
-                : `Jornada ${jornada}`;
-
-
-        /* =========================
-           CAMPO
-        ========================= */
-
-        const campoLugar =
-            lugar
-
-                ? `${campo} (${lugar})`
-
-                : campo;
-
-
-        /* =========================
-           JUGADORES
-        ========================= */
-
-        const jugadoresHTML =
-            seleccionados
-                .map(
-                    jugador => {
-
-                        const posiciones =
-                            jugador.posiciones
-                                .filter(
-                                    posicion =>
-                                        posicion
-                                )
-                                .join(
-                                    " · "
-                                );
-
-
-                        return `
-
-                            <div
-                                class="jugador-resultado"
-                            >
-
-                                <div
-                                    class="dorsal"
-                                >
-                                    ${jugador.dorsal}
-                                </div>
-
-
-                                <div>
-
-                                    <div
-                                        class="nombre-resultado"
-                                    >
-                                        ${jugador.nombre}
-                                    </div>
-
-
-                                    <div
-                                        class="posiciones-resultado"
-                                    >
-                                        ${posiciones}
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        `;
-
-                    }
-                )
-                .join("");
-
-
-        /* =========================
-           CUERPO TÉCNICO
-        ========================= */
-
-        const staffHTML = [];
-
-
-        if (
-            equipo.entrenador
-        ) {
-
-            staffHTML.push(`
-
-                <div class="tecnico">
-
-                    <strong>
-                        Entrenador:
-                    </strong>
-
-                    ${equipo.entrenador}
-
-                </div>
-
-            `);
-
-        }
-
-
-        if (
-            equipo.cuerpoTecnico &&
-            equipo.cuerpoTecnico.length
-        ) {
-
-            equipo.cuerpoTecnico.forEach(
-                persona => {
-
-                    staffHTML.push(`
-
-                        <div class="tecnico">
-                            ${persona}
+                        <div
+                            id="nombreLocal"
+                            class="nombre-equipo">
+                            Las Rozas
                         </div>
 
-                    `);
+                    </div>
+
+
+                    <div class="vs">
+                        VS
+                    </div>
+
+
+                    <div class="equipo">
+
+                        <img
+                            id="escudoVisitante"
+                            src="escudos/Fundación_ADF.png"
+                            alt="Fundación ADF">
+
+                        <div
+                            id="nombreVisitante"
+                            class="nombre-equipo">
+                            Fundación ADF
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ZONA BLANCA -->
+
+        <div class="zona-blanca">
+
+            <div class="titulo-seccion">
+                CONVOCADOS
+            </div>
+
+
+            <div
+                id="listaJugadores"
+                class="lista-jugadores">
+            </div>
+
+
+            <div class="staff">
+
+                <div class="staff-titulo">
+                    CUERPO TÉCNICO
+                </div>
+
+                <div
+                    id="entrenadorVisual"
+                    class="staff-nombre">
+                    <strong>Entrenador:</strong>
+                    Entrenador de prueba
+                </div>
+
+                <div
+                    id="cuerpoTecnicoVisual">
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PIE AZUL -->
+
+        <div class="pie-azul">
+
+
+            <!-- EQUIPACIÓN -->
+
+            <div class="equipacion-pie">
+
+                <div class="equipacion-titulo">
+                    EQUIPACIÓN
+                </div>
+
+                <div class="kit-visual">
+
+                    <img
+                        id="camisetaVisual"
+                        class="pieza-kit camiseta-kit"
+                        src=""
+                        alt="Camiseta">
+
+                    <img
+                        id="pantalonVisual"
+                        class="pieza-kit pantalon-kit"
+                        src=""
+                        alt="Pantalón">
+
+                    <img
+                        id="mediasVisual"
+                        class="pieza-kit medias-kit"
+                        src=""
+                        alt="Medias">
+
+                </div>
+
+            </div>
+
+
+            <!-- HORARIOS -->
+
+            <div class="horarios">
+
+                <div class="hora-bloque">
+
+                    <div class="hora-titulo">
+                        HORA DEL PARTIDO
+                    </div>
+
+                    <div
+                        id="horaPartidoVisual"
+                        class="hora">
+                        18:30
+                    </div>
+
+                </div>
+
+
+                <div class="hora-bloque">
+
+                    <div class="hora-titulo">
+                        HORA DE CONVOCATORIA
+                    </div>
+
+                    <div
+                        id="horaConvocatoriaVisual"
+                        class="hora">
+                        17:45
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script src="datos.js"></script>
+
+    <script>
+
+        /* =========================
+           REFERENCIAS
+        ========================= */
+
+        const equipoSelect =
+            document.getElementById("equipo");
+
+        const tipoPartidoSelect =
+            document.getElementById("tipoPartido");
+
+        const jornadaInput =
+            document.getElementById("jornada");
+
+        const fechaInput =
+            document.getElementById("fecha");
+
+        const horaPartidoInput =
+            document.getElementById("horaPartido");
+
+        const horaConvocatoriaInput =
+            document.getElementById("horaConvocatoria");
+
+        const rivalSelect =
+            document.getElementById("rival");
+
+        const localVisitanteSelect =
+            document.getElementById("localVisitante");
+
+        const campoInput =
+            document.getElementById("campo");
+
+        const lugarInput =
+            document.getElementById("lugar");
+
+        const jugadoresForm =
+            document.getElementById("jugadoresForm");
+
+        const camisetaSelect =
+            document.getElementById("camiseta");
+
+        const pantalonSelect =
+            document.getElementById("pantalon");
+
+        const mediasSelect =
+            document.getElementById("medias");
+
+
+        /* =========================
+           CARGAR EQUIPOS
+        ========================= */
+
+        equipos.forEach(equipo => {
+
+            const option =
+                document.createElement("option");
+
+            option.value = equipo.id;
+            option.textContent = equipo.nombre;
+
+            equipoSelect.appendChild(option);
+
+        });
+
+
+        /* =========================
+           CARGAR RIVALES
+        ========================= */
+
+        function cargarRivales() {
+
+            rivalSelect.innerHTML = "";
+
+            const equipoId =
+                equipoSelect.value;
+
+            rivales
+                .filter(rival =>
+                    rival.equipos.includes(equipoId)
+                )
+                .forEach(rival => {
+
+                    const option =
+                        document.createElement("option");
+
+                    option.value = rival.id;
+                    option.textContent = rival.nombre;
+
+                    rivalSelect.appendChild(option);
+
+                });
+
+        }
+
+
+        /* =========================
+           CARGAR JUGADORES
+        ========================= */
+
+        function cargarJugadores() {
+
+            jugadoresForm.innerHTML = "";
+
+            const equipo =
+                equipos.find(
+                    e => e.id === equipoSelect.value
+                );
+
+            if (!equipo) return;
+
+
+            equipo.jugadores.forEach(
+                (jugador, index) => {
+
+                    const label =
+                        document.createElement("label");
+
+                    label.className =
+                        "jugador-checkbox";
+
+
+                    const checkbox =
+                        document.createElement("input");
+
+                    checkbox.type = "checkbox";
+                    checkbox.value = index;
+                    checkbox.dataset.dorsal =
+                        jugador.dorsal;
+
+
+                    const texto =
+                        document.createElement("span");
+
+                    texto.textContent =
+                        `${jugador.dorsal} - ${jugador.nombre}`;
+
+
+                    label.appendChild(checkbox);
+                    label.appendChild(texto);
+
+                    jugadoresForm.appendChild(label);
 
                 }
             );
@@ -1648,247 +1057,476 @@ generarButton.addEventListener(
 
 
         /* =========================
-           EQUIPACIÓN HTML
+           CARGAR EQUIPACIONES
         ========================= */
 
-        const equipacionHTML = `
+        function cargarEquipacion() {
 
-            <div
-                class="equipacion-resultado"
-            >
+            const equipo =
+                equipaciones.find(
+                    e =>
+                        e.equipoId ===
+                        equipoSelect.value
+                );
 
-                <div
-                    class="equipacion-titulo"
-                >
-                    EQUIPACIÓN
-                </div>
-
-
-                <div
-                    class="equipacion-visual"
-                >
+            if (!equipo) return;
 
 
-                    <div
-                        class="pieza-equipacion"
-                    >
-
-                        <img
-                            src="${camiseta.imagen}"
-                            alt="Camiseta"
-                        >
-
-                        <div
-                            class="pieza-nombre"
-                        >
-                            Camiseta
-                            ${camiseta.nombre}
-                        </div>
-
-                    </div>
+            camisetaSelect.innerHTML = "";
+            pantalonSelect.innerHTML = "";
+            mediasSelect.innerHTML = "";
 
 
-                    <div
-                        class="pieza-equipacion"
-                    >
+            equipo.camiseta.forEach(
+                (item, index) => {
 
-                        <img
-                            src="${pantalon.imagen}"
-                            alt="Pantalón"
-                        >
+                    const option =
+                        document.createElement("option");
 
-                        <div
-                            class="pieza-nombre"
-                        >
-                            Pantalón
-                            ${pantalon.nombre}
-                        </div>
+                    option.value = index;
+                    option.textContent =
+                        item.nombre;
 
-                    </div>
+                    camisetaSelect.appendChild(option);
+
+                }
+            );
 
 
-                    <div
-                        class="pieza-equipacion"
-                    >
+            equipo.pantalon.forEach(
+                (item, index) => {
 
-                        <img
-                            src="${medias.imagen}"
-                            alt="Medias"
-                        >
+                    const option =
+                        document.createElement("option");
 
-                        <div
-                            class="pieza-nombre"
-                        >
-                            Medias
-                            ${medias.nombre}
-                        </div>
+                    option.value = index;
+                    option.textContent =
+                        item.nombre;
 
-                    </div>
+                    pantalonSelect.appendChild(option);
+
+                }
+            );
 
 
-                </div>
+            equipo.medias.forEach(
+                (item, index) => {
 
-            </div>
+                    const option =
+                        document.createElement("option");
 
-        `;
+                    option.value = index;
+                    option.textContent =
+                        item.nombre;
+
+                    mediasSelect.appendChild(option);
+
+                }
+            );
+
+        }
 
 
         /* =========================
-           RESULTADO
+           CAMBIO DE EQUIPO
         ========================= */
 
-        resultado.innerHTML = `
+        equipoSelect.addEventListener(
+            "change",
+            () => {
 
-            <div
-                class="convocatoria"
-            >
+                cargarRivales();
+                cargarJugadores();
+                cargarEquipacion();
 
-
-                <div
-                    class="cabecera"
-                >
-
-                    <div
-                        class="cabecera-titulo"
-                    >
-                        CONVOCATORIA
-                    </div>
+            }
+        );
 
 
-                    <div
-                        class="jornada"
-                    >
-                        ${jornadaTexto}
-                    </div>
+        /* =========================
+           FORMATO FECHA
+        ========================= */
 
-                </div>
+        function formatearFecha(fecha) {
 
+            if (!fecha) {
+                return "";
+            }
 
-                <div
-                    class="equipos"
-                >
+            const partes =
+                fecha.split("-");
 
+            const fechaObj =
+                new Date(
+                    partes[0],
+                    partes[1] - 1,
+                    partes[2]
+                );
 
-                    <div
-                        class="equipo"
-                    >
+            const dias = [
+                "domingo",
+                "lunes",
+                "martes",
+                "miércoles",
+                "jueves",
+                "viernes",
+                "sábado"
+            ];
 
-                        <img
-                            src="${equipoIzquierda.escudo}"
-                            alt="${equipoIzquierda.nombre}"
-                        >
+            const meses = [
+                "enero",
+                "febrero",
+                "marzo",
+                "abril",
+                "mayo",
+                "junio",
+                "julio",
+                "agosto",
+                "septiembre",
+                "octubre",
+                "noviembre",
+                "diciembre"
+            ];
 
-                        ${equipoIzquierda.nombre}
+            return `${dias[fechaObj.getDay()]} ${fechaObj.getDate()} de ${meses[fechaObj.getMonth()]}`;
 
-                    </div>
-
-
-                    <div
-                        class="vs"
-                    >
-                        VS
-                    </div>
-
-
-                    <div
-                        class="equipo"
-                    >
-
-                        <img
-                            src="${equipoDerecha.escudo}"
-                            alt="${equipoDerecha.nombre}"
-                        >
-
-                        ${equipoDerecha.nombre}
-
-                    </div>
-
-
-                </div>
+        }
 
 
-                <div
-                    class="datos-partido"
-                >
+        /* =========================
+           GENERAR
+        ========================= */
 
-                    <div>
+        function generarConvocatoria() {
 
-                        <strong>
-                            ${fechaFormateada}
-                        </strong>
+            const equipo =
+                equipos.find(
+                    e => e.id === equipoSelect.value
+                );
 
-                    </div>
-
-
-                    <div>
-                        ${campoLugar}
-                    </div>
-
-                </div>
+            const rival =
+                rivales.find(
+                    r => r.id === rivalSelect.value
+                );
 
 
-                ${equipacionHTML}
+            /* TIPO */
+
+            const tipo =
+                tipoPartidoSelect.value;
+
+            document.getElementById(
+                "tipoPartidoVisual"
+            ).textContent =
+                tipo === "amistoso"
+                    ? "AMISTOSO"
+                    : "PARTIDO OFICIAL";
 
 
-                <div
-                    class="jugadores-resultado"
-                >
+            /* FECHA */
 
-                    <h3>
-                        JUGADORES CONVOCADOS
-                        (${seleccionados.length})
-                    </h3>
-
-
-                    <div
-                        class="lista-jugadores"
-                    >
-
-                        ${jugadoresHTML}
-
-                    </div>
-
-                </div>
+            document.getElementById(
+                "fechaVisual"
+            ).textContent =
+                formatearFecha(
+                    fechaInput.value
+                );
 
 
-                <div
-                    class="cuerpo-tecnico"
-                >
+            /* CAMPO */
 
-                    <h3>
-                        CUERPO TÉCNICO
-                    </h3>
+            const campo =
+                campoInput.value.trim();
 
-                    ${staffHTML.join("")}
+            const lugar =
+                lugarInput.value.trim();
 
-                </div>
+            let campoTexto = "";
+
+            if (campo && lugar) {
+                campoTexto =
+                    `📍 ${campo} (${lugar})`;
+            }
+            else if (campo) {
+                campoTexto =
+                    `📍 ${campo}`;
+            }
+            else if (lugar) {
+                campoTexto =
+                    `📍 ${lugar}`;
+            }
+
+            document.getElementById(
+                "campoVisual"
+            ).textContent =
+                campoTexto;
 
 
-                <div
-                    class="pie"
-                >
-                    LAS ROZAS
-                </div>
+            /* EQUIPO */
+
+            document.getElementById(
+                "categoriaVisual"
+            ).textContent =
+                `${equipo.nombre} (Autonómica)`;
 
 
-            </div>
+            /* RIVAL */
 
-        `;
-
-
-        resultado.style.display =
-            "block";
+            const esLocal =
+                localVisitanteSelect.value ===
+                "local";
 
 
-        resultado.scrollIntoView({
-            behavior:
-                "smooth"
-        });
+            const escudoLocal =
+                document.getElementById(
+                    "escudoLocal"
+                );
 
-    }
-);
+            const escudoVisitante =
+                document.getElementById(
+                    "escudoVisitante"
+                );
 
-</script>
+            const nombreLocal =
+                document.getElementById(
+                    "nombreLocal"
+                );
+
+            const nombreVisitante =
+                document.getElementById(
+                    "nombreVisitante"
+                );
+
+
+            if (esLocal) {
+
+                escudoLocal.src =
+                    "escudos/Las_Rozas.png";
+
+                nombreLocal.textContent =
+                    "Las Rozas";
+
+                escudoVisitante.src =
+                    rival.escudo;
+
+                nombreVisitante.textContent =
+                    rival.nombre;
+
+            }
+            else {
+
+                escudoLocal.src =
+                    rival.escudo;
+
+                nombreLocal.textContent =
+                    rival.nombre;
+
+                escudoVisitante.src =
+                    "escudos/Las_Rozas.png";
+
+                nombreVisitante.textContent =
+                    "Las Rozas";
+
+            }
+
+
+            /* JUGADORES */
+
+            const checkboxes =
+                jugadoresForm.querySelectorAll(
+                    "input[type='checkbox']:checked"
+                );
+
+            const lista =
+                document.getElementById(
+                    "listaJugadores"
+                );
+
+            lista.innerHTML = "";
+
+
+            checkboxes.forEach(
+                checkbox => {
+
+                    const jugador =
+                        equipo.jugadores[
+                            Number(
+                                checkbox.value
+                            )
+                        ];
+
+
+                    const elemento =
+                        document.createElement(
+                            "div"
+                        );
+
+                    elemento.className =
+                        "jugador";
+
+
+                    const dorsal =
+                        document.createElement(
+                            "div"
+                        );
+
+                    dorsal.className =
+                        "dorsal";
+
+                    dorsal.textContent =
+                        jugador.dorsal;
+
+
+                    const nombre =
+                        document.createElement(
+                            "div"
+                        );
+
+                    nombre.className =
+                        "nombre-jugador";
+
+                    nombre.textContent =
+                        jugador.nombre;
+
+
+                    elemento.appendChild(
+                        dorsal
+                    );
+
+                    elemento.appendChild(
+                        nombre
+                    );
+
+                    lista.appendChild(
+                        elemento
+                    );
+
+                }
+            );
+
+
+            /* STAFF */
+
+            document.getElementById(
+                "entrenadorVisual"
+            ).innerHTML =
+                `<strong>Entrenador:</strong> ${equipo.entrenador}`;
+
+
+            const cuerpoTecnico =
+                document.getElementById(
+                    "cuerpoTecnicoVisual"
+                );
+
+            cuerpoTecnico.innerHTML = "";
+
+
+            if (
+                equipo.cuerpoTecnico &&
+                equipo.cuerpoTecnico.length
+            ) {
+
+                equipo.cuerpoTecnico.forEach(
+                    persona => {
+
+                        const div =
+                            document.createElement(
+                                "div"
+                            );
+
+                        div.className =
+                            "staff-nombre";
+
+                        div.innerHTML =
+                            `<strong>Ayudante:</strong> ${persona}`;
+
+                        cuerpoTecnico.appendChild(
+                            div
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /* EQUIPACIÓN */
+
+            const datosEquipacion =
+                equipaciones.find(
+                    e =>
+                        e.equipoId ===
+                        equipo.id
+                );
+
+
+            const camiseta =
+                datosEquipacion.camiseta[
+                    Number(
+                        camisetaSelect.value
+                    )
+                ];
+
+            const pantalon =
+                datosEquipacion.pantalon[
+                    Number(
+                        pantalonSelect.value
+                    )
+                ];
+
+            const medias =
+                datosEquipacion.medias[
+                    Number(
+                        mediasSelect.value
+                    )
+                ];
+
+
+            document.getElementById(
+                "camisetaVisual"
+            ).src =
+                camiseta.imagen;
+
+
+            document.getElementById(
+                "pantalonVisual"
+            ).src =
+                pantalon.imagen;
+
+
+            document.getElementById(
+                "mediasVisual"
+            ).src =
+                medias.imagen;
+
+
+            /* HORARIOS */
+
+            document.getElementById(
+                "horaPartidoVisual"
+            ).textContent =
+                horaPartidoInput.value ||
+                "--:--";
+
+
+            document.getElementById(
+                "horaConvocatoriaVisual"
+            ).textContent =
+                horaConvocatoriaInput.value ||
+                "--:--";
+
+        }
+
+
+        /* =========================
+           INICIO
+        ========================= */
+
+        cargarRivales();
+        cargarJugadores();
+        cargarEquipacion();
+
+    </script>
 
 </body>
 </html>
