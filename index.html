@@ -6,6 +6,7 @@
     <title>Generador de Convocatorias</title>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -26,6 +27,10 @@
             text-align: center;
             margin-bottom: 30px;
         }
+
+        /* =========================
+           FORMULARIO
+        ========================= */
 
         .formulario {
             background: white;
@@ -144,242 +149,522 @@
             background: #333;
         }
 
+
+        /* =========================
+           RESULTADO
+        ========================= */
+
         #resultado {
             display: none;
             margin-top: 30px;
         }
 
+
+        /*
+        ESTE ES EL LIENZO REAL
+        DE LA STORY DE INSTAGRAM
+
+        1080 × 1920
+        */
+
         .convocatoria {
-            width: 100%;
-            max-width: 800px;
+
+            width: 1080px;
+            height: 1920px;
+
+            max-width: 100%;
+
             margin: 0 auto;
+
             background: white;
+
             border: 1px solid #ddd;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.12);
+
+            position: relative;
+
+            overflow: hidden;
+
+            display: flex;
+            flex-direction: column;
         }
 
+
+        /* =========================
+           CABECERA
+        ========================= */
+
         .cabecera {
+
             background: #000;
+
             color: white;
+
             text-align: center;
-            padding: 18px;
+
+            padding: 45px 30px 35px;
+
         }
 
         .cabecera-titulo {
-            font-size: 30px;
+
+            font-size: 64px;
+
             font-weight: bold;
-            letter-spacing: 2px;
+
+            letter-spacing: 4px;
+
         }
 
         .jornada {
-            margin-top: 8px;
-            font-size: 18px;
+
+            margin-top: 15px;
+
+            font-size: 34px;
+
         }
 
+
+        /* =========================
+           EQUIPOS
+        ========================= */
+
         .equipos {
+
             display: grid;
+
             grid-template-columns: 1fr auto 1fr;
+
             align-items: center;
-            gap: 20px;
-            padding: 30px 25px 20px;
+
+            gap: 30px;
+
+            padding: 55px 50px 35px;
+
         }
 
         .equipo {
+
             text-align: center;
-            font-size: 22px;
+
+            font-size: 38px;
+
             font-weight: bold;
+
         }
 
         .equipo img {
-            width: 90px;
-            height: 90px;
+
+            width: 170px;
+
+            height: 170px;
+
             object-fit: contain;
+
             display: block;
-            margin: 0 auto 10px;
+
+            margin: 0 auto 18px;
+
         }
 
         .vs {
-            font-size: 22px;
+
+            font-size: 42px;
+
             font-weight: bold;
+
         }
+
+
+        /* =========================
+           DATOS PARTIDO
+        ========================= */
 
         .datos-partido {
+
             text-align: center;
-            padding: 0 25px 20px;
-            font-size: 16px;
+
+            padding: 10px 50px 35px;
+
+            font-size: 27px;
+
             line-height: 1.6;
+
         }
 
-        /*
-        =========================
-        EQUIPACIÓN VISUAL
-        =========================
-        */
+
+        /* =========================
+           EQUIPACIÓN
+        ========================= */
 
         .equipacion-resultado {
-            padding: 20px 25px;
+
+            padding: 30px 50px;
+
             border-top: 1px solid #ddd;
+
             border-bottom: 1px solid #ddd;
+
         }
 
         .equipacion-titulo {
+
             text-align: center;
+
             font-weight: bold;
-            font-size: 15px;
-            margin-bottom: 15px;
+
+            font-size: 26px;
+
+            margin-bottom: 25px;
+
+            letter-spacing: 1px;
+
         }
 
         .equipacion-visual {
+
             display: grid;
+
             grid-template-columns: repeat(3, 1fr);
+
             align-items: center;
-            gap: 15px;
+
+            gap: 25px;
+
         }
 
         .pieza-equipacion {
+
             text-align: center;
+
         }
 
         .pieza-equipacion img {
+
             width: 100%;
-            height: 110px;
+
+            height: 190px;
+
             object-fit: contain;
+
             display: block;
+
             margin: 0 auto;
+
         }
 
         .pieza-nombre {
-            margin-top: 5px;
-            font-size: 12px;
+
+            margin-top: 10px;
+
+            font-size: 21px;
+
             font-weight: bold;
+
             color: #555;
+
         }
 
+
+        /* =========================
+           JUGADORES
+        ========================= */
+
         .jugadores-resultado {
-            padding: 20px 25px;
+
+            padding: 35px 50px;
+
+            flex: 1;
+
         }
 
         .jugadores-resultado h3 {
+
             text-align: center;
+
             margin-top: 0;
-            margin-bottom: 15px;
+
+            margin-bottom: 25px;
+
+            font-size: 28px;
+
         }
 
         .lista-jugadores {
+
             display: grid;
+
             grid-template-columns: repeat(2, 1fr);
-            gap: 8px 15px;
+
+            gap: 14px 35px;
+
         }
 
         .jugador-resultado {
+
             display: flex;
+
             align-items: center;
-            gap: 10px;
-            padding: 8px 5px;
+
+            gap: 15px;
+
+            padding: 10px 5px;
+
         }
 
         .dorsal {
-            width: 32px;
-            height: 32px;
+
+            width: 52px;
+
+            height: 52px;
+
             border-radius: 50%;
+
             background: #111;
+
             color: white;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
             font-weight: bold;
+
+            font-size: 21px;
+
             flex-shrink: 0;
+
         }
 
         .nombre-resultado {
+
             font-weight: bold;
+
+            font-size: 22px;
+
         }
 
         .posiciones-resultado {
-            font-size: 11px;
+
+            font-size: 15px;
+
             color: #777;
+
+            margin-top: 3px;
+
         }
 
+
+        /* =========================
+           CUERPO TÉCNICO
+        ========================= */
+
         .cuerpo-tecnico {
-            padding: 20px 25px;
+
+            padding: 30px 50px;
+
             border-top: 1px solid #ddd;
+
         }
 
         .cuerpo-tecnico h3 {
+
             text-align: center;
+
             margin-top: 0;
+
+            font-size: 25px;
+
         }
 
         .tecnico {
+
             text-align: center;
-            margin: 5px 0;
+
+            margin: 7px 0;
+
+            font-size: 20px;
+
         }
 
+
+        /* =========================
+           PIE
+        ========================= */
+
         .pie {
+
             background: #000;
+
             color: white;
+
             text-align: center;
-            padding: 12px;
+
+            padding: 25px;
+
             font-weight: bold;
-            letter-spacing: 1px;
+
+            font-size: 25px;
+
+            letter-spacing: 2px;
+
         }
+
+
+        /* =========================
+           MÓVIL
+        ========================= */
 
         @media (max-width: 700px) {
 
             .fila,
             .equipaciones,
-            .jugadores,
-            .lista-jugadores {
+            .jugadores {
+
                 grid-template-columns: 1fr;
+
             }
 
-            .equipacion-visual {
-                gap: 5px;
+            .convocatoria {
+
+                width: 100%;
+
+                height: auto;
+
+                min-height: 177.78vw;
+
+                aspect-ratio: 9 / 16;
+
             }
 
-            .pieza-equipacion img {
-                height: 80px;
+            .cabecera-titulo {
+
+                font-size: 30px;
+
+            }
+
+            .jornada {
+
+                font-size: 18px;
+
             }
 
             .equipos {
-                gap: 10px;
+
+                padding: 25px 15px;
+
             }
 
             .equipo {
-                font-size: 17px;
+
+                font-size: 18px;
+
             }
 
             .equipo img {
-                width: 70px;
-                height: 70px;
+
+                width: 80px;
+
+                height: 80px;
+
             }
+
+            .vs {
+
+                font-size: 20px;
+
+            }
+
+            .datos-partido {
+
+                font-size: 15px;
+
+            }
+
+            .pieza-equipacion img {
+
+                height: 80px;
+
+            }
+
+            .pieza-nombre {
+
+                font-size: 12px;
+
+            }
+
+            .lista-jugadores {
+
+                grid-template-columns: 1fr;
+
+            }
+
         }
+
     </style>
 </head>
 
+
 <body>
+
 
 <div class="contenedor">
 
-    <h1>Generador de Convocatorias</h1>
+
+    <h1>
+        Generador de Convocatorias
+    </h1>
+
+
+    <!-- =========================
+         FORMULARIO
+    ========================= -->
 
     <div class="formulario">
 
+
         <div class="fila">
 
-            <div class="campo">
-                <label for="equipo">Equipo</label>
-                <select id="equipo">
-                    <option value="">Selecciona un equipo</option>
-                </select>
-            </div>
 
             <div class="campo">
-                <label for="tipoPartido">Tipo de partido</label>
-                <select id="tipoPartido">
-                    <option value="oficial">Partido oficial</option>
-                    <option value="amistoso">Amistoso</option>
+
+                <label for="equipo">
+                    Equipo
+                </label>
+
+                <select id="equipo">
+
+                    <option value="">
+                        Selecciona un equipo
+                    </option>
+
                 </select>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="tipoPartido">
+                    Tipo de partido
+                </label>
+
+                <select id="tipoPartido">
+
+                    <option value="oficial">
+                        Partido oficial
+                    </option>
+
+                    <option value="amistoso">
+                        Amistoso
+                    </option>
+
+                </select>
+
             </div>
 
         </div>
@@ -387,8 +672,12 @@
 
         <div class="fila">
 
+
             <div class="campo">
-                <label for="jornada">Jornada</label>
+
+                <label for="jornada">
+                    Jornada
+                </label>
 
                 <input
                     type="number"
@@ -396,15 +685,21 @@
                     min="1"
                     placeholder="Introduce la jornada"
                 >
+
             </div>
 
+
             <div class="campo">
-                <label for="fecha">Fecha</label>
+
+                <label for="fecha">
+                    Fecha
+                </label>
 
                 <input
                     type="date"
                     id="fecha"
                 >
+
             </div>
 
         </div>
@@ -412,21 +707,42 @@
 
         <div class="fila">
 
+
             <div class="campo">
-                <label for="rival">Rival</label>
+
+                <label for="rival">
+                    Rival
+                </label>
 
                 <select id="rival">
-                    <option value="">Selecciona un rival</option>
+
+                    <option value="">
+                        Selecciona un rival
+                    </option>
+
                 </select>
+
             </div>
 
+
             <div class="campo">
-                <label for="localVisitante">Las Rozas</label>
+
+                <label for="localVisitante">
+                    Las Rozas
+                </label>
 
                 <select id="localVisitante">
-                    <option value="local">Local</option>
-                    <option value="visitante">Visitante</option>
+
+                    <option value="local">
+                        Local
+                    </option>
+
+                    <option value="visitante">
+                        Visitante
+                    </option>
+
                 </select>
+
             </div>
 
         </div>
@@ -434,36 +750,56 @@
 
         <div class="fila">
 
+
             <div class="campo">
-                <label for="campo">Campo</label>
+
+                <label for="campo">
+                    Campo
+                </label>
 
                 <input
                     type="text"
                     id="campo"
                     placeholder="Ej. Julián Ariza"
                 >
+
             </div>
 
+
             <div class="campo">
-                <label for="lugar">Lugar</label>
+
+                <label for="lugar">
+                    Lugar
+                </label>
 
                 <input
                     type="text"
                     id="lugar"
                     placeholder="Ej. Torrelodones"
                 >
+
             </div>
 
         </div>
 
 
+        <!-- =========================
+             JUGADORES
+        ========================= -->
+
         <div class="seccion">
 
-            <h2>Jugadores</h2>
+            <h2>
+                Jugadores
+            </h2>
 
             <div class="contador">
+
                 Seleccionados:
-                <span id="contador">0</span>
+                <span id="contador">
+                    0
+                </span>
+
             </div>
 
             <div
@@ -474,11 +810,18 @@
         </div>
 
 
+        <!-- =========================
+             EQUIPACIÓN
+        ========================= -->
+
         <div class="seccion">
 
-            <h2>Equipación</h2>
+            <h2>
+                Equipación
+            </h2>
 
             <div class="equipaciones">
+
 
                 <div class="campo">
 
@@ -512,19 +855,28 @@
 
                 </div>
 
+
             </div>
 
         </div>
 
 
         <button id="generar">
+
             GENERAR CONVOCATORIA
+
         </button>
+
 
     </div>
 
 
+    <!-- =========================
+         RESULTADO
+    ========================= -->
+
     <div id="resultado"></div>
+
 
 </div>
 
@@ -587,10 +939,15 @@ equipos.forEach(equipo => {
     const option =
         document.createElement("option");
 
-    option.value = equipo.id;
-    option.textContent = equipo.nombre;
+    option.value =
+        equipo.id;
 
-    equipoSelect.appendChild(option);
+    option.textContent =
+        equipo.nombre;
+
+    equipoSelect.appendChild(
+        option
+    );
 
 });
 
@@ -606,72 +963,114 @@ equipoSelect.addEventListener(
         const equipoId =
             equipoSelect.value;
 
-        cargarRivales(equipoId);
-        cargarJugadores(equipoId);
-        cargarEquipaciones(equipoId);
+        cargarRivales(
+            equipoId
+        );
+
+        cargarJugadores(
+            equipoId
+        );
+
+        cargarEquipaciones(
+            equipoId
+        );
 
     }
 );
 
 
 /* =========================
-   CARGAR RIVALES
+   RIVALES
 ========================= */
 
-function cargarRivales(equipoId) {
+function cargarRivales(
+    equipoId
+) {
 
     rivalSelect.innerHTML =
         '<option value="">Selecciona un rival</option>';
 
     const rivalesEquipo =
-        rivales.filter(rival =>
-            rival.equipos.includes(equipoId)
+        rivales.filter(
+            rival =>
+                rival.equipos.includes(
+                    equipoId
+                )
         );
 
-    rivalesEquipo.forEach(rival => {
 
-        const option =
-            document.createElement("option");
+    rivalesEquipo.forEach(
+        rival => {
 
-        option.value = rival.id;
-        option.textContent = rival.nombre;
+            const option =
+                document.createElement(
+                    "option"
+                );
 
-        rivalSelect.appendChild(option);
+            option.value =
+                rival.id;
 
-    });
+            option.textContent =
+                rival.nombre;
+
+            rivalSelect.appendChild(
+                option
+            );
+
+        }
+    );
+
 }
 
 
 /* =========================
-   CARGAR JUGADORES
+   JUGADORES
 ========================= */
 
-function cargarJugadores(equipoId) {
+function cargarJugadores(
+    equipoId
+) {
 
-    listaJugadores.innerHTML = "";
-    contador.textContent = "0";
+    listaJugadores.innerHTML =
+        "";
+
+    contador.textContent =
+        "0";
+
 
     const equipo =
-        equipos.find(e =>
-            e.id === equipoId
+        equipos.find(
+            e =>
+                e.id === equipoId
         );
+
 
     if (!equipo) {
         return;
     }
+
 
     equipo.jugadores.forEach(
         (jugador, index) => {
 
             const posiciones =
                 jugador.posiciones
-                    .filter(posicion => posicion)
+                    .filter(
+                        posicion =>
+                            posicion
+                    )
                     .join(" · ");
 
-            const div =
-                document.createElement("label");
 
-            div.className = "jugador";
+            const div =
+                document.createElement(
+                    "label"
+                );
+
+
+            div.className =
+                "jugador";
+
 
             div.innerHTML = `
 
@@ -684,33 +1083,45 @@ function cargarJugadores(equipoId) {
                 <div class="datos-jugador">
 
                     <span class="nombre-jugador">
-                        ${jugador.dorsal}. ${jugador.nombre}
+
+                        ${jugador.dorsal}.
+                        ${jugador.nombre}
+
                     </span>
 
                     <span class="posiciones">
+
                         ${posiciones}
+
                     </span>
 
                 </div>
 
             `;
 
-            listaJugadores.appendChild(div);
+
+            listaJugadores.appendChild(
+                div
+            );
 
         }
     );
 
 
     document
-        .querySelectorAll(".jugador-checkbox")
-        .forEach(checkbox => {
+        .querySelectorAll(
+            ".jugador-checkbox"
+        )
+        .forEach(
+            checkbox => {
 
-            checkbox.addEventListener(
-                "change",
-                actualizarContador
-            );
+                checkbox.addEventListener(
+                    "change",
+                    actualizarContador
+                );
 
-        });
+            }
+        );
 
 }
 
@@ -726,6 +1137,7 @@ function actualizarContador() {
             ".jugador-checkbox:checked"
         ).length;
 
+
     contador.textContent =
         seleccionados;
 
@@ -733,69 +1145,100 @@ function actualizarContador() {
 
 
 /* =========================
-   CARGAR EQUIPACIONES
+   EQUIPACIONES
 ========================= */
 
-function cargarEquipaciones(equipoId) {
+function cargarEquipaciones(
+    equipoId
+) {
 
-    camisetaSelect.innerHTML = "";
-    pantalonSelect.innerHTML = "";
-    mediasSelect.innerHTML = "";
+    camisetaSelect.innerHTML =
+        "";
+
+    pantalonSelect.innerHTML =
+        "";
+
+    mediasSelect.innerHTML =
+        "";
+
 
     const equipacion =
         equipaciones.find(
             item =>
-                item.equipoId === equipoId
+                item.equipoId ===
+                equipoId
         );
+
 
     if (!equipacion) {
         return;
     }
 
 
-    equipacion.camiseta.forEach(item => {
+    equipacion.camiseta.forEach(
+        item => {
 
-        const option =
-            document.createElement("option");
+            const option =
+                document.createElement(
+                    "option"
+                );
 
-        option.value = item.nombre;
+            option.value =
+                item.nombre;
 
-        option.textContent =
-            item.nombre;
+            option.textContent =
+                item.nombre;
 
-        camisetaSelect.appendChild(option);
+            camisetaSelect.appendChild(
+                option
+            );
 
-    });
-
-
-    equipacion.pantalon.forEach(item => {
-
-        const option =
-            document.createElement("option");
-
-        option.value = item.nombre;
-
-        option.textContent =
-            item.nombre;
-
-        pantalonSelect.appendChild(option);
-
-    });
+        }
+    );
 
 
-    equipacion.medias.forEach(item => {
+    equipacion.pantalon.forEach(
+        item => {
 
-        const option =
-            document.createElement("option");
+            const option =
+                document.createElement(
+                    "option"
+                );
 
-        option.value = item.nombre;
+            option.value =
+                item.nombre;
 
-        option.textContent =
-            item.nombre;
+            option.textContent =
+                item.nombre;
 
-        mediasSelect.appendChild(option);
+            pantalonSelect.appendChild(
+                option
+            );
 
-    });
+        }
+    );
+
+
+    equipacion.medias.forEach(
+        item => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                item.nombre;
+
+            option.textContent =
+                item.nombre;
+
+            mediasSelect.appendChild(
+                option
+            );
+
+        }
+    );
 
 }
 
@@ -813,16 +1256,19 @@ tipoPartidoSelect.addEventListener(
             "amistoso"
         ) {
 
-            jornadaInput.disabled = true;
+            jornadaInput.disabled =
+                true;
 
-            jornadaInput.value = "";
+            jornadaInput.value =
+                "";
 
             jornadaInput.placeholder =
                 "No se utiliza en amistoso";
 
         } else {
 
-            jornadaInput.disabled = false;
+            jornadaInput.disabled =
+                false;
 
             jornadaInput.placeholder =
                 "Introduce la jornada";
@@ -877,6 +1323,7 @@ generarButton.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -887,11 +1334,13 @@ generarButton.addEventListener(
             );
 
             return;
+
         }
 
 
         if (
-            tipoPartido === "oficial" &&
+            tipoPartido ===
+            "oficial" &&
             !jornada
         ) {
 
@@ -900,6 +1349,7 @@ generarButton.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -910,20 +1360,23 @@ generarButton.addEventListener(
             );
 
             return;
+
         }
 
 
         const equipo =
             equipos.find(
                 item =>
-                    item.id === equipoId
+                    item.id ===
+                    equipoId
             );
 
 
         const rival =
             rivales.find(
                 item =>
-                    item.id === rivalId
+                    item.id ===
+                    rivalId
             );
 
 
@@ -934,6 +1387,7 @@ generarButton.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -942,15 +1396,18 @@ generarButton.addEventListener(
                 document.querySelectorAll(
                     ".jugador-checkbox:checked"
                 )
-            ).map(checkbox =>
-                equipo.jugadores[
-                    Number(checkbox.value)
-                ]
+            ).map(
+                checkbox =>
+                    equipo.jugadores[
+                        Number(
+                            checkbox.value
+                        )
+                    ]
             );
 
 
         /*
-        TEMPORALMENTE NO SE EXIGEN 18.
+        TEMPORALMENTE NO EXIGIMOS 18.
         */
 
         if (
@@ -962,19 +1419,19 @@ generarButton.addEventListener(
             );
 
             return;
+
         }
 
 
-        /*
-        =========================
-        EQUIPACIÓN SELECCIONADA
-        =========================
-        */
+        /* =========================
+           EQUIPACIÓN SELECCIONADA
+        ========================= */
 
         const datosEquipacion =
             equipaciones.find(
                 item =>
-                    item.equipoId === equipoId
+                    item.equipoId ===
+                    equipoId
             );
 
 
@@ -1002,15 +1459,14 @@ generarButton.addEventListener(
             );
 
 
-        /*
-        =========================
-        EQUIPOS
-        =========================
-        */
+        /* =========================
+           EQUIPOS
+        ========================= */
 
         const equipoLasRozas = {
 
-            nombre: "Las Rozas",
+            nombre:
+                "Las Rozas",
 
             escudo:
                 "escudos/Las_Rozas.png"
@@ -1044,101 +1500,113 @@ generarButton.addEventListener(
         }
 
 
-        /*
-        =========================
-        FECHA
-        =========================
-        */
+        /* =========================
+           FECHA
+        ========================= */
 
         const fechaFormateada =
             new Date(
-                fecha + "T00:00:00"
+                fecha +
+                "T00:00:00"
             ).toLocaleDateString(
                 "es-ES"
             );
 
 
-        /*
-        =========================
-        JORNADA
-        =========================
-        */
+        /* =========================
+           JORNADA
+        ========================= */
 
         const jornadaTexto =
-            tipoPartido === "amistoso"
+            tipoPartido ===
+            "amistoso"
+
                 ? "Amistoso"
+
                 : `Jornada ${jornada}`;
 
 
-        /*
-        =========================
-        CAMPO + LUGAR
-        =========================
-        */
+        /* =========================
+           CAMPO
+        ========================= */
 
         const campoLugar =
             lugar
+
                 ? `${campo} (${lugar})`
+
                 : campo;
 
 
-        /*
-        =========================
-        JUGADORES
-        =========================
-        */
+        /* =========================
+           JUGADORES
+        ========================= */
 
         const jugadoresHTML =
             seleccionados
-                .map(jugador => {
+                .map(
+                    jugador => {
 
-                    const posiciones =
-                        jugador.posiciones
-                            .filter(
-                                posicion =>
-                                    posicion
-                            )
-                            .join(" · ");
+                        const posiciones =
+                            jugador.posiciones
+                                .filter(
+                                    posicion =>
+                                        posicion
+                                )
+                                .join(
+                                    " · "
+                                );
 
 
-                    return `
+                        return `
 
-                        <div class="jugador-resultado">
+                            <div
+                                class="jugador-resultado"
+                            >
 
-                            <div class="dorsal">
-                                ${jugador.dorsal}
-                            </div>
-
-                            <div>
-
-                                <div class="nombre-resultado">
-                                    ${jugador.nombre}
+                                <div
+                                    class="dorsal"
+                                >
+                                    ${jugador.dorsal}
                                 </div>
 
-                                <div class="posiciones-resultado">
-                                    ${posiciones}
+
+                                <div>
+
+                                    <div
+                                        class="nombre-resultado"
+                                    >
+                                        ${jugador.nombre}
+                                    </div>
+
+
+                                    <div
+                                        class="posiciones-resultado"
+                                    >
+                                        ${posiciones}
+                                    </div>
+
                                 </div>
 
                             </div>
 
-                        </div>
+                        `;
 
-                    `;
-
-                })
+                    }
+                )
                 .join("");
 
 
-        /*
-        =========================
-        CUERPO TÉCNICO
-        =========================
-        */
+        /* =========================
+           CUERPO TÉCNICO
+        ========================= */
 
         const staffHTML = [];
 
 
-        if (equipo.entrenador) {
+        if (
+            equipo.entrenador
+        ) {
 
             staffHTML.push(`
 
@@ -1159,7 +1627,7 @@ generarButton.addEventListener(
 
         if (
             equipo.cuerpoTecnico &&
-            equipo.cuerpoTecnico.length > 0
+            equipo.cuerpoTecnico.length
         ) {
 
             equipo.cuerpoTecnico.forEach(
@@ -1179,62 +1647,84 @@ generarButton.addEventListener(
         }
 
 
-        /*
-        =========================
-        HTML EQUIPACIÓN
-        =========================
-        */
+        /* =========================
+           EQUIPACIÓN HTML
+        ========================= */
 
         const equipacionHTML = `
 
-            <div class="equipacion-resultado">
+            <div
+                class="equipacion-resultado"
+            >
 
-                <div class="equipacion-titulo">
+                <div
+                    class="equipacion-titulo"
+                >
                     EQUIPACIÓN
                 </div>
 
-                <div class="equipacion-visual">
 
-                    <div class="pieza-equipacion">
+                <div
+                    class="equipacion-visual"
+                >
+
+
+                    <div
+                        class="pieza-equipacion"
+                    >
 
                         <img
                             src="${camiseta.imagen}"
-                            alt="Camiseta ${camiseta.nombre}"
+                            alt="Camiseta"
                         >
 
-                        <div class="pieza-nombre">
-                            Camiseta ${camiseta.nombre}
+                        <div
+                            class="pieza-nombre"
+                        >
+                            Camiseta
+                            ${camiseta.nombre}
                         </div>
 
                     </div>
 
 
-                    <div class="pieza-equipacion">
+                    <div
+                        class="pieza-equipacion"
+                    >
 
                         <img
                             src="${pantalon.imagen}"
-                            alt="Pantalón ${pantalon.nombre}"
+                            alt="Pantalón"
                         >
 
-                        <div class="pieza-nombre">
-                            Pantalón ${pantalon.nombre}
+                        <div
+                            class="pieza-nombre"
+                        >
+                            Pantalón
+                            ${pantalon.nombre}
                         </div>
 
                     </div>
 
 
-                    <div class="pieza-equipacion">
+                    <div
+                        class="pieza-equipacion"
+                    >
 
                         <img
                             src="${medias.imagen}"
-                            alt="Medias ${medias.nombre}"
+                            alt="Medias"
                         >
 
-                        <div class="pieza-nombre">
-                            Medias ${medias.nombre}
+                        <div
+                            class="pieza-nombre"
+                        >
+                            Medias
+                            ${medias.nombre}
                         </div>
 
                     </div>
+
 
                 </div>
 
@@ -1243,34 +1733,45 @@ generarButton.addEventListener(
         `;
 
 
-        /*
-        =========================
-        RESULTADO
-        =========================
-        */
+        /* =========================
+           RESULTADO
+        ========================= */
 
         resultado.innerHTML = `
 
-            <div class="convocatoria">
+            <div
+                class="convocatoria"
+            >
 
 
-                <div class="cabecera">
+                <div
+                    class="cabecera"
+                >
 
-                    <div class="cabecera-titulo">
+                    <div
+                        class="cabecera-titulo"
+                    >
                         CONVOCATORIA
                     </div>
 
-                    <div class="jornada">
+
+                    <div
+                        class="jornada"
+                    >
                         ${jornadaTexto}
                     </div>
 
                 </div>
 
 
-                <div class="equipos">
+                <div
+                    class="equipos"
+                >
 
 
-                    <div class="equipo">
+                    <div
+                        class="equipo"
+                    >
 
                         <img
                             src="${equipoIzquierda.escudo}"
@@ -1282,12 +1783,16 @@ generarButton.addEventListener(
                     </div>
 
 
-                    <div class="vs">
+                    <div
+                        class="vs"
+                    >
                         VS
                     </div>
 
 
-                    <div class="equipo">
+                    <div
+                        class="equipo"
+                    >
 
                         <img
                             src="${equipoDerecha.escudo}"
@@ -1302,13 +1807,18 @@ generarButton.addEventListener(
                 </div>
 
 
-                <div class="datos-partido">
+                <div
+                    class="datos-partido"
+                >
 
                     <div>
+
                         <strong>
                             ${fechaFormateada}
                         </strong>
+
                     </div>
+
 
                     <div>
                         ${campoLugar}
@@ -1320,14 +1830,19 @@ generarButton.addEventListener(
                 ${equipacionHTML}
 
 
-                <div class="jugadores-resultado">
+                <div
+                    class="jugadores-resultado"
+                >
 
                     <h3>
                         JUGADORES CONVOCADOS
                         (${seleccionados.length})
                     </h3>
 
-                    <div class="lista-jugadores">
+
+                    <div
+                        class="lista-jugadores"
+                    >
 
                         ${jugadoresHTML}
 
@@ -1336,7 +1851,9 @@ generarButton.addEventListener(
                 </div>
 
 
-                <div class="cuerpo-tecnico">
+                <div
+                    class="cuerpo-tecnico"
+                >
 
                     <h3>
                         CUERPO TÉCNICO
@@ -1347,7 +1864,9 @@ generarButton.addEventListener(
                 </div>
 
 
-                <div class="pie">
+                <div
+                    class="pie"
+                >
                     LAS ROZAS
                 </div>
 
@@ -1362,7 +1881,8 @@ generarButton.addEventListener(
 
 
         resultado.scrollIntoView({
-            behavior: "smooth"
+            behavior:
+                "smooth"
         });
 
     }
