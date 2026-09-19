@@ -92,7 +92,7 @@ const rivales = [
     {
         id: "san-sebastian-reyes",
         nombre: "U.D. San Sebastián de los Reyes S.A.D 'B'",
-        escudo: "escudos/San_Sebastián_Reyes.png",
+        escudo: "escudos/San_Sebastian_Reyes.png",
         equipos: ["cadete-b"]
     },
     {
