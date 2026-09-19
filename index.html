@@ -210,23 +210,49 @@
             line-height: 1.6;
         }
 
+        /*
+        =========================
+        EQUIPACIÓN VISUAL
+        =========================
+        */
+
         .equipacion-resultado {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            padding: 15px 25px;
+            padding: 20px 25px;
             border-top: 1px solid #ddd;
             border-bottom: 1px solid #ddd;
         }
 
-        .equipacion-item {
+        .equipacion-titulo {
+            text-align: center;
+            font-weight: bold;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        .equipacion-visual {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            align-items: center;
+            gap: 15px;
+        }
+
+        .pieza-equipacion {
             text-align: center;
         }
 
-        .equipacion-item strong {
+        .pieza-equipacion img {
+            width: 100%;
+            height: 110px;
+            object-fit: contain;
             display: block;
-            font-size: 13px;
-            margin-bottom: 4px;
+            margin: 0 auto;
+        }
+
+        .pieza-nombre {
+            margin-top: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #555;
         }
 
         .jugadores-resultado {
@@ -299,11 +325,20 @@
         }
 
         @media (max-width: 700px) {
+
             .fila,
             .equipaciones,
             .jugadores,
             .lista-jugadores {
                 grid-template-columns: 1fr;
+            }
+
+            .equipacion-visual {
+                gap: 5px;
+            }
+
+            .pieza-equipacion img {
+                height: 80px;
             }
 
             .equipos {
@@ -349,10 +384,12 @@
 
         </div>
 
+
         <div class="fila">
 
             <div class="campo">
                 <label for="jornada">Jornada</label>
+
                 <input
                     type="number"
                     id="jornada"
@@ -363,15 +400,21 @@
 
             <div class="campo">
                 <label for="fecha">Fecha</label>
-                <input type="date" id="fecha">
+
+                <input
+                    type="date"
+                    id="fecha"
+                >
             </div>
 
         </div>
+
 
         <div class="fila">
 
             <div class="campo">
                 <label for="rival">Rival</label>
+
                 <select id="rival">
                     <option value="">Selecciona un rival</option>
                 </select>
@@ -379,6 +422,7 @@
 
             <div class="campo">
                 <label for="localVisitante">Las Rozas</label>
+
                 <select id="localVisitante">
                     <option value="local">Local</option>
                     <option value="visitante">Visitante</option>
@@ -387,10 +431,12 @@
 
         </div>
 
+
         <div class="fila">
 
             <div class="campo">
                 <label for="campo">Campo</label>
+
                 <input
                     type="text"
                     id="campo"
@@ -400,6 +446,7 @@
 
             <div class="campo">
                 <label for="lugar">Lugar</label>
+
                 <input
                     type="text"
                     id="lugar"
@@ -409,17 +456,23 @@
 
         </div>
 
+
         <div class="seccion">
 
             <h2>Jugadores</h2>
 
             <div class="contador">
-                Seleccionados: <span id="contador">0</span>
+                Seleccionados:
+                <span id="contador">0</span>
             </div>
 
-            <div id="listaJugadores" class="jugadores"></div>
+            <div
+                id="listaJugadores"
+                class="jugadores"
+            ></div>
 
         </div>
+
 
         <div class="seccion">
 
@@ -428,23 +481,41 @@
             <div class="equipaciones">
 
                 <div class="campo">
-                    <label for="camiseta">Camiseta</label>
+
+                    <label for="camiseta">
+                        Camiseta
+                    </label>
+
                     <select id="camiseta"></select>
+
                 </div>
 
+
                 <div class="campo">
-                    <label for="pantalon">Pantalón</label>
+
+                    <label for="pantalon">
+                        Pantalón
+                    </label>
+
                     <select id="pantalon"></select>
+
                 </div>
 
+
                 <div class="campo">
-                    <label for="medias">Medias</label>
+
+                    <label for="medias">
+                        Medias
+                    </label>
+
                     <select id="medias"></select>
+
                 </div>
 
             </div>
 
         </div>
+
 
         <button id="generar">
             GENERAR CONVOCATORIA
@@ -460,24 +531,51 @@
 
 <script src="datos.js"></script>
 
+
 <script>
 
-const equipoSelect = document.getElementById("equipo");
-const tipoPartidoSelect = document.getElementById("tipoPartido");
-const jornadaInput = document.getElementById("jornada");
-const fechaInput = document.getElementById("fecha");
-const rivalSelect = document.getElementById("rival");
-const localVisitanteSelect = document.getElementById("localVisitante");
+/* =========================
+   ELEMENTOS
+========================= */
 
-const listaJugadores = document.getElementById("listaJugadores");
-const contador = document.getElementById("contador");
+const equipoSelect =
+    document.getElementById("equipo");
 
-const camisetaSelect = document.getElementById("camiseta");
-const pantalonSelect = document.getElementById("pantalon");
-const mediasSelect = document.getElementById("medias");
+const tipoPartidoSelect =
+    document.getElementById("tipoPartido");
 
-const generarButton = document.getElementById("generar");
-const resultado = document.getElementById("resultado");
+const jornadaInput =
+    document.getElementById("jornada");
+
+const fechaInput =
+    document.getElementById("fecha");
+
+const rivalSelect =
+    document.getElementById("rival");
+
+const localVisitanteSelect =
+    document.getElementById("localVisitante");
+
+const listaJugadores =
+    document.getElementById("listaJugadores");
+
+const contador =
+    document.getElementById("contador");
+
+const camisetaSelect =
+    document.getElementById("camiseta");
+
+const pantalonSelect =
+    document.getElementById("pantalon");
+
+const mediasSelect =
+    document.getElementById("medias");
+
+const generarButton =
+    document.getElementById("generar");
+
+const resultado =
+    document.getElementById("resultado");
 
 
 /* =========================
@@ -486,7 +584,8 @@ const resultado = document.getElementById("resultado");
 
 equipos.forEach(equipo => {
 
-    const option = document.createElement("option");
+    const option =
+        document.createElement("option");
 
     option.value = equipo.id;
     option.textContent = equipo.nombre;
@@ -500,15 +599,19 @@ equipos.forEach(equipo => {
    CAMBIO DE EQUIPO
 ========================= */
 
-equipoSelect.addEventListener("change", () => {
+equipoSelect.addEventListener(
+    "change",
+    () => {
 
-    const equipoId = equipoSelect.value;
+        const equipoId =
+            equipoSelect.value;
 
-    cargarRivales(equipoId);
-    cargarJugadores(equipoId);
-    cargarEquipaciones(equipoId);
+        cargarRivales(equipoId);
+        cargarJugadores(equipoId);
+        cargarEquipaciones(equipoId);
 
-});
+    }
+);
 
 
 /* =========================
@@ -520,13 +623,15 @@ function cargarRivales(equipoId) {
     rivalSelect.innerHTML =
         '<option value="">Selecciona un rival</option>';
 
-    const rivalesEquipo = rivales.filter(rival =>
-        rival.equipos.includes(equipoId)
-    );
+    const rivalesEquipo =
+        rivales.filter(rival =>
+            rival.equipos.includes(equipoId)
+        );
 
     rivalesEquipo.forEach(rival => {
 
-        const option = document.createElement("option");
+        const option =
+            document.createElement("option");
 
         option.value = rival.id;
         option.textContent = rival.nombre;
@@ -534,7 +639,6 @@ function cargarRivales(equipoId) {
         rivalSelect.appendChild(option);
 
     });
-
 }
 
 
@@ -547,51 +651,64 @@ function cargarJugadores(equipoId) {
     listaJugadores.innerHTML = "";
     contador.textContent = "0";
 
-    const equipo = equipos.find(e => e.id === equipoId);
+    const equipo =
+        equipos.find(e =>
+            e.id === equipoId
+        );
 
     if (!equipo) {
         return;
     }
 
-    equipo.jugadores.forEach((jugador, index) => {
+    equipo.jugadores.forEach(
+        (jugador, index) => {
 
-        const posiciones = jugador.posiciones
-            .filter(posicion => posicion)
-            .join(" · ");
+            const posiciones =
+                jugador.posiciones
+                    .filter(posicion => posicion)
+                    .join(" · ");
 
-        const div = document.createElement("label");
+            const div =
+                document.createElement("label");
 
-        div.className = "jugador";
+            div.className = "jugador";
 
-        div.innerHTML = `
-            <input
-                type="checkbox"
-                class="jugador-checkbox"
-                value="${index}"
-            >
+            div.innerHTML = `
 
-            <div class="datos-jugador">
+                <input
+                    type="checkbox"
+                    class="jugador-checkbox"
+                    value="${index}"
+                >
 
-                <span class="nombre-jugador">
-                    ${jugador.dorsal}. ${jugador.nombre}
-                </span>
+                <div class="datos-jugador">
 
-                <span class="posiciones">
-                    ${posiciones}
-                </span>
+                    <span class="nombre-jugador">
+                        ${jugador.dorsal}. ${jugador.nombre}
+                    </span>
 
-            </div>
-        `;
+                    <span class="posiciones">
+                        ${posiciones}
+                    </span>
 
-        listaJugadores.appendChild(div);
+                </div>
 
-    });
+            `;
+
+            listaJugadores.appendChild(div);
+
+        }
+    );
+
 
     document
         .querySelectorAll(".jugador-checkbox")
         .forEach(checkbox => {
 
-            checkbox.addEventListener("change", actualizarContador);
+            checkbox.addEventListener(
+                "change",
+                actualizarContador
+            );
 
         });
 
@@ -609,7 +726,8 @@ function actualizarContador() {
             ".jugador-checkbox:checked"
         ).length;
 
-    contador.textContent = seleccionados;
+    contador.textContent =
+        seleccionados;
 
 }
 
@@ -624,45 +742,56 @@ function cargarEquipaciones(equipoId) {
     pantalonSelect.innerHTML = "";
     mediasSelect.innerHTML = "";
 
-    const equipacion = equipaciones.find(
-        item => item.equipoId === equipoId
-    );
+    const equipacion =
+        equipaciones.find(
+            item =>
+                item.equipoId === equipoId
+        );
 
     if (!equipacion) {
         return;
     }
 
+
     equipacion.camiseta.forEach(item => {
 
-        const option = document.createElement("option");
+        const option =
+            document.createElement("option");
 
         option.value = item.nombre;
+
         option.textContent =
-            `${item.nombre} - ${item.color}`;
+            item.nombre;
 
         camisetaSelect.appendChild(option);
 
     });
 
+
     equipacion.pantalon.forEach(item => {
 
-        const option = document.createElement("option");
+        const option =
+            document.createElement("option");
 
         option.value = item.nombre;
+
         option.textContent =
-            `${item.nombre} - ${item.color}`;
+            item.nombre;
 
         pantalonSelect.appendChild(option);
 
     });
 
+
     equipacion.medias.forEach(item => {
 
-        const option = document.createElement("option");
+        const option =
+            document.createElement("option");
 
         option.value = item.nombre;
+
         option.textContent =
-            `${item.nombre} - ${item.color}`;
+            item.nombre;
 
         mediasSelect.appendChild(option);
 
@@ -675,317 +804,569 @@ function cargarEquipaciones(equipoId) {
    TIPO DE PARTIDO
 ========================= */
 
-tipoPartidoSelect.addEventListener("change", () => {
+tipoPartidoSelect.addEventListener(
+    "change",
+    () => {
 
-    if (tipoPartidoSelect.value === "amistoso") {
+        if (
+            tipoPartidoSelect.value ===
+            "amistoso"
+        ) {
 
-        jornadaInput.disabled = true;
-        jornadaInput.value = "";
-        jornadaInput.placeholder = "No se utiliza en amistoso";
+            jornadaInput.disabled = true;
 
-    } else {
+            jornadaInput.value = "";
 
-        jornadaInput.disabled = false;
-        jornadaInput.placeholder = "Introduce la jornada";
+            jornadaInput.placeholder =
+                "No se utiliza en amistoso";
+
+        } else {
+
+            jornadaInput.disabled = false;
+
+            jornadaInput.placeholder =
+                "Introduce la jornada";
+
+        }
 
     }
-
-});
+);
 
 
 /* =========================
    GENERAR
 ========================= */
 
-generarButton.addEventListener("click", () => {
+generarButton.addEventListener(
+    "click",
+    () => {
 
-    const equipoId = equipoSelect.value;
-    const rivalId = rivalSelect.value;
-    const tipoPartido = tipoPartidoSelect.value;
-    const jornada = jornadaInput.value;
-    const fecha = fechaInput.value;
-    const campo = document.getElementById("campo").value;
-    const lugar = document.getElementById("lugar").value;
-    const localVisitante = localVisitanteSelect.value;
+        const equipoId =
+            equipoSelect.value;
 
-    if (!equipoId) {
-        alert("Selecciona un equipo.");
-        return;
-    }
+        const rivalId =
+            rivalSelect.value;
 
-    if (!rivalId) {
-        alert("Selecciona un rival.");
-        return;
-    }
+        const tipoPartido =
+            tipoPartidoSelect.value;
 
-    if (tipoPartido === "oficial" && !jornada) {
-        alert("Introduce la jornada.");
-        return;
-    }
+        const jornada =
+            jornadaInput.value;
 
-    if (!fecha) {
-        alert("Selecciona la fecha.");
-        return;
-    }
+        const fecha =
+            fechaInput.value;
 
-    const equipo = equipos.find(
-        item => item.id === equipoId
-    );
+        const campo =
+            document.getElementById(
+                "campo"
+            ).value;
 
-    const rival = rivales.find(
-        item => item.id === rivalId
-    );
+        const lugar =
+            document.getElementById(
+                "lugar"
+            ).value;
 
-    if (!equipo || !rival) {
-        alert("No se han podido cargar los datos del partido.");
-        return;
-    }
-
-    const seleccionados = Array.from(
-        document.querySelectorAll(
-            ".jugador-checkbox:checked"
-        )
-    ).map(checkbox =>
-        equipo.jugadores[
-            Number(checkbox.value)
-        ]
-    );
-
-    /*
-        IMPORTANTE:
-        TEMPORALMENTE NO SE EXIGE QUE SEAN 18.
-
-        Más adelante volveremos a activar:
-        Partido oficial = exactamente 18 jugadores.
-    */
-
-    if (seleccionados.length === 0) {
-        alert("Selecciona al menos un jugador.");
-        return;
-    }
-
-    const equipoLasRozas = {
-        nombre: "Las Rozas",
-        escudo: "escudos/Las_Rozas.png"
-    };
-
-    let equipoIzquierda;
-    let equipoDerecha;
-
-    if (localVisitante === "local") {
-
-        equipoIzquierda = equipoLasRozas;
-        equipoDerecha = rival;
-
-    } else {
-
-        equipoIzquierda = rival;
-        equipoDerecha = equipoLasRozas;
-
-    }
+        const localVisitante =
+            localVisitanteSelect.value;
 
 
-    const fechaFormateada =
-        new Date(fecha + "T00:00:00")
-            .toLocaleDateString("es-ES");
+        if (!equipoId) {
+
+            alert(
+                "Selecciona un equipo."
+            );
+
+            return;
+        }
 
 
-    const jornadaTexto =
-        tipoPartido === "amistoso"
-            ? "Amistoso"
-            : `Jornada ${jornada}`;
+        if (!rivalId) {
+
+            alert(
+                "Selecciona un rival."
+            );
+
+            return;
+        }
 
 
-    const campoLugar =
-        lugar
-            ? `${campo} (${lugar})`
-            : campo;
+        if (
+            tipoPartido === "oficial" &&
+            !jornada
+        ) {
+
+            alert(
+                "Introduce la jornada."
+            );
+
+            return;
+        }
 
 
-    const jugadoresHTML =
-        seleccionados.map(jugador => {
+        if (!fecha) {
 
-            const posiciones =
-                jugador.posiciones
-                    .filter(posicion => posicion)
-                    .join(" · ");
+            alert(
+                "Selecciona la fecha."
+            );
 
-            return `
-                <div class="jugador-resultado">
+            return;
+        }
 
-                    <div class="dorsal">
-                        ${jugador.dorsal}
-                    </div>
 
-                    <div>
-                        <div class="nombre-resultado">
-                            ${jugador.nombre}
+        const equipo =
+            equipos.find(
+                item =>
+                    item.id === equipoId
+            );
+
+
+        const rival =
+            rivales.find(
+                item =>
+                    item.id === rivalId
+            );
+
+
+        if (!equipo || !rival) {
+
+            alert(
+                "No se han podido cargar los datos del partido."
+            );
+
+            return;
+        }
+
+
+        const seleccionados =
+            Array.from(
+                document.querySelectorAll(
+                    ".jugador-checkbox:checked"
+                )
+            ).map(checkbox =>
+                equipo.jugadores[
+                    Number(checkbox.value)
+                ]
+            );
+
+
+        /*
+        TEMPORALMENTE NO SE EXIGEN 18.
+        */
+
+        if (
+            seleccionados.length === 0
+        ) {
+
+            alert(
+                "Selecciona al menos un jugador."
+            );
+
+            return;
+        }
+
+
+        /*
+        =========================
+        EQUIPACIÓN SELECCIONADA
+        =========================
+        */
+
+        const datosEquipacion =
+            equipaciones.find(
+                item =>
+                    item.equipoId === equipoId
+            );
+
+
+        const camiseta =
+            datosEquipacion.camiseta.find(
+                item =>
+                    item.nombre ===
+                    camisetaSelect.value
+            );
+
+
+        const pantalon =
+            datosEquipacion.pantalon.find(
+                item =>
+                    item.nombre ===
+                    pantalonSelect.value
+            );
+
+
+        const medias =
+            datosEquipacion.medias.find(
+                item =>
+                    item.nombre ===
+                    mediasSelect.value
+            );
+
+
+        /*
+        =========================
+        EQUIPOS
+        =========================
+        */
+
+        const equipoLasRozas = {
+
+            nombre: "Las Rozas",
+
+            escudo:
+                "escudos/Las_Rozas.png"
+
+        };
+
+
+        let equipoIzquierda;
+        let equipoDerecha;
+
+
+        if (
+            localVisitante ===
+            "local"
+        ) {
+
+            equipoIzquierda =
+                equipoLasRozas;
+
+            equipoDerecha =
+                rival;
+
+        } else {
+
+            equipoIzquierda =
+                rival;
+
+            equipoDerecha =
+                equipoLasRozas;
+
+        }
+
+
+        /*
+        =========================
+        FECHA
+        =========================
+        */
+
+        const fechaFormateada =
+            new Date(
+                fecha + "T00:00:00"
+            ).toLocaleDateString(
+                "es-ES"
+            );
+
+
+        /*
+        =========================
+        JORNADA
+        =========================
+        */
+
+        const jornadaTexto =
+            tipoPartido === "amistoso"
+                ? "Amistoso"
+                : `Jornada ${jornada}`;
+
+
+        /*
+        =========================
+        CAMPO + LUGAR
+        =========================
+        */
+
+        const campoLugar =
+            lugar
+                ? `${campo} (${lugar})`
+                : campo;
+
+
+        /*
+        =========================
+        JUGADORES
+        =========================
+        */
+
+        const jugadoresHTML =
+            seleccionados
+                .map(jugador => {
+
+                    const posiciones =
+                        jugador.posiciones
+                            .filter(
+                                posicion =>
+                                    posicion
+                            )
+                            .join(" · ");
+
+
+                    return `
+
+                        <div class="jugador-resultado">
+
+                            <div class="dorsal">
+                                ${jugador.dorsal}
+                            </div>
+
+                            <div>
+
+                                <div class="nombre-resultado">
+                                    ${jugador.nombre}
+                                </div>
+
+                                <div class="posiciones-resultado">
+                                    ${posiciones}
+                                </div>
+
+                            </div>
+
                         </div>
 
-                        <div class="posiciones-resultado">
-                            ${posiciones}
-                        </div>
-                    </div>
+                    `;
 
-                </div>
-            `;
-
-        }).join("");
+                })
+                .join("");
 
 
-    const staffHTML = [];
+        /*
+        =========================
+        CUERPO TÉCNICO
+        =========================
+        */
 
-    if (equipo.entrenador) {
+        const staffHTML = [];
 
-        staffHTML.push(`
-            <div class="tecnico">
-                <strong>Entrenador:</strong>
-                ${equipo.entrenador}
-            </div>
-        `);
 
-    }
-
-    if (
-        equipo.cuerpoTecnico &&
-        equipo.cuerpoTecnico.length > 0
-    ) {
-
-        equipo.cuerpoTecnico.forEach(persona => {
+        if (equipo.entrenador) {
 
             staffHTML.push(`
+
                 <div class="tecnico">
-                    ${persona}
+
+                    <strong>
+                        Entrenador:
+                    </strong>
+
+                    ${equipo.entrenador}
+
                 </div>
+
             `);
 
-        });
-
-    }
+        }
 
 
-    resultado.innerHTML = `
+        if (
+            equipo.cuerpoTecnico &&
+            equipo.cuerpoTecnico.length > 0
+        ) {
 
-        <div class="convocatoria">
+            equipo.cuerpoTecnico.forEach(
+                persona => {
 
-            <div class="cabecera">
+                    staffHTML.push(`
 
-                <div class="cabecera-titulo">
-                    CONVOCATORIA
-                </div>
+                        <div class="tecnico">
+                            ${persona}
+                        </div>
 
-                <div class="jornada">
-                    ${jornadaTexto}
-                </div>
+                    `);
 
-            </div>
+                }
+            );
 
-
-            <div class="equipos">
-
-                <div class="equipo">
-
-                    <img
-                        src="${equipoIzquierda.escudo}"
-                        alt="${equipoIzquierda.nombre}"
-                    >
-
-                    ${equipoIzquierda.nombre}
-
-                </div>
+        }
 
 
-                <div class="vs">
-                    VS
-                </div>
+        /*
+        =========================
+        HTML EQUIPACIÓN
+        =========================
+        */
 
-
-                <div class="equipo">
-
-                    <img
-                        src="${equipoDerecha.escudo}"
-                        alt="${equipoDerecha.nombre}"
-                    >
-
-                    ${equipoDerecha.nombre}
-
-                </div>
-
-            </div>
-
-
-            <div class="datos-partido">
-
-                <div>
-                    <strong>${fechaFormateada}</strong>
-                </div>
-
-                <div>
-                    ${campoLugar}
-                </div>
-
-            </div>
-
+        const equipacionHTML = `
 
             <div class="equipacion-resultado">
 
-                <div class="equipacion-item">
-                    <strong>CAMISETA</strong>
-                    ${camisetaSelect.value || "-"}
+                <div class="equipacion-titulo">
+                    EQUIPACIÓN
                 </div>
 
-                <div class="equipacion-item">
-                    <strong>PANTALÓN</strong>
-                    ${pantalonSelect.value || "-"}
-                </div>
+                <div class="equipacion-visual">
 
-                <div class="equipacion-item">
-                    <strong>MEDIAS</strong>
-                    ${mediasSelect.value || "-"}
+                    <div class="pieza-equipacion">
+
+                        <img
+                            src="${camiseta.imagen}"
+                            alt="Camiseta ${camiseta.nombre}"
+                        >
+
+                        <div class="pieza-nombre">
+                            Camiseta ${camiseta.nombre}
+                        </div>
+
+                    </div>
+
+
+                    <div class="pieza-equipacion">
+
+                        <img
+                            src="${pantalon.imagen}"
+                            alt="Pantalón ${pantalon.nombre}"
+                        >
+
+                        <div class="pieza-nombre">
+                            Pantalón ${pantalon.nombre}
+                        </div>
+
+                    </div>
+
+
+                    <div class="pieza-equipacion">
+
+                        <img
+                            src="${medias.imagen}"
+                            alt="Medias ${medias.nombre}"
+                        >
+
+                        <div class="pieza-nombre">
+                            Medias ${medias.nombre}
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>
 
+        `;
 
-            <div class="jugadores-resultado">
 
-                <h3>
-                    JUGADORES CONVOCADOS
-                    (${seleccionados.length})
-                </h3>
+        /*
+        =========================
+        RESULTADO
+        =========================
+        */
 
-                <div class="lista-jugadores">
-                    ${jugadoresHTML}
+        resultado.innerHTML = `
+
+            <div class="convocatoria">
+
+
+                <div class="cabecera">
+
+                    <div class="cabecera-titulo">
+                        CONVOCATORIA
+                    </div>
+
+                    <div class="jornada">
+                        ${jornadaTexto}
+                    </div>
+
                 </div>
 
+
+                <div class="equipos">
+
+
+                    <div class="equipo">
+
+                        <img
+                            src="${equipoIzquierda.escudo}"
+                            alt="${equipoIzquierda.nombre}"
+                        >
+
+                        ${equipoIzquierda.nombre}
+
+                    </div>
+
+
+                    <div class="vs">
+                        VS
+                    </div>
+
+
+                    <div class="equipo">
+
+                        <img
+                            src="${equipoDerecha.escudo}"
+                            alt="${equipoDerecha.nombre}"
+                        >
+
+                        ${equipoDerecha.nombre}
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="datos-partido">
+
+                    <div>
+                        <strong>
+                            ${fechaFormateada}
+                        </strong>
+                    </div>
+
+                    <div>
+                        ${campoLugar}
+                    </div>
+
+                </div>
+
+
+                ${equipacionHTML}
+
+
+                <div class="jugadores-resultado">
+
+                    <h3>
+                        JUGADORES CONVOCADOS
+                        (${seleccionados.length})
+                    </h3>
+
+                    <div class="lista-jugadores">
+
+                        ${jugadoresHTML}
+
+                    </div>
+
+                </div>
+
+
+                <div class="cuerpo-tecnico">
+
+                    <h3>
+                        CUERPO TÉCNICO
+                    </h3>
+
+                    ${staffHTML.join("")}
+
+                </div>
+
+
+                <div class="pie">
+                    LAS ROZAS
+                </div>
+
+
             </div>
 
-
-            <div class="cuerpo-tecnico">
-
-                <h3>CUERPO TÉCNICO</h3>
-
-                ${staffHTML.join("")}
-
-            </div>
+        `;
 
 
-            <div class="pie">
-                LAS ROZAS
-            </div>
-
-        </div>
-
-    `;
+        resultado.style.display =
+            "block";
 
 
-    resultado.style.display = "block";
+        resultado.scrollIntoView({
+            behavior: "smooth"
+        });
 
-    resultado.scrollIntoView({
-        behavior: "smooth"
-    });
-
-});
+    }
+);
 
 </script>
 
