@@ -645,5 +645,1946 @@
     /* =========================================================
        ENTRENADOR / CUERPO TÉCNICO
        CANVA: MONTSERRAT 18,2 BOLD
-    ====
+    ========================================================= */
+
+    .staff-titulo,
+    .entrenador-label {
+        color: #064691;
+
+        font-family: "Montserrat", Arial, sans-serif;
+
+        font-size: 18.2px;
+        font-weight: 700;
+
+        letter-spacing: 1px;
+
+        margin-bottom: 6px;
+
+        text-transform: uppercase;
+    }
+
+
+    /* =========================================================
+       NOMBRES STAFF
+       CANVA: MONTSERRAT 22,3 BOLD
+    ========================================================= */
+
+    .staff-nombre {
+        font-family: "Montserrat", Arial, sans-serif;
+
+        font-size: 22.3px;
+        font-weight: 700;
+
+        text-transform: uppercase;
+
+        letter-spacing: .5px;
+
+        margin-bottom: 9px;
+    }
+
+
+    /* =========================================================
+       DIAGONAL BLANCO / AZUL
+    ========================================================= */
+
+    .zona-blanca::after {
+        content: "";
+
+        position: absolute;
+
+        left: -2%;
+        right: -2%;
+
+        bottom: -25px;
+
+        height: 50px;
+
+        background: #064691;
+
+        transform: rotate(-1.7deg);
+
+        transform-origin: center;
+
+        z-index: 5;
+    }
+
+
+    /* =========================================================
+       PIE AZUL
+    ========================================================= */
+
+    .pie-azul {
+        height: 275px;
+        min-height: 275px;
+
+        background: #01408e;
+
+        color: white;
+
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        position: relative;
+
+        z-index: 4;
+
+        padding: 26px 55px 18px;
+    }
+
+
+    /* =========================================================
+       EQUIPACIÓN
+    ========================================================= */
+
+    .equipacion-pie {
+        position: relative;
+
+        display: flex;
+
+        align-items: center;
+    }
+
+    .kit-visual {
+        position: absolute;
+
+        left: 45px;
+        top: -1px;
+
+        width: 112px;
+        height: 248px;
+
+        background: white;
+
+        border-radius: 58px;
+
+        overflow: hidden;
+    }
+
+    .pieza-kit {
+        position: absolute;
+
+        object-fit: contain;
+    }
+
+    .camiseta-kit {
+        width: 103px;
+        height: 103px;
+
+        left: 4px;
+        top: 5px;
+
+        z-index: 3;
+    }
+
+    .pantalon-kit {
+        width: 91px;
+        height: 91px;
+
+        left: 10px;
+        top: 84px;
+
+        z-index: 2;
+    }
+
+    .medias-kit {
+        width: 94px;
+        height: 94px;
+
+        left: 9px;
+        top: 154px;
+
+        z-index: 1;
+    }
+
+
+    /* =========================================================
+       HORARIOS
+       CANVA: MONTSERRAT 22 BOLD
+    ========================================================= */
+
+    .horarios {
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        align-items: flex-end;
+
+        text-align: right;
+
+        padding-right: 65px;
+    }
+
+    .hora-bloque {
+        margin-bottom: 15px;
+    }
+
+    .hora-titulo {
+        font-family: "Montserrat", Arial, sans-serif;
+
+        font-size: 22px;
+        font-weight: 700;
+
+        letter-spacing: 2px;
+
+        margin-bottom: 5px;
+    }
+
+    .hora {
+        font-family: "Montserrat", Arial, sans-serif;
+
+        font-size: 22px;
+        font-weight: 700;
+
+        letter-spacing: 2px;
+    }
+
+
+    /* =========================================================
+       PANTALLAS PEQUEÑAS
+    ========================================================= */
+
+    @media (max-width: 1050px) {
+
+        body {
+            padding: 15px;
+        }
+
+        .pagina {
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        .formulario {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .previsualizacion {
+            position: relative;
+            top: auto;
+        }
+
+        .convocatoria-wrapper {
+            max-width: 600px;
+        }
+    }
+
+
+    @media (max-width: 700px) {
+
+        body {
+            padding: 10px;
+        }
+
+        .formulario {
+            padding: 20px;
+        }
+
+        .formulario h1 {
+            font-size: 25px;
+        }
+
+        .fila {
+            grid-template-columns: 1fr;
+        }
+
+        .jugadores-form {
+            grid-template-columns: 1fr;
+        }
+
+        .equipaciones-form {
+            grid-template-columns: 1fr;
+        }
+
+        .convocatoria-wrapper {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+
+</style>
 ```
+
+</head>
+
+<body>
+
+```
+<!-- =========================================================
+     PÁGINA GENERAL
+========================================================= -->
+
+<div class="pagina">
+
+
+    <!-- =====================================================
+         FORMULARIO
+    ===================================================== -->
+
+    <div class="formulario">
+
+        <h1>
+            Generador de convocatorias
+        </h1>
+
+
+        <div class="campo-form">
+
+            <label for="equipo">
+                Equipo
+            </label>
+
+            <select id="equipo"></select>
+
+        </div>
+
+
+        <div class="fila">
+
+            <div class="campo-form">
+
+                <label for="tipoPartido">
+                    Tipo de partido
+                </label>
+
+                <select id="tipoPartido">
+
+                    <option value="oficial">
+                        Partido oficial
+                    </option>
+
+                    <option value="amistoso">
+                        Amistoso
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="campo-form">
+
+                <label for="jornada">
+                    Jornada
+                </label>
+
+                <input
+                    type="number"
+                    id="jornada"
+                    min="1"
+                    placeholder="Ej. 22">
+
+            </div>
+
+        </div>
+
+
+        <div class="fila">
+
+            <div class="campo-form">
+
+                <label for="fecha">
+                    Fecha
+                </label>
+
+                <input
+                    type="date"
+                    id="fecha">
+
+            </div>
+
+
+            <div class="campo-form">
+
+                <label for="horaPartido">
+                    Hora del partido
+                </label>
+
+                <input
+                    type="time"
+                    id="horaPartido"
+                    step="60">
+
+            </div>
+
+        </div>
+
+
+        <div class="campo-form">
+
+            <label for="horaConvocatoria">
+                Hora de convocatoria
+            </label>
+
+            <input
+                type="time"
+                id="horaConvocatoria"
+                step="60">
+
+        </div>
+
+
+        <div class="campo-form">
+
+            <label for="rival">
+                Rival
+            </label>
+
+            <select id="rival"></select>
+
+        </div>
+
+
+        <div class="campo-form">
+
+            <label for="localVisitante">
+                Las Rozas
+            </label>
+
+            <select id="localVisitante">
+
+                <option value="local">
+                    Local
+                </option>
+
+                <option value="visitante">
+                    Visitante
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="fila">
+
+            <div class="campo-form">
+
+                <label for="campo">
+                    Campo
+                </label>
+
+                <input
+                    type="text"
+                    id="campo"
+                    placeholder="Ej. Julián Ariza">
+
+            </div>
+
+
+            <div class="campo-form">
+
+                <label for="lugar">
+                    Lugar
+                </label>
+
+                <input
+                    type="text"
+                    id="lugar"
+                    placeholder="Ej. Torrelodones">
+
+            </div>
+
+        </div>
+
+
+        <h3>
+            Jugadores convocados
+        </h3>
+
+
+        <div
+            id="jugadoresForm"
+            class="jugadores-form">
+        </div>
+
+
+        <h3>
+            Equipación
+        </h3>
+
+
+        <div class="equipaciones-form">
+
+            <div class="campo-form">
+
+                <label for="camiseta">
+                    Camiseta
+                </label>
+
+                <select id="camiseta"></select>
+
+            </div>
+
+
+            <div class="campo-form">
+
+                <label for="pantalon">
+                    Pantalón
+                </label>
+
+                <select id="pantalon"></select>
+
+            </div>
+
+
+            <div class="campo-form">
+
+                <label for="medias">
+                    Medias
+                </label>
+
+                <select id="medias"></select>
+
+            </div>
+
+        </div>
+
+
+        <button onclick="generarConvocatoria()">
+            Generar convocatoria
+        </button>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         PREVISUALIZACIÓN
+    ===================================================== -->
+
+    <div class="previsualizacion">
+
+
+        <div
+            id="convocatoriaWrapper"
+            class="convocatoria-wrapper">
+
+
+            <div
+                id="convocatoria"
+                class="convocatoria">
+
+
+                <!-- =========================================
+                     CABECERA
+                ========================================== -->
+
+                <div class="cabecera-azul">
+
+
+                    <div
+                        id="jornadaVisual"
+                        class="jornada-capsula">
+
+                        JORNADA 22
+
+                    </div>
+
+
+                    <div
+                        id="fechaVisual"
+                        class="fecha">
+
+                        SÁBADO 16 DE MAYO
+
+                    </div>
+
+
+                    <div
+                        id="campoVisual"
+                        class="campo">
+
+                        <span class="icono-ubicacion">
+                            ♧
+                        </span>
+
+                        JULIÁN ARIZA (TORRELODONES)
+
+                    </div>
+
+
+                    <div class="titulo-convocatoria">
+
+                        CONVOCATORIA
+
+                    </div>
+
+
+                    <div
+                        id="categoriaVisual"
+                        class="categoria">
+
+                        CADETE B (AUTONÓMICA)
+
+                    </div>
+
+
+                    <div class="enfrentamiento">
+
+
+                        <div class="equipos">
+
+
+                            <div class="equipo">
+
+                                <img
+                                    id="escudoLocal"
+                                    src="escudos/Las_Rozas.png"
+                                    alt="Las Rozas">
+
+                            </div>
+
+
+                            <div class="vs">
+                                VS
+                            </div>
+
+
+                            <div class="equipo">
+
+                                <img
+                                    id="escudoVisitante"
+                                    src="escudos/Fundación_ADF.png"
+                                    alt="Rival">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="nombres-equipos">
+
+
+                        <div
+                            id="nombreLocal"
+                            class="nombre-equipo izquierda">
+
+                            LAS ROZAS
+
+                        </div>
+
+
+                        <div
+                            id="nombreVisitante"
+                            class="nombre-equipo derecha">
+
+                            FUNDACIÓN ADF 'A'
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =========================================
+                     ZONA BLANCA
+                ========================================== -->
+
+                <div class="zona-blanca">
+
+
+                    <div
+                        id="listaJugadores"
+                        class="lista-jugadores">
+
+
+                        <div
+                            id="columnaIzquierda"
+                            class="columna-jugadores">
+                        </div>
+
+
+                        <div
+                            id="columnaDerecha"
+                            class="columna-jugadores">
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="staff">
+
+
+                        <div class="entrenador-label">
+                            ENTRENADOR
+                        </div>
+
+
+                        <div
+                            id="entrenadorVisual"
+                            class="staff-nombre">
+
+                            EDUARDO CABALLERO
+
+                        </div>
+
+
+                        <div class="staff-titulo">
+                            CUERPO TÉCNICO
+                        </div>
+
+
+                        <div
+                            id="cuerpoTecnicoVisual"
+                            class="staff-nombre">
+
+                            DAVID | KIM | VALENZUELA
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =========================================
+                     PIE AZUL
+                ========================================== -->
+
+                <div class="pie-azul">
+
+
+                    <div class="equipacion-pie">
+
+
+                        <div class="kit-visual">
+
+
+                            <img
+                                id="camisetaVisual"
+                                class="pieza-kit camiseta-kit"
+                                src=""
+                                alt="Camiseta">
+
+
+                            <img
+                                id="pantalonVisual"
+                                class="pieza-kit pantalon-kit"
+                                src=""
+                                alt="Pantalón">
+
+
+                            <img
+                                id="mediasVisual"
+                                class="pieza-kit medias-kit"
+                                src=""
+                                alt="Medias">
+
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="horarios">
+
+
+                        <div class="hora-bloque">
+
+                            <div class="hora-titulo">
+                                PARTIDO
+                            </div>
+
+
+                            <div
+                                id="horaPartidoVisual"
+                                class="hora">
+
+                                13:30
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="hora-bloque">
+
+                            <div class="hora-titulo">
+                                CONVOCATORIA
+                            </div>
+
+
+                            <div
+                                id="horaConvocatoriaVisual"
+                                class="hora">
+
+                                12:30
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     DATOS
+========================================================= -->
+
+<script src="datos.js"></script>
+
+
+<script>
+
+    /* =========================================================
+       REFERENCIAS
+    ========================================================= */
+
+    const equipoSelect =
+        document.getElementById("equipo");
+
+    const tipoPartidoSelect =
+        document.getElementById("tipoPartido");
+
+    const jornadaInput =
+        document.getElementById("jornada");
+
+    const fechaInput =
+        document.getElementById("fecha");
+
+    const horaPartidoInput =
+        document.getElementById("horaPartido");
+
+    const horaConvocatoriaInput =
+        document.getElementById("horaConvocatoria");
+
+    const rivalSelect =
+        document.getElementById("rival");
+
+    const localVisitanteSelect =
+        document.getElementById("localVisitante");
+
+    const campoInput =
+        document.getElementById("campo");
+
+    const lugarInput =
+        document.getElementById("lugar");
+
+    const jugadoresForm =
+        document.getElementById("jugadoresForm");
+
+    const camisetaSelect =
+        document.getElementById("camiseta");
+
+    const pantalonSelect =
+        document.getElementById("pantalon");
+
+    const mediasSelect =
+        document.getElementById("medias");
+
+
+    /* =========================================================
+       ESCALADO
+    ========================================================= */
+
+    function ajustarConvocatoria() {
+
+        const wrapper =
+            document.getElementById(
+                "convocatoriaWrapper"
+            );
+
+        const canvas =
+            document.getElementById(
+                "convocatoria"
+            );
+
+
+        if (!wrapper || !canvas) {
+            return;
+        }
+
+
+        let anchoDisponible =
+            Math.min(
+                560,
+                window.innerWidth
+            );
+
+
+        const alturaDisponible =
+            Math.max(
+                300,
+                window.innerHeight - 50
+            );
+
+
+        let escalaPorAncho =
+            anchoDisponible / 1080;
+
+
+        let escalaPorAltura =
+            alturaDisponible / 1920;
+
+
+        let escala =
+            Math.min(
+                escalaPorAncho,
+                escalaPorAltura,
+                1
+            );
+
+
+        const anchoVisual =
+            1080 * escala;
+
+        const altoVisual =
+            1920 * escala;
+
+
+        wrapper.style.width =
+            `${anchoVisual}px`;
+
+        wrapper.style.height =
+            `${altoVisual}px`;
+
+
+        canvas.style.transform =
+            `scale(${escala})`;
+
+    }
+
+
+    window.addEventListener(
+        "resize",
+        ajustarConvocatoria
+    );
+
+
+    /* =========================================================
+       CARGAR EQUIPOS
+    ========================================================= */
+
+    equipos.forEach(
+        equipo => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                equipo.id;
+
+            option.textContent =
+                equipo.nombre;
+
+            equipoSelect.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    /* =========================================================
+       CARGAR RIVALES
+    ========================================================= */
+
+    function cargarRivales() {
+
+        rivalSelect.innerHTML = "";
+
+        const equipoId =
+            equipoSelect.value;
+
+
+        rivales
+            .filter(
+                rival =>
+                    rival.equipos.includes(
+                        equipoId
+                    )
+            )
+            .forEach(
+                rival => {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+                    option.value =
+                        rival.id;
+
+                    option.textContent =
+                        rival.nombre;
+
+                    rivalSelect.appendChild(
+                        option
+                    );
+
+                }
+            );
+
+    }
+
+
+    /* =========================================================
+       CARGAR JUGADORES
+    ========================================================= */
+
+    function cargarJugadores() {
+
+        jugadoresForm.innerHTML = "";
+
+
+        const equipo =
+            equipos.find(
+                e =>
+                    e.id ===
+                    equipoSelect.value
+            );
+
+
+        if (!equipo) {
+            return;
+        }
+
+
+        equipo.jugadores.forEach(
+            (
+                jugador,
+                index
+            ) => {
+
+                const label =
+                    document.createElement(
+                        "label"
+                    );
+
+                label.className =
+                    "jugador-checkbox";
+
+
+                const checkbox =
+                    document.createElement(
+                        "input"
+                    );
+
+                checkbox.type =
+                    "checkbox";
+
+                checkbox.value =
+                    index;
+
+                checkbox.dataset.dorsal =
+                    jugador.dorsal;
+
+
+                const texto =
+                    document.createElement(
+                        "span"
+                    );
+
+                texto.textContent =
+                    `${jugador.dorsal} - ${jugador.nombre}`;
+
+
+                label.appendChild(
+                    checkbox
+                );
+
+                label.appendChild(
+                    texto
+                );
+
+
+                jugadoresForm.appendChild(
+                    label
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =========================================================
+       CARGAR EQUIPACIONES
+    ========================================================= */
+
+    function cargarEquipacion() {
+
+        const equipo =
+            equipaciones.find(
+                e =>
+                    e.equipoId ===
+                    equipoSelect.value
+            );
+
+
+        if (!equipo) {
+            return;
+        }
+
+
+        camisetaSelect.innerHTML = "";
+
+        pantalonSelect.innerHTML = "";
+
+        mediasSelect.innerHTML = "";
+
+
+        equipo.camiseta.forEach(
+            (
+                item,
+                index
+            ) => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    index;
+
+                option.textContent =
+                    item.nombre;
+
+                camisetaSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+
+        equipo.pantalon.forEach(
+            (
+                item,
+                index
+            ) => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    index;
+
+                option.textContent =
+                    item.nombre;
+
+                pantalonSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+
+        equipo.medias.forEach(
+            (
+                item,
+                index
+            ) => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    index;
+
+                option.textContent =
+                    item.nombre;
+
+                mediasSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =========================================================
+       CAMBIO DE EQUIPO
+    ========================================================= */
+
+    equipoSelect.addEventListener(
+        "change",
+        () => {
+
+            cargarRivales();
+
+            cargarJugadores();
+
+            cargarEquipacion();
+
+        }
+    );
+
+
+    /* =========================================================
+       FORMATO FECHA
+    ========================================================= */
+
+    function formatearFecha(
+        fecha
+    ) {
+
+        if (!fecha) {
+            return "";
+        }
+
+
+        const partes =
+            fecha.split("-");
+
+
+        const fechaObj =
+            new Date(
+                partes[0],
+                partes[1] - 1,
+                partes[2]
+            );
+
+
+        const dias = [
+            "domingo",
+            "lunes",
+            "martes",
+            "miércoles",
+            "jueves",
+            "viernes",
+            "sábado"
+        ];
+
+
+        const meses = [
+            "enero",
+            "febrero",
+            "marzo",
+            "abril",
+            "mayo",
+            "junio",
+            "julio",
+            "agosto",
+            "septiembre",
+            "octubre",
+            "noviembre",
+            "diciembre"
+        ];
+
+
+        return `${dias[fechaObj.getDay()]} ${fechaObj.getDate()} de ${meses[fechaObj.getMonth()]}`;
+
+    }
+
+
+    /* =========================================================
+       MAYÚSCULAS
+    ========================================================= */
+
+    function mayusculas(
+        texto
+    ) {
+
+        return (
+            texto || ""
+        ).toLocaleUpperCase(
+            "es-ES"
+        );
+
+    }
+
+
+    /* =========================================================
+       CREAR GRUPO DE POSICIÓN
+    ========================================================= */
+
+    function crearGrupo(
+        titulo,
+        jugadores
+    ) {
+
+        if (!jugadores.length) {
+            return null;
+        }
+
+
+        const grupo =
+            document.createElement(
+                "div"
+            );
+
+        grupo.className =
+            "grupo-posicion";
+
+
+        const tituloElemento =
+            document.createElement(
+                "div"
+            );
+
+        tituloElemento.className =
+            "titulo-posicion";
+
+        tituloElemento.textContent =
+            titulo;
+
+
+        grupo.appendChild(
+            tituloElemento
+        );
+
+
+        jugadores.forEach(
+            jugador => {
+
+                const elemento =
+                    document.createElement(
+                        "div"
+                    );
+
+                elemento.className =
+                    "jugador";
+
+
+                const dorsal =
+                    document.createElement(
+                        "div"
+                    );
+
+                dorsal.className =
+                    "dorsal";
+
+                dorsal.textContent =
+                    jugador.dorsal;
+
+
+                const nombre =
+                    document.createElement(
+                        "div"
+                    );
+
+                nombre.className =
+                    "nombre-jugador";
+
+                nombre.textContent =
+                    mayusculas(
+                        jugador.nombre
+                    );
+
+
+                elemento.appendChild(
+                    dorsal
+                );
+
+                elemento.appendChild(
+                    nombre
+                );
+
+
+                grupo.appendChild(
+                    elemento
+                );
+
+            }
+        );
+
+
+        return grupo;
+
+    }
+
+
+    /* =========================================================
+       GENERAR LISTA DE JUGADORES
+    ========================================================= */
+
+    function generarListaJugadores(
+        equipo,
+        checkboxes
+    ) {
+
+        const seleccionados = [];
+
+
+        checkboxes.forEach(
+            checkbox => {
+
+                const jugador =
+                    equipo.jugadores[
+                        Number(
+                            checkbox.value
+                        )
+                    ];
+
+
+                if (jugador) {
+
+                    seleccionados.push(
+                        jugador
+                    );
+
+                }
+
+            }
+        );
+
+
+        const grupos = {
+
+            "Portero": [],
+            "Defensa": [],
+            "Centrocampista": [],
+            "Delantero": []
+
+        };
+
+
+        seleccionados.forEach(
+            jugador => {
+
+                const posiciones =
+                    jugador.posiciones ||
+                    [];
+
+
+                let grupoEncontrado =
+                    null;
+
+
+                for (
+                    const posicion
+                    of posiciones
+                ) {
+
+                    if (
+                        grupos[
+                            posicion
+                        ]
+                    ) {
+
+                        grupoEncontrado =
+                            posicion;
+
+                        break;
+
+                    }
+
+                }
+
+
+                if (!grupoEncontrado) {
+
+                    grupoEncontrado =
+                        "Centrocampista";
+
+                }
+
+
+                grupos[
+                    grupoEncontrado
+                ].push(
+                    jugador
+                );
+
+            }
+        );
+
+
+        const izquierda =
+            document.getElementById(
+                "columnaIzquierda"
+            );
+
+
+        const derecha =
+            document.getElementById(
+                "columnaDerecha"
+            );
+
+
+        izquierda.innerHTML = "";
+
+        derecha.innerHTML = "";
+
+
+        const porteros =
+            crearGrupo(
+                "PORTEROS",
+                grupos.Portero
+            );
+
+
+        const defensas =
+            crearGrupo(
+                "DEFENSAS",
+                grupos.Defensa
+            );
+
+
+        const medios =
+            crearGrupo(
+                "MEDIOS",
+                grupos.Centrocampista
+            );
+
+
+        const atacantes =
+            crearGrupo(
+                "ATACANTES",
+                grupos.Delantero
+            );
+
+
+        if (porteros) {
+
+            izquierda.appendChild(
+                porteros
+            );
+
+        }
+
+
+        if (defensas) {
+
+            izquierda.appendChild(
+                defensas
+            );
+
+        }
+
+
+        if (medios) {
+
+            derecha.appendChild(
+                medios
+            );
+
+        }
+
+
+        if (atacantes) {
+
+            derecha.appendChild(
+                atacantes
+            );
+
+        }
+
+    }
+
+
+    /* =========================================================
+       GENERAR CONVOCATORIA
+    ========================================================= */
+
+    function generarConvocatoria() {
+
+        const equipo =
+            equipos.find(
+                e =>
+                    e.id ===
+                    equipoSelect.value
+            );
+
+
+        const rival =
+            rivales.find(
+                r =>
+                    r.id ===
+                    rivalSelect.value
+            );
+
+
+        if (!equipo || !rival) {
+            return;
+        }
+
+
+        /* =====================================================
+           TIPO DE PARTIDO
+        ===================================================== */
+
+        const tipo =
+            tipoPartidoSelect.value;
+
+
+        const jornadaVisual =
+            document.getElementById(
+                "jornadaVisual"
+            );
+
+
+        if (
+            tipo ===
+            "amistoso"
+        ) {
+
+            jornadaVisual.textContent =
+                "AMISTOSO";
+
+        }
+        else {
+
+            const jornada =
+                jornadaInput.value;
+
+
+            jornadaVisual.textContent =
+                jornada
+                    ? `JORNADA ${jornada}`
+                    : "JORNADA";
+
+        }
+
+
+        /* =====================================================
+           FECHA
+        ===================================================== */
+
+        const fechaTexto =
+            formatearFecha(
+                fechaInput.value
+            );
+
+
+        document.getElementById(
+            "fechaVisual"
+        ).textContent =
+            mayusculas(
+                fechaTexto
+            );
+
+
+        /* =====================================================
+           CAMPO + LUGAR
+        ===================================================== */
+
+        const campo =
+            campoInput.value.trim();
+
+
+        const lugar =
+            lugarInput.value.trim();
+
+
+        let campoTexto = "";
+
+
+        if (
+            campo &&
+            lugar
+        ) {
+
+            campoTexto =
+                `${campo} (${lugar})`;
+
+        }
+        else if (campo) {
+
+            campoTexto =
+                campo;
+
+        }
+        else if (lugar) {
+
+            campoTexto =
+                lugar;
+
+        }
+
+
+        document.getElementById(
+            "campoVisual"
+        ).innerHTML =
+            `<span class="icono-ubicacion">♧</span>${mayusculas(campoTexto)}`;
+
+
+        /* =====================================================
+           EQUIPO
+        ===================================================== */
+
+        document.getElementById(
+            "categoriaVisual"
+        ).textContent =
+            mayusculas(
+                equipo.nombre
+            );
+
+
+        /* =====================================================
+           LOCAL / VISITANTE
+        ===================================================== */
+
+        const esLocal =
+            localVisitanteSelect.value ===
+            "local";
+
+
+        const escudoLocal =
+            document.getElementById(
+                "escudoLocal"
+            );
+
+
+        const escudoVisitante =
+            document.getElementById(
+                "escudoVisitante"
+            );
+
+
+        const nombreLocal =
+            document.getElementById(
+                "nombreLocal"
+            );
+
+
+        const nombreVisitante =
+            document.getElementById(
+                "nombreVisitante"
+            );
+
+
+        if (esLocal) {
+
+            escudoLocal.src =
+                "escudos/Las_Rozas.png";
+
+            escudoLocal.alt =
+                "Las Rozas";
+
+
+            nombreLocal.textContent =
+                "LAS ROZAS";
+
+
+            escudoVisitante.src =
+                rival.escudo;
+
+            escudoVisitante.alt =
+                rival.nombre;
+
+
+            nombreVisitante.textContent =
+                mayusculas(
+                    rival.nombre
+                );
+
+        }
+        else {
+
+            escudoLocal.src =
+                rival.escudo;
+
+            escudoLocal.alt =
+                rival.nombre;
+
+
+            nombreLocal.textContent =
+                mayusculas(
+                    rival.nombre
+                );
+
+
+            escudoVisitante.src =
+                "escudos/Las_Rozas.png";
+
+            escudoVisitante.alt =
+                "Las Rozas";
+
+
+            nombreVisitante.textContent =
+                "LAS ROZAS";
+
+        }
+
+
+        /* =====================================================
+           JUGADORES
+        ===================================================== */
+
+        const checkboxes =
+            jugadoresForm.querySelectorAll(
+                "input[type='checkbox']:checked"
+            );
+
+
+        generarListaJugadores(
+            equipo,
+            checkboxes
+        );
+
+
+        /* =====================================================
+           STAFF
+        ===================================================== */
+
+        document.getElementById(
+            "entrenadorVisual"
+        ).textContent =
+            mayusculas(
+                equipo.entrenador
+            );
+
+
+        const cuerpoTecnico =
+            document.getElementById(
+                "cuerpoTecnicoVisual"
+            );
+
+
+        if (
+            equipo.cuerpoTecnico &&
+            equipo.cuerpoTecnico.length
+        ) {
+
+            cuerpoTecnico.textContent =
+                equipo.cuerpoTecnico
+                    .join(" | ")
+                    .toLocaleUpperCase(
+                        "es-ES"
+                    );
+
+        }
+        else {
+
+            cuerpoTecnico.textContent =
+                "";
+
+        }
+
+
+        /* =====================================================
+           EQUIPACIÓN
+        ===================================================== */
+
+        const datosEquipacion =
+            equipaciones.find(
+                e =>
+                    e.equipoId ===
+                    equipo.id
+            );
+
+
+        if (datosEquipacion) {
+
+            const camiseta =
+                datosEquipacion.camiseta[
+                    Number(
+                        camisetaSelect.value
+                    )
+                ];
+
+
+            const pantalon =
+                datosEquipacion.pantalon[
+                    Number(
+                        pantalonSelect.value
+                    )
+                ];
+
+
+            const medias =
+                datosEquipacion.medias[
+                    Number(
+                        mediasSelect.value
+                    )
+                ];
+
+
+            if (camiseta) {
+
+                document.getElementById(
+                    "camisetaVisual"
+                ).src =
+                    camiseta.imagen;
+
+            }
+
+
+            if (pantalon) {
+
+                document.getElementById(
+                    "pantalonVisual"
+                ).src =
+                    pantalon.imagen;
+
+            }
+
+
+            if (medias) {
+
+                document.getElementById(
+                    "mediasVisual"
+                ).src =
+                    medias.imagen;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           HORARIOS
+        ===================================================== */
+
+        document.getElementById(
+            "horaPartidoVisual"
+        ).textContent =
+            horaPartidoInput.value ||
+            "--:--";
+
+
+        document.getElementById(
+            "horaConvocatoriaVisual"
+        ).textContent =
+            horaConvocatoriaInput.value ||
+            "--:--";
+
+
+        ajustarConvocatoria();
+
+    }
+
+
+    /* =========================================================
+       INICIO
+    ========================================================= */
+
+    cargarRivales();
+
+    cargarJugadores();
+
+    cargarEquipacion();
+
+    ajustarConvocatoria();
+
+</script>
+```
+
+</body>
+</html>
