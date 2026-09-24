@@ -107,6 +107,41 @@
         gap: 8px 20px;
     }
 
+    .titulo-jugadores {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .contador-convocados {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        min-width: 62px;
+        padding: 5px 10px;
+
+        border-radius: 20px;
+        background: #01408e;
+        color: white;
+
+        font-size: 16px;
+        line-height: 1;
+        font-weight: 700;
+        letter-spacing: .5px;
+    }
+
+    .aviso-convocados {
+        min-height: 20px;
+        margin-top: -8px;
+        margin-bottom: 10px;
+
+        color: #c51d65;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
     .jugador-checkbox {
         display: flex;
         align-items: center;
@@ -288,16 +323,11 @@
 
     .icono-ubicacion {
         display: inline-block;
-
         width: 18px;
         height: 23px;
-
         margin-right: 9px;
-
         position: relative;
-
         flex: 0 0 18px;
-
         vertical-align: middle;
     }
 
@@ -371,8 +401,8 @@
     .categoria {
         font-family: "Montserrat", Arial, sans-serif;
 
-        font-size: 24px;
-        font-weight: 400;
+        font-size: 27px;
+        font-weight: 700;
 
         letter-spacing: 1.5px;
 
@@ -388,7 +418,7 @@
     ========================================================= */
 
     .enfrentamiento {
-        width: 680px;
+        width: 620px;
         height: 176px;
 
         margin: 0 auto;
@@ -409,7 +439,7 @@
 
         display: grid;
 
-        grid-template-columns: 1fr 70px 1fr;
+        grid-template-columns: 1fr 55px 1fr;
 
         align-items: center;
 
@@ -442,7 +472,7 @@
     .vs {
         font-family: "Montserrat", Arial, sans-serif;
 
-        font-size: 24px;
+        font-size: 34px;
         font-weight: 700;
 
         letter-spacing: 0;
@@ -470,8 +500,8 @@
     .nombre-equipo {
         font-family: "Montserrat", Arial, sans-serif;
 
-        font-size: 24px;
-        font-weight: 400;
+        font-size: 27px;
+        font-weight: 700;
 
         letter-spacing: 1.2px;
 
@@ -904,7 +934,7 @@
     .hora-titulo {
         font-family: "Montserrat", Arial, sans-serif;
 
-        font-size: 24px;
+        font-size: 28px;
         font-weight: 700;
 
         letter-spacing: 2px;
@@ -915,7 +945,7 @@
     .hora {
         font-family: "Montserrat", Arial, sans-serif;
 
-        font-size: 24px;
+        font-size: 28px;
         font-weight: 700;
 
         letter-spacing: 2px;
@@ -1166,9 +1196,12 @@
         </div>
 
 
-        <h3>
+        <h3 class="titulo-jugadores">
             Jugadores convocados
+            <span id="contadorConvocados" class="contador-convocados">0/18</span>
         </h3>
+
+        <div id="avisoConvocados" class="aviso-convocados"></div>
 
 
         <div
@@ -1721,10 +1754,91 @@
        CARGAR JUGADORES
     ========================================================= */
 
+    function actualizarContadorConvocados() {
+
+        const checkboxes =
+            jugadoresForm.querySelectorAll(
+                "input[type='checkbox']"
+            );
+
+        const seleccionados =
+            jugadoresForm.querySelectorAll(
+                "input[type='checkbox']:checked"
+            ).length;
+
+        const limite =
+            tipoPartidoSelect.value === "oficial"
+                ? 18
+                : 24;
+
+        const contador =
+            document.getElementById(
+                "contadorConvocados"
+            );
+
+        const aviso =
+            document.getElementById(
+                "avisoConvocados"
+            );
+
+        if (contador) {
+            contador.textContent =
+                `${seleccionados}/${limite}`;
+        }
+
+        if (aviso) {
+
+            if (
+                tipoPartidoSelect.value === "oficial" &&
+                seleccionados !== 18
+            ) {
+                aviso.textContent =
+                    seleccionados < 18
+                        ? `Faltan ${18 - seleccionados} jugador${18 - seleccionados === 1 ? "" : "es"} para completar los 18.`
+                        : "En partido oficial deben ser exactamente 18 jugadores.";
+            }
+            else if (
+                tipoPartidoSelect.value === "amistoso" &&
+                seleccionados > 24
+            ) {
+                aviso.textContent =
+                    "En un amistoso el máximo es de 24 jugadores.";
+            }
+            else {
+                aviso.textContent = "";
+            }
+        }
+
+        checkboxes.forEach(
+            checkbox => {
+
+                if (
+                    !checkbox.checked &&
+                    tipoPartidoSelect.value === "oficial" &&
+                    seleccionados >= 18
+                ) {
+                    checkbox.disabled = true;
+                }
+                else if (
+                    !checkbox.checked &&
+                    tipoPartidoSelect.value === "amistoso" &&
+                    seleccionados >= 24
+                ) {
+                    checkbox.disabled = true;
+                }
+                else {
+                    checkbox.disabled = false;
+                }
+
+            }
+        );
+
+    }
+
+
     function cargarJugadores() {
 
         jugadoresForm.innerHTML = "";
-
 
         const equipo =
             equipos.find(
@@ -1733,11 +1847,9 @@
                     equipoSelect.value
             );
 
-
         if (!equipo) {
             return;
         }
-
 
         equipo.jugadores.forEach(
             (
@@ -1753,7 +1865,6 @@
                 label.className =
                     "jugador-checkbox";
 
-
                 const checkbox =
                     document.createElement(
                         "input"
@@ -1768,6 +1879,10 @@
                 checkbox.dataset.dorsal =
                     jugador.dorsal;
 
+                checkbox.addEventListener(
+                    "change",
+                    actualizarContadorConvocados
+                );
 
                 const texto =
                     document.createElement(
@@ -1777,7 +1892,6 @@
                 texto.textContent =
                     `${jugador.dorsal} - ${jugador.nombre}`;
 
-
                 label.appendChild(
                     checkbox
                 );
@@ -1786,13 +1900,14 @@
                     texto
                 );
 
-
                 jugadoresForm.appendChild(
                     label
                 );
 
             }
         );
+
+        actualizarContadorConvocados();
 
     }
 
@@ -1914,6 +2029,13 @@
 
             cargarEquipacion();
 
+        }
+    );
+
+    tipoPartidoSelect.addEventListener(
+        "change",
+        () => {
+            actualizarContadorConvocados();
         }
     );
 
@@ -2553,6 +2675,46 @@
             checkboxes.length;
 
 
+        /* =====================================================
+           VALIDACIÓN DE CONVOCADOS
+           PARTIDO OFICIAL = EXACTAMENTE 18
+           AMISTOSO = MÁXIMO 24
+        ===================================================== */
+
+        if (
+            tipo === "oficial" &&
+            numeroJugadores !== 18
+        ) {
+            actualizarContadorConvocados();
+
+            alert(
+                numeroJugadores < 18
+                    ? `No se puede generar la convocatoria. Has seleccionado ${numeroJugadores} jugadores y en un partido oficial deben ser exactamente 18.`
+                    : `No se puede generar la convocatoria. Has seleccionado ${numeroJugadores} jugadores y en un partido oficial deben ser exactamente 18.`
+            );
+
+            return;
+        }
+
+        if (
+            tipo === "amistoso" &&
+            (
+                numeroJugadores < 1 ||
+                numeroJugadores > 24
+            )
+        ) {
+            actualizarContadorConvocados();
+
+            alert(
+                numeroJugadores > 24
+                    ? "No se puede generar la convocatoria. En un amistoso el máximo es de 24 jugadores."
+                    : "Selecciona al menos 1 jugador para generar la convocatoria."
+            );
+
+            return;
+        }
+
+
         generarListaJugadores(
             equipo,
             checkboxes
@@ -2709,6 +2871,8 @@
     cargarJugadores();
 
     cargarEquipacion();
+
+    actualizarContadorConvocados();
 
     ajustarConvocatoria();
 
